@@ -77,7 +77,7 @@ export const SearchOverlay: React.FC = () => {
           {/* Header Action Row */}
           <div className="container mx-auto px-6 md:px-12 max-w-5xl flex justify-between items-center mb-10 select-none">
             <span className="font-serif text-[10px] tracking-[0.25em] font-semibold text-primary/40 uppercase">
-              Search Jewelgasm
+              Search Jewelgazm
             </span>
             <button
               onClick={handleClose}

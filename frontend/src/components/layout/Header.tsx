@@ -21,7 +21,7 @@ interface NavLinkItem {
 }
 
 /**
- * Jewelgasm Premium Header
+ * Jewelgazm Premium Header
  * Row 1 — Logo · Pincode · Search bar · Labeled icon actions (Stays Sticky)
  * Row 2 — Desktop navigation links (Hides smoothly on Scroll)
  */
@@ -138,7 +138,7 @@ export const Header: React.FC = () => {
               <Link to="/" className="flex items-center">
                 <img
                   src={logoHeader}
-                  alt="Jewelgasm"
+                  alt="Jewelgazm"
                   className={cn(
                     "w-auto object-contain hover:scale-[1.03] transition-all duration-300 block",
                     isScrolled ? "h-14 md:h-16" : "h-20 md:h-24"

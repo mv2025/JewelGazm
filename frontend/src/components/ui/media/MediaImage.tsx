@@ -15,7 +15,7 @@ interface MediaImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
  */
 export const MediaImage: React.FC<MediaImageProps> = ({
   src,
-  alt = 'Jewelgasm Creation',
+  alt = 'Jewelgazm Creation',
   aspectRatio = 'auto',
   className,
   wrapperClassName,

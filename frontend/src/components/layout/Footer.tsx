@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import jewelgasmLogo from '@/assets/frt-logo.webp';
+import JewelgazmLogo from '@/assets/frt-logo.webp';
 
 // ── Social Icon SVGs ──────────────────────────────────────────────────────────
 const InstagramIcon = () => (
@@ -105,8 +105,8 @@ export const Footer: React.FC = () => {
           <div className="flex flex-col gap-5">
             <Link to="/" className="inline-block">
               <img
-                src={jewelgasmLogo}
-                alt="Jewelgasm"
+                src={JewelgazmLogo}
+                alt="Jewelgazm"
                 className="h-32 md:h-36 w-auto object-contain"
               />
             </Link>
@@ -166,7 +166,7 @@ export const Footer: React.FC = () => {
 
           {/* Copyright */}
           <p className="font-sans text-[10px] font-light tracking-wide text-[#9E8E82]">
-            © 2026 Jewelgasm. All Rights Reserved.
+            © 2026 Jewelgazm. All Rights Reserved.
           </p>
 
           {/* Legal links */}

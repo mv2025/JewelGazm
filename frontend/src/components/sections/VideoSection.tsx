@@ -13,7 +13,7 @@ interface VideoSectionProps {
 export const VideoSection: React.FC<VideoSectionProps> = ({
   videoUrl = "https://assets.mixkit.co/videos/preview/mixkit-jewelry-glistening-under-focused-light-41804-large.mp4",
   title = "A Symphony of Fire",
-  subtitle = "Jewelgasm Craftsmanship"
+  subtitle = "Jewelgazm Craftsmanship"
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(true);

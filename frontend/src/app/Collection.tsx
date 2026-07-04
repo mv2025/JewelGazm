@@ -57,8 +57,8 @@ export const Collection: React.FC = () => {
         // Update page SEO
         if (data) {
           updateSEO({
-            title: `${data.title} | Jewelgasm Haute Joaillerie`,
-            description: data.description || `Explore premium hand-crafted luxury jewelry collection from Jewelgasm.`,
+            title: `${data.title} | Jewelgazm Haute Joaillerie`,
+            description: data.description || `Explore premium hand-crafted luxury jewelry collection from Jewelgazm.`,
             image: data.image?.url,
           });
         }
@@ -211,7 +211,7 @@ export const Collection: React.FC = () => {
           )}
           <div className="relative z-10 container mx-auto px-6 max-w-2xl flex flex-col items-center gap-3">
             <span className="text-[10px] tracking-[0.25em] font-sans font-light uppercase text-gold">
-              Jewelgasm Fine Jewelry
+              Jewelgazm Fine Jewelry
             </span>
             <h1 className="font-serif text-3xl md:text-4xl font-light tracking-wide">
               {collection.title}

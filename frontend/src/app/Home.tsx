@@ -19,8 +19,8 @@ export const Home: React.FC = () => {
   // Update SEO Meta Tags
   useEffect(() => {
     updateSEO({
-      title: 'Jewelgasm | Haute Joaillerie & Custom Fine Jewelry',
-      description: 'Discover the world of Jewelgasm. Explore bespoke engagement rings, solitaire rings, necklaces, bracelets, and custom jewelry crafted to cherish forever.',
+      title: 'Jewelgazm | Haute Joaillerie & Custom Fine Jewelry',
+      description: 'Discover the world of Jewelgazm. Explore bespoke engagement rings, solitaire rings, necklaces, bracelets, and custom jewelry crafted to cherish forever.',
     });
   }, []);
 

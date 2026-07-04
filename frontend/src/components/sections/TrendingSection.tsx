@@ -18,7 +18,7 @@ export const TrendingSection: React.FC = () => {
         {/* ── Centered heading above both panels ── */}
         <div className="flex flex-col items-center gap-3">
           <span className="font-sans text-[10px] tracking-[0.35em] font-semibold uppercase text-[#C9A96E]">
-            Jewelgasm
+            Jewelgazm
           </span>
           <h2 className="font-serif text-3xl md:text-4xl font-light tracking-widest uppercase text-white">
             Collection

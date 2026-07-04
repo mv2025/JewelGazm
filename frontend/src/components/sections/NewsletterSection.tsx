@@ -37,7 +37,7 @@ export const NewsletterSection: React.FC<NewsletterSectionProps> = ({
     // Simulate API request delay
     await new Promise(r => setTimeout(r, 1000));
     console.log('Newsletter subscribe:', data.email);
-    addToast('Thank you for subscribing! You\'ll be the first to discover new collections and exclusive Jewelgasm offers.', 'success');
+    addToast('Thank you for subscribing! You\'ll be the first to discover new collections and exclusive Jewelgazm offers.', 'success');
     reset();
   };
 
@@ -48,7 +48,7 @@ export const NewsletterSection: React.FC<NewsletterSectionProps> = ({
       
       {/* Faint Watermark Text */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-serif text-[10rem] md:text-[15rem] font-bold text-[#C9A96E]/[0.07] pointer-events-none z-0 tracking-widest whitespace-nowrap select-none">
-        JEWELGASM
+        Jewelgazm
       </div>
 
       <div className="container mx-auto px-6 md:px-12 max-w-2xl flex flex-col items-center gap-8 relative z-10">
@@ -62,7 +62,7 @@ export const NewsletterSection: React.FC<NewsletterSectionProps> = ({
         </h2>
         
         <p className="font-sans text-sm md:text-[15px] font-light leading-relaxed text-[#6B5B4E] max-w-lg mb-4">
-          Be the first to discover new collections, bespoke creations, and exclusive Jewelgasm offers delivered straight to your inbox.
+          Be the first to discover new collections, bespoke creations, and exclusive Jewelgazm offers delivered straight to your inbox.
         </p>
 
         {/* Input Form */}

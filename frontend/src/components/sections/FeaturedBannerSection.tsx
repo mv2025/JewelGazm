@@ -54,7 +54,7 @@ export const FeaturedBannerSection: React.FC = () => {
             <div className="absolute inset-0 w-full h-full">
               <img
                 src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80"
-                alt="Jewelgasm Serpent Bracelet"
+                alt="Jewelgazm Serpent Bracelet"
                 className="w-full h-full object-cover opacity-35 object-center scale-105 hover:scale-100 transition-transform duration-[3s]"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-[#4A0E17]/95 via-[#4A0E17]/60 to-transparent" />

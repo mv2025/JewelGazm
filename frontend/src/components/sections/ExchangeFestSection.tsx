@@ -26,7 +26,7 @@ export const ExchangeFestSection: React.FC = () => {
           {/* Logo */}
           <img
             src={logoFooter}
-            alt="Jewelgasm Logo"
+            alt="Jewelgazm Logo"
             className="h-20 md:h-28 w-auto object-contain filter brightness-0 invert opacity-95 mb-2"
           />
 

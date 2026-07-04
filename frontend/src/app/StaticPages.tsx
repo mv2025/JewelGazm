@@ -27,7 +27,7 @@ export const About: React.FC = () => {
   useEffect(() => {
     updateSEO({
       title: 'Our Heritage & Story',
-      description: 'Discover the craft heritage, design ethics, and material sourcing chronicles of Jewelgasm.',
+      description: 'Discover the craft heritage, design ethics, and material sourcing chronicles of Jewelgazm.',
     });
   }, []);
 
@@ -40,14 +40,14 @@ export const About: React.FC = () => {
         </div>
 
         <div className="w-full aspect-[21/9] overflow-hidden rounded-sm shadow-md bg-surface-hover">
-          <Image src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1200&auto=format&fit=crop&q=80" alt="Jewelgasm Heritage" aspectRatio="wide" />
+          <Image src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1200&auto=format&fit=crop&q=80" alt="Jewelgazm Heritage" aspectRatio="wide" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 text-xs font-sans font-light leading-relaxed text-primary/75">
           <div className="flex flex-col gap-4">
             <h3 className="font-serif text-sm font-semibold uppercase tracking-widest text-primary">Founding Vision</h3>
             <p>
-              Jewelgasm was founded in 2021 with a simple commitment: to build a modern jewelry house that prioritizes architectural symmetry, material purity, and absolute trade transparency.
+              Jewelgazm was founded in 2021 with a simple commitment: to build a modern jewelry house that prioritizes architectural symmetry, material purity, and absolute trade transparency.
             </p>
             <p>
               Disillusioned by traditional retail markups and opaque sourcing webs, we bypassed brokers to source conflict-free diamonds and custom-cast metals directly. Every sketch is turned into reality by our master team in our Brooklyn workshop.
@@ -240,7 +240,7 @@ export const Privacy: React.FC = () => {
   useEffect(() => {
     updateSEO({
       title: 'Privacy Policy',
-      description: 'Read the Jewelgasm client privacy policy.',
+      description: 'Read the Jewelgazm client privacy policy.',
     });
   }, []);
 
@@ -264,7 +264,7 @@ export const Terms: React.FC = () => {
   useEffect(() => {
     updateSEO({
       title: 'Terms of Service',
-      description: 'Read the Jewelgasm terms and conditions.',
+      description: 'Read the Jewelgazm terms and conditions.',
     });
   }, []);
 

@@ -15,7 +15,7 @@ interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
  */
 export const Image: React.FC<ImageProps> = ({
   src,
-  alt = 'Jewelgasm',
+  alt = 'Jewelgazm',
   aspectRatio = 'square',
   className,
   wrapperClassName,

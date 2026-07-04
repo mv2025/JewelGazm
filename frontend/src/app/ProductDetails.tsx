@@ -113,7 +113,7 @@ export const ProductDetails: React.FC = () => {
           const price = firstVariant?.price.amount || '0.00';
           const currency = firstVariant?.price.currencyCode || 'USD';
           updateSEO({
-            title: `${prod.title} | Jewelgasm Haute Joaillerie`,
+            title: `${prod.title} | Jewelgazm Haute Joaillerie`,
             description: prod.description,
             image: firstVariant?.image?.url || prod.images.edges[0]?.node?.url,
           });

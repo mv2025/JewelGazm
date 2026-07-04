@@ -167,7 +167,7 @@ export const CartPage: React.FC = () => {
               <div className="bg-surface-hover/20 p-4 border border-border/40 rounded-sm flex flex-col gap-2">
                 <span className="text-[10px] font-sans font-semibold uppercase tracking-widest text-primary/65 flex items-center gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-gold" />
-                  Jewelgasm Guarantee
+                  Jewelgazm Guarantee
                 </span>
                 <p className="text-[10px] font-sans font-light leading-relaxed text-primary/50">
                   Every masterpiece is hand-finished by master jewelers, fully insured in transit, and eligible for free resizing within 30 days.

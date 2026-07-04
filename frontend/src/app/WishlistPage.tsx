@@ -15,7 +15,7 @@ export const WishlistPage: React.FC = () => {
   useEffect(() => {
     updateSEO({
       title: 'Your Wishlist',
-      description: 'Review your saved custom jewelry designs and creations from Jewelgasm.',
+      description: 'Review your saved custom jewelry designs and creations from Jewelgazm.',
     });
   }, []);
 

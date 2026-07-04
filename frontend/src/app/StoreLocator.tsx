@@ -54,7 +54,7 @@ export const StoreLocator: React.FC = () => {
   useEffect(() => {
     updateSEO({
       title: 'Our Boutiques & Store Locator',
-      description: 'Locate a Jewelgasm showroom or schedule a private consultation.',
+      description: 'Locate a Jewelgazm showroom or schedule a private consultation.',
     });
   }, []);
 
@@ -77,7 +77,7 @@ export const StoreLocator: React.FC = () => {
             Our Showrooms
           </h1>
           <p className="text-xs font-sans font-light leading-relaxed text-primary/55 max-w-md mx-auto mt-1">
-            Experience our fine jewelry in person. Visit a Jewelgasm boutique for custom consultation and design planning.
+            Experience our fine jewelry in person. Visit a Jewelgazm boutique for custom consultation and design planning.
           </p>
         </div>
 
