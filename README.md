@@ -1,4 +1,4 @@
-# AURA Fine Jewellery - Premium Luxury E-Commerce Frontend
+# JewelGazm - Premium Luxury E-Commerce Frontend
 
 A complete, production-ready premium luxury jewellery e-commerce frontend built using React 19, Vite, TypeScript, Tailwind CSS v4, and Framer Motion. 
 
