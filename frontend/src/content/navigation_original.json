@@ -1,0 +1,61 @@
+[
+  {
+    "label": "Collections",
+    "href": "/collections/all-jewellery",
+    "megaMenu": [
+      {
+        "title": "Shop By Category",
+        "links": [
+          { "label": "All Jewellery", "href": "/collections/all-jewellery" },
+          { "label": "Solitaire Rings", "href": "/collections/rings" },
+          { "label": "Necklaces & Pendants", "href": "/collections/necklaces" },
+          { "label": "Luxury Earrings", "href": "/collections/earrings" },
+          { "label": "Tennis Bracelets", "href": "/collections/bracelets" }
+        ]
+      },
+      {
+        "title": "Shop By Metal",
+        "links": [
+          { "label": "18K White Gold", "href": "/collections/all-jewellery?metal=18K+White+Gold" },
+          { "label": "18K Yellow Gold", "href": "/collections/all-jewellery?metal=18K+Yellow+Gold" },
+          { "label": "18K Rose Gold", "href": "/collections/all-jewellery?metal=18K+Rose+Gold" }
+        ]
+      },
+      {
+        "title": "Shop By Gemstone",
+        "links": [
+          { "label": "Conflict-Free Diamond", "href": "/collections/all-jewellery?gemstone=Diamond" },
+          { "label": "Colombian Emerald", "href": "/collections/all-jewellery?gemstone=Emerald" },
+          { "label": "Royal Sapphire", "href": "/collections/all-jewellery?gemstone=Sapphire" }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "Shop By Occasion",
+    "href": "#",
+    "megaMenu": [
+      {
+        "title": "Occasions",
+        "links": [
+          { "label": "Engagements & Solitaires", "href": "/collections/rings?occasion=Engagement" },
+          { "label": "Weddings & Ceremonies", "href": "/collections/all-jewellery?occasion=Wedding" },
+          { "label": "Anniversaries", "href": "/collections/all-jewellery?occasion=Anniversary" },
+          { "label": "Everyday Luxury", "href": "/collections/all-jewellery?occasion=Everyday" }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "Store Locator",
+    "href": "/store-locator"
+  },
+  {
+    "label": "Our Story",
+    "href": "/about"
+  },
+  {
+    "label": "Contact",
+    "href": "/contact"
+  }
+]

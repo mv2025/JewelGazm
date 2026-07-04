@@ -1,0 +1,111 @@
+{
+  "sections": [
+    {
+      "id": "hero-slider",
+      "type": "HeroSliderSection",
+      "enabled": true,
+      "props": {
+        "autoplayDelay": 6000
+      }
+    },
+    {
+      "id": "categories",
+      "type": "CategoriesSection",
+      "enabled": true,
+      "props": {
+        "title": "Shop By Category"
+      }
+    },
+    {
+      "id": "benefits",
+      "type": "BenefitsSection",
+      "enabled": true,
+      "props": {}
+    },
+    {
+      "id": "trending",
+      "type": "TrendingSection",
+      "enabled": true,
+      "props": {}
+    },
+    {
+      "id": "accessories-bento",
+      "type": "AccessoriesSection",
+      "enabled": true,
+      "props": {}
+    },
+    {
+      "id": "narrative-scroll",
+      "type": "ScrollStorySection",
+      "enabled": true,
+      "props": {}
+    },
+    {
+      "id": "featured-products",
+      "type": "FeaturedProductsSection",
+      "enabled": true,
+      "props": {
+        "title": "Signature Masterpieces",
+        "subtitle": "New Arrivals",
+        "limit": 4
+      }
+    },
+    {
+      "id": "featured-banner",
+      "type": "FeaturedBannerSection",
+      "enabled": false,
+      "props": {}
+    },
+    {
+      "id": "craft-story",
+      "type": "CraftStorySection",
+      "enabled": false,
+      "props": {
+        "title": "Honoring the Flame",
+        "subtitle": "Meticulous Craftsmanship"
+      }
+    },
+    {
+      "id": "video-section",
+      "type": "VideoSection",
+      "enabled": false,
+      "props": {
+        "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-jewelry-glistening-under-focused-light-41804-large.mp4",
+        "title": "A Symphony of Fire",
+        "subtitle": "Behind The Spark"
+      }
+    },
+    {
+      "id": "reviews-section",
+      "type": "CustomerReviewsSection",
+      "enabled": true,
+      "props": {
+        "title": "What Our Customers Say"
+      }
+    },
+    {
+      "id": "instagram-feed",
+      "type": "InstagramSection",
+      "enabled": false,
+      "props": {
+        "title": "Shared Brilliancy",
+        "subtitle": "Follow @Jewelgasm_Official"
+      }
+    },
+    {
+      "id": "exchange-fest",
+      "type": "ExchangeFestSection",
+      "enabled": true,
+      "props": {}
+    },
+    {
+      "id": "newsletter",
+      "type": "NewsletterSection",
+      "enabled": true,
+      "props": {
+        "title": "Join the Circle of Light",
+        "placeholder": "Enter your email"
+      }
+    }
+  ]
+}

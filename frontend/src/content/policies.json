@@ -1,0 +1,32 @@
+{
+  "faq": [
+    {
+      "question": "How do you source your diamonds and gemstones?",
+      "answer": "All FRT Studios equipment and services meet the highest industry standards for commercial photography."
+    },
+    {
+      "question": "Do you offer custom designs or size customization?",
+      "answer": "Yes, our bespoke design team provides custom drawings, wax molds, and specific gemstone setting adjustments. Sizing for standard ring orders is fully customizable between sizes 4 and 10."
+    },
+    {
+      "question": "What is the FRT Studios satisfaction guarantee?",
+      "answer": "We stand by our craftsmanship. Every purchase is backed by a lifetime warranty covering prong tightening, professional ultrasonic cleaning, and repolishing. Gemstone replacement is subject to inspection."
+    },
+    {
+      "question": "Is the shipping fully insured?",
+      "answer": "Yes. Every delivery is sent in discreet, unbranded tamper-evident security boxes and is fully insured by Lloyd's of London until the parcel is signed for upon receipt."
+    }
+  ],
+  "returns": {
+    "title": "Complimentary 30-Day Returns",
+    "content": "We offer insured, complimentary returns and exchanges on all unworn items within 30 days of receiving your package. Custom-designed rings and custom engraved bracelets are eligible for size adjustments but cannot be refunded."
+  },
+  "privacy": {
+    "title": "Your Privacy & Data Security",
+    "content": "At FRT Studios, we use advanced TLS encryption for payment gateways, never store credit card records, and strictly protect your order metadata from third-party advertising brokers."
+  },
+  "terms": {
+    "title": "Terms & Conditions of Premium Services",
+    "content": "Access and operations on FRT Studios platforms are governed by premium consumer protection rules. Prices are subject to service scope updates and are finalized at check-out."
+  }
+}

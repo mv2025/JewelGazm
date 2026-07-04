@@ -1,0 +1,101 @@
+{
+  "sections": [
+    {
+      "id": "hero-slider",
+      "type": "HeroSliderSection",
+      "enabled": true,
+      "props": {
+        "autoplayDelay": 6000
+      }
+    },
+    {
+      "id": "benefits",
+      "type": "BenefitsSection",
+      "enabled": true,
+      "props": {}
+    },
+    {
+      "id": "categories",
+      "type": "CategoriesSection",
+      "enabled": true,
+      "props": {
+        "title": "Shop By Category"
+      }
+    },
+    {
+      "id": "trending",
+      "type": "TrendingSection",
+      "enabled": true,
+      "props": {
+        "title": "The Autumn Treasures",
+        "subtitle": "Curated Collections"
+      }
+    },
+    {
+      "id": "featured-products",
+      "type": "FeaturedProductsSection",
+      "enabled": true,
+      "props": {
+        "title": "Signature Masterpieces",
+        "subtitle": "New Arrivals",
+        "limit": 4
+      }
+    },
+    {
+      "id": "featured-banner",
+      "type": "FeaturedBannerSection",
+      "enabled": true,
+      "props": {
+        "title": "The Solitaire Promise",
+        "description": "Each stone hand-selected by our master gemologists for unparalleled fire and scintillation. Discover the craft behind our classic solitaire collections.",
+        "buttonText": "Discover The Solitaire",
+        "image": "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=1600&auto=format&fit=crop&q=80"
+      }
+    },
+    {
+      "id": "craft-story",
+      "type": "CraftStorySection",
+      "enabled": true,
+      "props": {
+        "title": "Honoring the Flame",
+        "subtitle": "Meticulous Craftsmanship"
+      }
+    },
+    {
+      "id": "video-section",
+      "type": "VideoSection",
+      "enabled": true,
+      "props": {
+        "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-jewelry-glistening-under-focused-light-41804-large.mp4",
+        "title": "A Symphony of Fire",
+        "subtitle": "Behind The Spark"
+      }
+    },
+    {
+      "id": "reviews-section",
+      "type": "CustomerReviewsSection",
+      "enabled": true,
+      "props": {
+        "title": "Aura Testimonials"
+      }
+    },
+    {
+      "id": "instagram-feed",
+      "type": "InstagramSection",
+      "enabled": true,
+      "props": {
+        "title": "Shared Brilliancy",
+        "subtitle": "Follow @AURA_Jewellery"
+      }
+    },
+    {
+      "id": "newsletter",
+      "type": "NewsletterSection",
+      "enabled": true,
+      "props": {
+        "title": "Join the Circle of Light",
+        "placeholder": "Enter your email"
+      }
+    }
+  ]
+}

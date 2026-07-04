@@ -1,0 +1,212 @@
+# ==========================================
+# SHOPIFY STOREFRONT GRAPHQL SCHEMAS
+# ==========================================
+
+# 1. Fetch products lists with sorting and custom query search
+query GetProducts($first: Int, $sortKey: ProductSortKeys, $query: String) {
+  products(first: $first, sortKey: $sortKey, query: $query) {
+    edges {
+      node {
+        id
+        handle
+        title
+        description
+        descriptionHtml
+        availableForSale
+        priceRange {
+          minVariantPrice {
+            amount
+            currencyCode
+          }
+          maxVariantPrice {
+            amount
+            currencyCode
+          }
+        }
+        images(first: 5) {
+          edges {
+            node {
+              url
+              altText
+            }
+          }
+        }
+        variants(first: 20) {
+          edges {
+            node {
+              id
+              title
+              price {
+                amount
+                currencyCode
+              }
+              compareAtPrice {
+                amount
+                currencyCode
+              }
+              sku
+              availableForSale
+              selectedOptions {
+                name
+                value
+              }
+            }
+          }
+        }
+        options {
+          name
+          values
+        }
+        tags
+        vendor
+        productType
+      }
+    }
+  }
+}
+
+# 2. Query single product by its handle
+query GetProductByHandle($handle: String!) {
+  product(handle: $handle) {
+    id
+    handle
+    title
+    description
+    descriptionHtml
+    availableForSale
+    priceRange {
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+    }
+    images(first: 10) {
+      edges {
+        node {
+          url
+          altText
+        }
+      }
+    }
+    variants(first: 50) {
+      edges {
+        node {
+          id
+          title
+          price {
+            amount
+            currencyCode
+          }
+          compareAtPrice {
+            amount
+            currencyCode
+          }
+          sku
+          availableForSale
+          selectedOptions {
+            name
+            value
+          }
+        }
+      }
+    }
+    options {
+      name
+      values
+    }
+    tags
+    vendor
+    productType
+  }
+}
+
+# 3. Query all collections
+query GetCollections {
+  collections(first: 20) {
+    edges {
+      node {
+        id
+        handle
+        title
+        description
+        image {
+          url
+          altText
+        }
+      }
+    }
+  }
+}
+
+# 4. Create a shopping cart
+mutation CreateCart {
+  cartCreate {
+    cart {
+      id
+      createdAt
+      updatedAt
+      cost {
+        totalAmount {
+          amount
+          currencyCode
+        }
+      }
+    }
+  }
+}
+
+# 5. Retrieve cart details
+query GetCart($cartId: ID!) {
+  cart(id: $cartId) {
+    id
+    createdAt
+    updatedAt
+    lines(first: 50) {
+      edges {
+        node {
+          id
+          quantity
+          merchandise {
+            ... on ProductVariant {
+              id
+              title
+              price {
+                amount
+                currencyCode
+              }
+              product {
+                id
+                title
+                handle
+                images(first: 1) {
+                  edges {
+                    node {
+                      url
+                      altText
+                    }
+                  }
+                }
+              }
+            }
+          }
+          cost {
+            totalAmount {
+              amount
+              currencyCode
+            }
+          }
+        }
+      }
+    }
+    cost {
+      totalAmount {
+        amount
+        currencyCode
+      }
+      subtotalAmount {
+        amount
+        currencyCode
+      }
+    }
+  }
+}
