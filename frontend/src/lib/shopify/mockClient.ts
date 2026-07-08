@@ -42,7 +42,7 @@ const IMAGES = {
   }
 };
 
-const gentsGoldRingsModules: Record<string, any> = import.meta.glob('@/assets/Creations/Gents-Gold-Rings/**/*.{jpg,jpeg,png,webp}', { eager: true });
+const gentsGoldRingsModules = import.meta.glob('@/assets/Creations/Gents-Gold-Rings/**/*.{jpg,jpeg,png,webp}', { eager: true, query: '?url', import: 'default' });
 
 const generatedGentsRings: Product[] = [];
 const ringsMap: Record<string, string[]> = {};
@@ -52,9 +52,8 @@ for (const path in gentsGoldRingsModules) {
   if (match) {
     const ringId = match[1];
     if (!ringsMap[ringId]) ringsMap[ringId] = [];
-    const mod = gentsGoldRingsModules[path];
-    const url = typeof mod === 'string' ? mod : mod?.default;
-    if (url) ringsMap[ringId].push(url);
+    const mod = gentsGoldRingsModules[path] as string;
+    if (mod) ringsMap[ringId].push(mod);
   }
 }
 
@@ -77,7 +76,7 @@ Object.entries(ringsMap).forEach(([ringNum, images]) => {
   });
 });
 
-const braceletsModules: Record<string, any> = import.meta.glob('@/assets/Creations/Bracelets/**/*.{jpg,jpeg,png,webp}', { eager: true });
+const braceletsModules = import.meta.glob('@/assets/Creations/Bracelets/**/*.{jpg,jpeg,png,webp}', { eager: true, query: '?url', import: 'default' });
 
 const generatedBracelets: Product[] = [];
 const braceletsMap: Record<string, string[]> = {};
@@ -87,9 +86,8 @@ for (const path in braceletsModules) {
   if (match) {
     const bId = match[1];
     if (!braceletsMap[bId]) braceletsMap[bId] = [];
-    const mod = braceletsModules[path];
-    const url = typeof mod === 'string' ? mod : mod?.default;
-    if (url) braceletsMap[bId].push(url);
+    const mod = braceletsModules[path] as string;
+    if (mod) braceletsMap[bId].push(mod);
   }
 }
 
@@ -428,7 +426,7 @@ const MOCK_REVIEWS: Record<string, Review[]> = {
 // ==========================================
 // SIMULATED INVENTORY DATABASE (LOCAL STORAGE)
 // ==========================================
-const INVENTORY_STORAGE_KEY = 'aura_shopify_inventory_v4';
+const INVENTORY_STORAGE_KEY = 'aura_shopify_inventory_v6';
 
 function getStoredProducts(): Product[] {
   const data = localStorage.getItem(INVENTORY_STORAGE_KEY);
