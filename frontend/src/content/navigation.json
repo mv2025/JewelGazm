@@ -15,8 +15,10 @@
         "links": [
           { "label": "Gents Rings", "href": "/collections/gents-rings" },
           { "label": "Ladies Rings", "href": "/collections/ladies-rings" },
+          { "label": "Pendants", "href": "/collections/pendants" },
+          { "label": "Necklaces", "href": "/collections/necklaces" },
+          { "label": "Earrings", "href": "/collections/earrings" },
           { "label": "Bracelets", "href": "/collections/bracelets" },
-          { "label": "Chains", "href": "/collections/chains" },
           { "label": "Kada", "href": "/collections/kada" }
         ]
       }

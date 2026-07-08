@@ -76,6 +76,46 @@ Object.entries(ringsMap).forEach(([ringNum, images]) => {
   });
 });
 
+const ladiesRingsModules = import.meta.glob('@/assets/Creations/Ladies-Rings/**/*.{jpg,jpeg,png,webp,JPG}', { eager: true, query: '?url', import: 'default' });
+
+const generatedLadiesRings: Product[] = [];
+const ladiesRingsMap: Record<string, string[]> = {};
+let genericLadiesRingId = 100;
+
+for (const path in ladiesRingsModules) {
+  const mod = ladiesRingsModules[path] as string;
+  if (!mod) continue;
+  
+  const match = path.match(/Ring-(\d+)/i);
+  if (match) {
+    const ringId = match[1];
+    if (!ladiesRingsMap[ringId]) ladiesRingsMap[ringId] = [];
+    ladiesRingsMap[ringId].push(mod);
+  } else {
+    ladiesRingsMap[genericLadiesRingId.toString()] = [mod];
+    genericLadiesRingId++;
+  }
+}
+
+Object.entries(ladiesRingsMap).forEach(([ringNum, images]) => {
+  generatedLadiesRings.push({
+    id: `gid://shopify/Product/LADIES-RNG-${ringNum}`,
+    handle: `ladies-ring-${ringNum}`,
+    title: `Aura Ladies Ring ${ringNum}`,
+    description: `An elegantly crafted ladies ring. Designed for a timeless statement of luxury.`,
+    descriptionHtml: `<p>An elegantly crafted ladies ring.</p>`,
+    availableForSale: true,
+    priceRange: { minVariantPrice: { amount: '65000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '65000.00', currencyCode: 'INR' } },
+    images: { edges: images.map((img, i) => ({ node: { url: img, altText: `Ladies Ring ${ringNum} - ${i + 1}` } })) },
+    variants: { edges: [{ node: { id: `v-LADIES-RNG-${ringNum}`, title: 'Default', price: { amount: '65000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: `RNG-LDS-${ringNum}`, availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
+    options: [{ name: 'Metal', values: ['18K Gold'] }],
+    metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }, { namespace: 'custom', key: 'gemstone', value: 'Diamond' }],
+    tags: ['Ring', 'Gold', 'Ladies', 'Diamond'],
+    vendor: 'AURA',
+    productType: 'Ring'
+  });
+});
+
 const braceletsModules = import.meta.glob('@/assets/Creations/Bracelets/**/*.{jpg,jpeg,png,webp}', { eager: true, query: '?url', import: 'default' });
 
 const generatedBracelets: Product[] = [];
@@ -109,6 +149,193 @@ Object.entries(braceletsMap).forEach(([bNum, images]) => {
     productType: 'Bracelet'
   });
 });
+
+const pendantsModules = import.meta.glob('@/assets/Creations/Pandent/*.{jpg,jpeg,png,webp,JPG}', { eager: true, query: '?url', import: 'default' });
+const generatedPendants: Product[] = [];
+let pIdCounter = 1;
+for (const path in pendantsModules) {
+  const mod = pendantsModules[path] as string;
+  if (mod) {
+    generatedPendants.push({
+      id: `gid://shopify/Product/PENDANT-${pIdCounter}`,
+      handle: `pendant-${pIdCounter}`,
+      title: `Aura Fine Pendant ${pIdCounter}`,
+      description: `A delicate and intricate pendant piece. Designed to radiate elegance.`,
+      descriptionHtml: `<p>A delicate and intricate pendant piece.</p>`,
+      availableForSale: true,
+      priceRange: { minVariantPrice: { amount: '22000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '22000.00', currencyCode: 'INR' } },
+      images: { edges: [{ node: { url: mod, altText: `Pendant ${pIdCounter}` } }] },
+      variants: { edges: [{ node: { id: `v-PENDANT-${pIdCounter}`, title: 'Default', price: { amount: '22000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: `PND-${pIdCounter}`, availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
+      options: [{ name: 'Metal', values: ['18K Gold'] }],
+      metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }, { namespace: 'custom', key: 'style', value: 'Single Pendant' }],
+      tags: ['Pendant', 'Jewellery', 'Ladies', 'Single Pendant'],
+      vendor: 'AURA',
+      productType: 'Pendant'
+    });
+    pIdCounter++;
+  }
+}
+
+const pendantSetsModules = import.meta.glob('@/assets/Creations/Pandent/Pandents-Set/*.{jpg,jpeg,png,webp,JPG}', { eager: true, query: '?url', import: 'default' });
+const generatedPendantSets: Product[] = [];
+let psIdCounter = 1;
+for (const path in pendantSetsModules) {
+  const mod = pendantSetsModules[path] as string;
+  if (mod) {
+    generatedPendantSets.push({
+      id: `gid://shopify/Product/PENDANT-SET-${psIdCounter}`,
+      handle: `pendant-set-${psIdCounter}`,
+      title: `Aura Pendant Set ${psIdCounter}`,
+      description: `A stunning complete pendant set, exquisitely matched for timeless elegance.`,
+      descriptionHtml: `<p>A stunning complete pendant set, exquisitely matched for timeless elegance.</p>`,
+      availableForSale: true,
+      priceRange: { minVariantPrice: { amount: '68000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '68000.00', currencyCode: 'INR' } },
+      images: { edges: [{ node: { url: mod, altText: `Pendant Set ${psIdCounter}` } }] },
+      variants: { edges: [{ node: { id: `v-PENDANT-SET-${psIdCounter}`, title: 'Default', price: { amount: '68000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: `PNDS-${psIdCounter}`, availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
+      options: [{ name: 'Metal', values: ['18K Gold'] }],
+      metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }, { namespace: 'custom', key: 'style', value: 'Pendant Set' }],
+      tags: ['Pendant', 'Pendant Set', 'Jewellery', 'Ladies'],
+      vendor: 'AURA',
+      productType: 'Pendant'
+    });
+    psIdCounter++;
+  }
+}
+
+const earringsModules = import.meta.glob('@/assets/Creations/Earrings/**/*.{jpg,jpeg,png,webp,JPG}', { eager: true, query: '?url', import: 'default' });
+const generatedEarrings: Product[] = [];
+const earringsMap: Record<string, string[]> = {};
+
+for (const path in earringsModules) {
+  const match = path.match(/Earring-(\d+)/);
+  if (match) {
+    const eId = match[1];
+    if (!earringsMap[eId]) earringsMap[eId] = [];
+    const mod = earringsModules[path] as string;
+    if (mod) earringsMap[eId].push(mod);
+  }
+}
+
+Object.entries(earringsMap).forEach(([eNum, images]) => {
+  generatedEarrings.push({
+    id: `gid://shopify/Product/EARRING-${eNum}`,
+    handle: `earring-${eNum}`,
+    title: `Aura Fine Earring ${eNum}`,
+    description: `A masterfully crafted pair of earrings featuring exquisite detailing. Perfect for everyday elegance.`,
+    descriptionHtml: `<p>A masterfully crafted pair of earrings featuring exquisite detailing.</p>`,
+    availableForSale: true,
+    priceRange: { minVariantPrice: { amount: '35000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '35000.00', currencyCode: 'INR' } },
+    images: { edges: images.map(img => ({ node: { url: img, altText: `Earring ${eNum}` } })) },
+    variants: { edges: [{ node: { id: `v-EARRING-${eNum}`, title: 'Default', price: { amount: '35000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: `EAR-${eNum}`, availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
+    options: [{ name: 'Metal', values: ['18K Gold'] }],
+    metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }],
+    tags: ['Earring', 'Jewellery', 'Ladies'],
+    vendor: 'AURA',
+    productType: 'Earring'
+  });
+});
+
+const menKadaModules = import.meta.glob('@/assets/Creations/Kada/Men/*.{jpg,jpeg,png,webp,JPG}', { eager: true, query: '?url', import: 'default' });
+const womenKadaModules = import.meta.glob('@/assets/Creations/Kada/Women/*.{jpg,jpeg,png,webp,JPG}', { eager: true, query: '?url', import: 'default' });
+const generatedKadas: Product[] = [];
+let kId = 1;
+
+for (const path in menKadaModules) {
+  const mod = menKadaModules[path] as string;
+  if (mod) {
+    generatedKadas.push({
+      id: `gid://shopify/Product/KADA-${kId}`,
+      handle: `kada-men-${kId}`,
+      title: `Aura Men's Kada ${kId}`,
+      description: `A bold and sophisticated solid gold kada designed for men.`,
+      descriptionHtml: `<p>A bold and sophisticated solid gold kada designed for men.</p>`,
+      availableForSale: true,
+      priceRange: { minVariantPrice: { amount: '120000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '120000.00', currencyCode: 'INR' } },
+      images: { edges: [{ node: { url: mod, altText: `Men's Kada ${kId}` } }] },
+      variants: { edges: [{ node: { id: `v-KADA-${kId}`, title: 'Default', price: { amount: '120000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: `KAD-M-${kId}`, availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
+      options: [{ name: 'Metal', values: ['18K Gold'] }],
+      metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }, { namespace: 'custom', key: 'gender', value: 'Men' }],
+      tags: ['Kada', 'Jewellery', 'Men', 'Gents'],
+      vendor: 'AURA',
+      productType: 'Kada'
+    });
+    kId++;
+  }
+}
+
+for (const path in womenKadaModules) {
+  const mod = womenKadaModules[path] as string;
+  if (mod) {
+    generatedKadas.push({
+      id: `gid://shopify/Product/KADA-${kId}`,
+      handle: `kada-women-${kId}`,
+      title: `Aura Women's Kada ${kId}`,
+      description: `An elegant and beautifully crafted solid gold kada designed for women.`,
+      descriptionHtml: `<p>An elegant and beautifully crafted solid gold kada designed for women.</p>`,
+      availableForSale: true,
+      priceRange: { minVariantPrice: { amount: '95000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '95000.00', currencyCode: 'INR' } },
+      images: { edges: [{ node: { url: mod, altText: `Women's Kada ${kId}` } }] },
+      variants: { edges: [{ node: { id: `v-KADA-${kId}`, title: 'Default', price: { amount: '95000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: `KAD-W-${kId}`, availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
+      options: [{ name: 'Metal', values: ['18K Gold'] }],
+      metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }, { namespace: 'custom', key: 'gender', value: 'Women' }],
+      tags: ['Kada', 'Jewellery', 'Women', 'Ladies'],
+      vendor: 'AURA',
+      productType: 'Kada'
+    });
+    kId++;
+  }
+}
+
+const goldNecklaceModules = import.meta.glob('@/assets/Creations/Neckless/Gold/*.{jpg,jpeg,png,webp,JPG}', { eager: true, query: '?url', import: 'default' });
+const silverNecklaceModules = import.meta.glob('@/assets/Creations/Neckless/Silver/*.{jpg,jpeg,png,webp,JPG}', { eager: true, query: '?url', import: 'default' });
+const generatedNecklaces: Product[] = [];
+let nId = 1;
+
+for (const path in goldNecklaceModules) {
+  const mod = goldNecklaceModules[path] as string;
+  if (mod) {
+    generatedNecklaces.push({
+      id: `gid://shopify/Product/NECKLACE-${nId}`,
+      handle: `necklace-gold-${nId}`,
+      title: `Aura Gold Necklace ${nId}`,
+      description: `A stunning and intricately designed solid gold necklace.`,
+      descriptionHtml: `<p>A stunning and intricately designed solid gold necklace.</p>`,
+      availableForSale: true,
+      priceRange: { minVariantPrice: { amount: '185000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '185000.00', currencyCode: 'INR' } },
+      images: { edges: [{ node: { url: mod, altText: `Gold Necklace ${nId}` } }] },
+      variants: { edges: [{ node: { id: `v-NECKLACE-${nId}`, title: 'Default', price: { amount: '185000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: `NCK-GLD-${nId}`, availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
+      options: [{ name: 'Metal', values: ['18K Gold'] }],
+      metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }],
+      tags: ['Necklace', 'Jewellery', 'Gold', 'Ladies'],
+      vendor: 'AURA',
+      productType: 'Necklace'
+    });
+    nId++;
+  }
+}
+
+for (const path in silverNecklaceModules) {
+  const mod = silverNecklaceModules[path] as string;
+  if (mod) {
+    generatedNecklaces.push({
+      id: `gid://shopify/Product/NECKLACE-${nId}`,
+      handle: `necklace-silver-${nId}`,
+      title: `Aura Silver Necklace ${nId}`,
+      description: `An elegant and beautiful sterling silver necklace.`,
+      descriptionHtml: `<p>An elegant and beautiful sterling silver necklace.</p>`,
+      availableForSale: true,
+      priceRange: { minVariantPrice: { amount: '45000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '45000.00', currencyCode: 'INR' } },
+      images: { edges: [{ node: { url: mod, altText: `Silver Necklace ${nId}` } }] },
+      variants: { edges: [{ node: { id: `v-NECKLACE-${nId}`, title: 'Default', price: { amount: '45000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: `NCK-SLV-${nId}`, availableForSale: true, selectedOptions: [{ name: 'Metal', value: 'Silver' }], image: null } }] },
+      options: [{ name: 'Metal', values: ['Silver'] }],
+      metafields: [{ namespace: 'custom', key: 'metal', value: 'Silver' }],
+      tags: ['Necklace', 'Jewellery', 'Silver', 'Ladies'],
+      vendor: 'AURA',
+      productType: 'Necklace'
+    });
+    nId++;
+  }
+}
 
 // ==========================================
 // MOCK PRODUCT DATA (GraphQL Compliant Schema)
@@ -260,7 +487,7 @@ const BASE_MOCK_PRODUCTS: Product[] = [
   }
 ];
 
-const MOCK_PRODUCTS: Product[] = [...BASE_MOCK_PRODUCTS, ...generatedGentsRings, ...generatedBracelets];
+const MOCK_PRODUCTS: Product[] = [...BASE_MOCK_PRODUCTS, ...generatedGentsRings, ...generatedLadiesRings, ...generatedBracelets, ...generatedPendants, ...generatedPendantSets, ...generatedEarrings, ...generatedKadas, ...generatedNecklaces];
 
 // ==========================================
 // MOCK COLLECTIONS DATA
@@ -343,17 +570,7 @@ const MOCK_COLLECTIONS: Collection[] = [
       pageInfo: { hasNextPage: false, hasPreviousPage: false, startCursor: '1', endCursor: '2' }
     }
   },
-  {
-    id: 'gid://shopify/Collection/102',
-    handle: 'chains',
-    title: 'Chains',
-    description: 'Classic and modern gold and silver chains for everyday luxury.',
-    image: { url: IMAGES.necklaces[0], altText: 'Chains collection' },
-    products: {
-      edges: MOCK_PRODUCTS.filter(p => p.productType === 'Necklace').map(p => ({ node: p })),
-      pageInfo: { hasNextPage: false, hasPreviousPage: false, startCursor: '1', endCursor: '1' }
-    }
-  },
+
   {
     id: 'gid://shopify/Collection/103',
     handle: 'kada',
@@ -361,7 +578,7 @@ const MOCK_COLLECTIONS: Collection[] = [
     description: 'Traditional and contemporary kada bracelets crafted in premium metals.',
     image: { url: IMAGES.bracelets[0], altText: 'Kada collection' },
     products: {
-      edges: MOCK_PRODUCTS.filter(p => p.productType === 'Bracelet').map(p => ({ node: p })),
+      edges: MOCK_PRODUCTS.filter(p => p.productType === 'Kada').map(p => ({ node: p })),
       pageInfo: { hasNextPage: false, hasPreviousPage: false, startCursor: '1', endCursor: '1' }
     }
   },
@@ -385,6 +602,17 @@ const MOCK_COLLECTIONS: Collection[] = [
     products: {
       edges: MOCK_PRODUCTS.map(p => ({ node: p })),
       pageInfo: { hasNextPage: false, hasPreviousPage: false, startCursor: '1', endCursor: '6' }
+    }
+  },
+  {
+    id: 'gid://shopify/Collection/106',
+    handle: 'pendants',
+    title: 'Pendants & Sets',
+    description: 'Explore our master-crafted individual pendants and beautifully matched pendant sets.',
+    image: { url: IMAGES.necklaces[0], altText: 'Pendants collection' },
+    products: {
+      edges: MOCK_PRODUCTS.filter(p => p.productType === 'Pendant').map(p => ({ node: p })),
+      pageInfo: { hasNextPage: false, hasPreviousPage: false, startCursor: '1', endCursor: '1' }
     }
   }
 ];
@@ -426,7 +654,7 @@ const MOCK_REVIEWS: Record<string, Review[]> = {
 // ==========================================
 // SIMULATED INVENTORY DATABASE (LOCAL STORAGE)
 // ==========================================
-const INVENTORY_STORAGE_KEY = 'aura_shopify_inventory_v6';
+const INVENTORY_STORAGE_KEY = 'aura_shopify_inventory_v12';
 
 function getStoredProducts(): Product[] {
   const data = localStorage.getItem(INVENTORY_STORAGE_KEY);
@@ -550,10 +778,8 @@ export const shopifyMockClient = {
           if (!p.tags.includes('Gents')) return false;
         } else if (handle === 'ladies-rings') {
           if (!p.tags.includes('Ladies')) return false;
-        } else if (handle === 'chains') {
-          if (p.productType !== 'Necklace') return false;
         } else if (handle === 'kada') {
-          if (p.productType !== 'Bracelet') return false;
+          if (p.productType !== 'Kada') return false;
         } else {
           const typeMatch = p.productType.toLowerCase() === handle.slice(0, -1); // 'rings' -> 'ring'
           if (handle === 'earrings') {
@@ -582,6 +808,22 @@ export const shopifyMockClient = {
         }
       }
 
+      // Check style filter (for Pendants & Sets)
+      if ((filters as any)?.style) {
+        const styleMeta = p.metafields.find(m => m.key === 'style')?.value || '';
+        if (styleMeta.toLowerCase() !== (filters as any).style.toLowerCase()) {
+          return false;
+        }
+      }
+
+      // Check gender filter (for Kada)
+      if ((filters as any)?.gender) {
+        const genderMeta = p.metafields.find(m => m.key === 'gender')?.value || '';
+        if (genderMeta.toLowerCase() !== (filters as any).gender.toLowerCase()) {
+          return false;
+        }
+      }
+
       // Check price range
       const price = parseFloat(p.priceRange.minVariantPrice.amount);
       if (filters?.minPrice !== undefined && price < filters.minPrice) return false;
@@ -598,9 +840,16 @@ export const shopifyMockClient = {
     } else if (sortKey === 'TITLE') {
       filteredProducts.sort((a, b) => a.title.localeCompare(b.title));
     } else if (sortKey === 'BEST_SELLING') {
-      filteredProducts = filteredProducts.filter(p => p.tags.includes('Best Seller')).concat(
-        filteredProducts.filter(p => !p.tags.includes('Best Seller'))
-      );
+      if (handle === 'all-jewellery') {
+        for (let i = filteredProducts.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [filteredProducts[i], filteredProducts[j]] = [filteredProducts[j], filteredProducts[i]];
+        }
+      } else {
+        filteredProducts = filteredProducts.filter(p => p.tags.includes('Best Seller')).concat(
+          filteredProducts.filter(p => !p.tags.includes('Best Seller'))
+        );
+      }
     }
 
     const responseCollection = { ...col };

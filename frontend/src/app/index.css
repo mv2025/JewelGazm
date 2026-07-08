@@ -143,3 +143,8 @@ html.lenis, html.lenis body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+/* Disable hover effects while scrolling to improve performance (targeted to products) */
+.is-scrolling .product-card * {
+  pointer-events: none !important;
+}

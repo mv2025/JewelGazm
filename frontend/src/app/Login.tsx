@@ -11,10 +11,10 @@ export const Login: React.FC = () => {
 
   const from = location.state?.from?.pathname || '/';
 
-  // If already logged in, redirect them
+  // If already logged in, redirect to account page
   useEffect(() => {
-    if (user && user.isAdmin) {
-      navigate('/admin', { replace: true });
+    if (user) {
+      navigate('/account', { replace: true });
     }
   }, [user, navigate]);
 

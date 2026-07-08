@@ -45,7 +45,6 @@ const FOOTER_LINKS = [
       { label: 'Gents Rings', href: '/collections/gents-rings' },
       { label: 'Ladies Rings', href: '/collections/ladies-rings' },
       { label: 'Bracelets', href: '/collections/bracelets' },
-      { label: 'Chains', href: '/collections/chains' },
       { label: 'Kada', href: '/collections/kada' },
     ],
   },

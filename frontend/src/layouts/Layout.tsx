@@ -30,6 +30,24 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     }
   }, [pathname, lenis]);
 
+  // Disable pointer events on scroll to improve performance and eliminate hover lag
+  useEffect(() => {
+    let scrollTimer: ReturnType<typeof setTimeout>;
+    const handleScroll = () => {
+      document.body.classList.add('is-scrolling');
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        document.body.classList.remove('is-scrolling');
+      }, 150);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(scrollTimer);
+    };
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen bg-background text-primary font-sans antialiased selection:bg-gold/20 transition-colors duration-300">
       {/* Keyboard Accessibility Skip Link */}

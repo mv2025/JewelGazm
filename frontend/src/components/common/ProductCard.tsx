@@ -66,7 +66,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
 
   return (
     <div
-      className={cn('group relative flex flex-col w-full bg-transparent', className)}
+      className={cn('product-card group relative flex flex-col w-full bg-transparent', className)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

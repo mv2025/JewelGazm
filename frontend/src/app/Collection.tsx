@@ -25,6 +25,8 @@ const SORT_OPTIONS = [
   { label: 'Alphabetically', value: 'TITLE' },
 ];
 
+
+
 /**
  * Premium Collection & Catalog Grid Page
  * Manages URL queries, filters, sidebar overlays, and paginated product cards.
@@ -38,20 +40,22 @@ export const Collection: React.FC = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [activeMetal, setActiveMetal] = useState<'all' | 'gold' | 'silver'>('all');
 
+  // Determine items per page and grid sizing dynamically
+  let itemsPerPage = 15;
+  let gridColsClass = "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5";
+  
+  if (handle === 'pendants') {
+    itemsPerPage = 10;
+    gridColsClass = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4"; // slightly larger for 10
+  } else if (handle === 'necklaces') {
+    itemsPerPage = 8;
+    gridColsClass = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"; // much larger for 8
+  }
+
   // Force effective metal to match collection handle if applicable
   const effectiveMetal = (handle === 'gold' || handle === 'silver') ? handle : activeMetal;
 
-  const getSilverImage = (handle: string) => {
-    switch (handle) {
-      case 'celeste-diamond-solitaire-ring': return silverCelesteRing;
-      case 'siren-emerald-eternity-band': return silverSirenBand;
-      case 'aura-solitaire-diamond-necklace': return silverAuraNecklace;
-      case 'lumina-diamond-studs': return silverLuminaStuds;
-      case 'aether-diamond-tennis-bracelet': return silverBracelet;
-      case 'tessera-sapphire-drop-earrings': return silverEarrings;
-      default: return null;
-    }
-  };
+
 
   // Parse filter parameters from URL
   const selectedMetal = searchParams.get('metal') || '';
@@ -59,6 +63,9 @@ export const Collection: React.FC = () => {
   const selectedSort = searchParams.get('sort') || 'BEST_SELLING';
   const minPrice = searchParams.get('minPrice') ? Number(searchParams.get('minPrice')) : undefined;
   const maxPrice = searchParams.get('maxPrice') ? Number(searchParams.get('maxPrice')) : undefined;
+  const selectedStyle = searchParams.get('style') || '';
+  const selectedGender = searchParams.get('gender') || '';
+  const currentPage = parseInt(searchParams.get('page') || '1', 10);
 
   // Query collection details on filter changes
   useEffect(() => {
@@ -70,9 +77,11 @@ export const Collection: React.FC = () => {
           {
             metal: selectedMetal || undefined,
             gemstone: selectedGemstone || undefined,
+            style: selectedStyle || undefined,
+            gender: selectedGender || undefined,
             minPrice,
             maxPrice,
-          },
+          } as any,
           selectedSort
         );
         setCollection(data);
@@ -92,7 +101,7 @@ export const Collection: React.FC = () => {
       }
     };
     fetchCollection();
-  }, [handle, selectedMetal, selectedGemstone, selectedSort, minPrice, maxPrice]);
+  }, [handle, selectedMetal, selectedGemstone, selectedStyle, selectedGender, selectedSort, minPrice, maxPrice]);
 
   const updateFilter = (key: string, value: string) => {
     const nextParams = new URLSearchParams(searchParams);
@@ -101,7 +110,15 @@ export const Collection: React.FC = () => {
     } else {
       nextParams.delete(key);
     }
+    // Reset to page 1 on any filter change except page change
+    if (key !== 'page') {
+      nextParams.delete('page');
+    }
     setSearchParams(nextParams);
+
+    if (key === 'page') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const clearAllFilters = () => {
@@ -112,42 +129,12 @@ export const Collection: React.FC = () => {
   
   // Pre-calculate the cards to render so we get an accurate count based on client-side filters
   const renderedCards = productEdges.flatMap(({ node: product }) => {
-    const silverImg = getSilverImage(product.handle);
-    
-    let silverDisplayProduct = null;
-    if (silverImg) {
-      silverDisplayProduct = {
-        ...product,
-        id: `${product.id}-silver`,
-        title: product.title.replace('Diamond', 'Silver Diamond').replace('Emerald', 'Silver Emerald').replace('Sapphire', 'Silver Sapphire'),
-        images: {
-          edges: [
-            { node: { url: silverImg, altText: `${product.title} in Silver` } },
-            ...(product.images.edges.length > 1 ? product.images.edges.slice(1) : [])
-          ]
-        },
-        variants: {
-          ...product.variants,
-          edges: product.variants.edges.map((variantEdge: any) => ({
-            ...variantEdge,
-            node: {
-              ...variantEdge.node,
-              image: { url: silverImg, altText: `${variantEdge.node.title} in Silver` }
-            }
-          }))
-        }
-      };
-    }
-
     if (effectiveMetal === 'gold') {
       if (product.tags.includes('Silver') || product.title.includes('Silver')) return [];
       return [<ProductCard key={product.id} product={product} />];
     }
     
     if (effectiveMetal === 'silver') {
-      if (silverDisplayProduct) {
-        return [<ProductCard key={silverDisplayProduct.id} product={silverDisplayProduct} />];
-      }
       if (product.tags.includes('Silver') || product.title.includes('Silver')) {
         return [<ProductCard key={product.id} product={product} />];
       }
@@ -155,20 +142,13 @@ export const Collection: React.FC = () => {
     }
 
     // effectiveMetal === 'all'
-    const cards = [];
-    if (!product.tags.includes('Silver') && !product.title.includes('Silver')) {
-      cards.push(<ProductCard key={product.id} product={product} />);
-    } else {
-      cards.push(<ProductCard key={product.id} product={product} />);
-    }
-    
-    if (silverDisplayProduct) {
-      cards.push(<ProductCard key={silverDisplayProduct.id} product={silverDisplayProduct} />);
-    }
-    return cards;
+    return [<ProductCard key={product.id} product={product} />];
   });
 
   const totalCount = renderedCards.length;
+  const totalPages = Math.ceil(totalCount / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedCards = renderedCards.slice(startIndex, startIndex + itemsPerPage);
 
   if (loading && !collection) {
     return (
@@ -257,8 +237,50 @@ export const Collection: React.FC = () => {
                 )}
               </div>
 
+              {/* Style filter (specifically for pendants) */}
+              {handle === 'pendants' && (
+                <div className="flex items-center gap-2 relative sm:ml-auto">
+                  <span className="hidden sm:inline text-[11px] font-sans text-primary/45 font-light uppercase tracking-wider">
+                    Style:
+                  </span>
+                  <div className="relative">
+                    <select
+                      value={selectedStyle}
+                      onChange={(e) => updateFilter('style', e.target.value)}
+                      className="appearance-none bg-surface border border-border/80 px-4 py-2 pr-9 text-xs font-sans font-light focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold rounded-sm cursor-pointer"
+                    >
+                      <option value="">All Pendants</option>
+                      <option value="Single Pendant">Single Pendants</option>
+                      <option value="Pendant Set">Pendant Sets</option>
+                    </select>
+                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-primary/40 pointer-events-none" />
+                  </div>
+                </div>
+              )}
+
+              {/* Gender filter (specifically for kada) */}
+              {handle === 'kada' && (
+                <div className="flex items-center gap-2 relative sm:ml-auto">
+                  <span className="hidden sm:inline text-[11px] font-sans text-primary/45 font-light uppercase tracking-wider">
+                    Gender:
+                  </span>
+                  <div className="relative">
+                    <select
+                      value={selectedGender}
+                      onChange={(e) => updateFilter('gender', e.target.value)}
+                      className="appearance-none bg-surface border border-border/80 px-4 py-2 pr-9 text-xs font-sans font-light focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold rounded-sm cursor-pointer"
+                    >
+                      <option value="">All Kadas</option>
+                      <option value="Men">Men</option>
+                      <option value="Women">Women</option>
+                    </select>
+                    <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-primary/40 pointer-events-none" />
+                  </div>
+                </div>
+              )}
+
               {/* Sorting drop selector */}
-              <div className="flex items-center gap-2 relative">
+              <div className={cn("flex items-center gap-2 relative", (handle !== 'pendants' && handle !== 'kada') ? "sm:ml-auto" : "")}>
                 <span className="hidden sm:inline text-[11px] font-sans text-primary/45 font-light uppercase tracking-wider">
                   Sort By:
                 </span>
@@ -281,15 +303,51 @@ export const Collection: React.FC = () => {
 
             {/* Grid display */}
             {loading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-4 sm:gap-x-6 gap-y-10 sm:gap-y-12">
-                {Array.from({ length: 10 }).map((_, i) => (
+              <div className={`grid ${gridColsClass} gap-x-4 sm:gap-x-6 gap-y-10 sm:gap-y-12`}>
+                {Array.from({ length: itemsPerPage }).map((_, i) => (
                   <ProductCardSkeleton key={i} />
                 ))}
               </div>
             ) : renderedCards.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-4 sm:gap-x-6 gap-y-10 sm:gap-y-12">
-                {renderedCards}
-              </div>
+              <>
+                <div className={`grid ${gridColsClass} gap-x-4 sm:gap-x-6 gap-y-10 sm:gap-y-12`}>
+                  {paginatedCards}
+                </div>
+                
+                {/* Pagination UI */}
+                {totalPages > 1 && (
+                  <div className="flex justify-center items-center gap-2 mt-20 pb-4 select-none">
+                    <button
+                      disabled={currentPage === 1}
+                      onClick={() => updateFilter('page', (currentPage - 1).toString())}
+                      className="px-4 py-2 text-[10px] font-sans font-medium uppercase tracking-widest text-primary hover:text-gold disabled:opacity-30 transition-colors"
+                    >
+                      Prev
+                    </button>
+                    {Array.from({ length: totalPages }).map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => updateFilter('page', (i + 1).toString())}
+                        className={cn(
+                          "w-8 h-8 flex items-center justify-center text-[10px] font-sans font-medium rounded-full transition-all duration-300",
+                          currentPage === i + 1 
+                            ? "bg-primary text-white shadow-md shadow-primary/20 scale-110" 
+                            : "text-primary/60 hover:bg-surface border border-transparent hover:border-border hover:text-primary"
+                        )}
+                      >
+                        {i + 1}
+                      </button>
+                    ))}
+                    <button
+                      disabled={currentPage === totalPages}
+                      onClick={() => updateFilter('page', (currentPage + 1).toString())}
+                      className="px-4 py-2 text-[10px] font-sans font-medium uppercase tracking-widest text-primary hover:text-gold disabled:opacity-30 transition-colors"
+                    >
+                      Next
+                    </button>
+                  </div>
+                )}
+              </>
             ) : (
               /* Catalog Empty state */
               <div className="text-center py-24 select-none">
