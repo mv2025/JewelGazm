@@ -82,7 +82,7 @@ export const CustomerReviewsSection: React.FC<CustomerReviewsSectionProps> = ({
   ];
 
   return (
-    <section className="py-24 md:py-32 bg-[#FAF8F5] select-none border-b border-[#E8E0D5]/50 overflow-hidden relative">
+    <section className="py-24 md:py-32 bg-background select-none border-b border-[#E8E0D5]/50 overflow-hidden relative">
       {/* Background elegant accent */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[500px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#E8E0D5]/40 via-transparent to-transparent opacity-60 pointer-events-none" />
 

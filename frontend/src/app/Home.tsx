@@ -47,7 +47,7 @@ export const Home: React.FC = () => {
       /* overflow-visible to enable native CSS sticky pinning on scroll sections */
       className={cn(
         "flex flex-col w-full gap-0 space-y-0 items-stretch overflow-visible transition-colors duration-700",
-        activeMetal === 'silver' ? 'theme-silver bg-[var(--theme-bg)]' : 'bg-[var(--theme-bg)]'
+        activeMetal === 'silver' ? 'theme-silver bg-background' : 'bg-background'
       )}
     >
       {/* 1. Render Hero Section */}
@@ -63,8 +63,8 @@ export const Home: React.FC = () => {
       })()}
 
       {/* 2. Metal Toggle Switch */}
-      <div className="w-full flex justify-center py-8 md:py-12 bg-white select-none">
-        <div className="relative flex items-center p-1 bg-[var(--theme-bg-alt)] rounded-full border border-[#E8E0D5] shadow-sm overflow-hidden">
+      <div className="w-full flex justify-center py-8 md:py-12 bg-surface select-none">
+        <div className="relative flex items-center p-1 bg-surface rounded-full border border-[#E8E0D5] shadow-sm overflow-hidden">
           {/* Animated Background Pill */}
           <motion.div
             className="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-gradient-to-r from-[var(--theme-accent)] to-[var(--theme-accent-light)] rounded-full shadow-md"

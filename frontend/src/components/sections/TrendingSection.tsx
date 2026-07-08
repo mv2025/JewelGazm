@@ -18,7 +18,7 @@ export const TrendingSection: React.FC<TrendingSectionProps> = ({ metal = 'gold'
   ];
 
   return (
-    <section className="bg-[var(--theme-primary)] py-12 md:py-16 select-none border-b border-white/10">
+    <section className="bg-surface py-12 md:py-16 select-none border-b border-border/40">
       <div className="container mx-auto px-6 md:px-12 max-w-7xl flex flex-col gap-8">
 
         {/* ── Centered heading above both panels ── */}
@@ -26,7 +26,7 @@ export const TrendingSection: React.FC<TrendingSectionProps> = ({ metal = 'gold'
           <span className="font-sans text-[10px] tracking-[0.35em] font-semibold uppercase text-[var(--theme-accent-light)]">
             Jewelgazm
           </span>
-          <h2 className="font-serif text-3xl md:text-4xl font-light tracking-widest uppercase text-white">
+          <h2 className="font-serif text-3xl md:text-4xl font-light tracking-widest uppercase text-primary">
             Collection
           </h2>
           <div className="flex items-center gap-3 mt-1">
@@ -56,12 +56,12 @@ export const TrendingSection: React.FC<TrendingSectionProps> = ({ metal = 'gold'
               {/* Explore Now button — centred below each image */}
               <Link
                 to={panel.href}
-                className="group relative z-10 inline-flex items-center gap-2.5 border border-white/25 hover:border-[var(--theme-accent-light)] px-6 py-2.5 rounded-full transition-all duration-300 hover:bg-white/5"
+                className="group relative z-10 inline-flex items-center gap-2.5 border border-primary/25 hover:border-gold px-6 py-2.5 rounded-full transition-all duration-300 hover:bg-primary/5"
               >
-                <span className="font-sans text-[10px] tracking-[0.25em] font-medium uppercase text-white/75 group-hover:text-[var(--theme-accent-light)] transition-colors duration-300">
+                <span className="font-sans text-[10px] tracking-[0.25em] font-medium uppercase text-primary/75 group-hover:text-gold transition-colors duration-300">
                   Explore Now
                 </span>
-                <ArrowRight className="w-3 h-3 text-white/75 group-hover:text-[var(--theme-accent-light)] group-hover:translate-x-0.5 transition-all duration-300" />
+                <ArrowRight className="w-3.5 h-3.5 text-primary/75 group-hover:text-gold transition-all duration-300 group-hover:translate-x-1" />
               </Link>
 
             </div>

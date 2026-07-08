@@ -42,7 +42,7 @@ export const NewsletterSection: React.FC<NewsletterSectionProps> = ({
   };
 
   return (
-    <section className="py-32 md:py-40 bg-[#FAF8F5] select-none relative overflow-hidden text-center border-b border-[#E8E0D5]/50">
+    <section className="py-32 md:py-40 bg-background select-none relative overflow-hidden text-center border-b border-[#E8E0D5]/50">
       {/* Decorative subtle background elements */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[var(--theme-accent-light)]/10 via-transparent to-transparent pointer-events-none z-0" />
       

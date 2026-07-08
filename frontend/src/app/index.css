@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
 
 @theme {
   --font-serif: 'Cormorant Garamond', serif;
@@ -63,7 +64,7 @@
   --theme-bg-alt: #F1F3F5; /* Light Cool Gray */
 }
 
-.dark {
+:root.dark {
   --primary: 0 0% 95%;
   --primary-foreground: 0 0% 8%;
   --secondary: 355 60% 25%;
@@ -74,6 +75,18 @@
   --surface: 0 0% 10%;
   --surface-hover: 0 0% 14%;
   --border: 0 0% 16%;
+  
+  --theme-bg: hsl(0, 0%, 7%);
+  --theme-bg-alt: hsl(0, 0%, 10%);
+  --theme-primary: hsl(0, 0%, 95%);
+}
+
+:root.dark .theme-silver {
+  --theme-primary: hsl(0, 0%, 95%); /* White / Light Silver for text */
+  --theme-accent: #E0E0E0; /* Brighter Silver */
+  --theme-accent-light: #FFFFFF;
+  --theme-bg: hsl(0, 0%, 7%);
+  --theme-bg-alt: hsl(0, 0%, 10%);
 }
 
 /* Custom Lenis scroll style */
@@ -147,4 +160,11 @@ html.lenis, html.lenis body {
 /* Disable hover effects while scrolling to improve performance (targeted to products) */
 .is-scrolling .product-card * {
   pointer-events: none !important;
+}
+
+@layer base {
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-primary);
+  }
 }

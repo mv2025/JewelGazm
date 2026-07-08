@@ -51,7 +51,7 @@ export const Account: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen pt-32 pb-20 px-4 md:px-8 lg:px-12 bg-white flex justify-start items-start">
+    <div className="min-h-screen pt-32 pb-20 px-4 md:px-8 lg:px-12 bg-background flex justify-start items-start">
       <div className="w-full flex flex-col sm:flex-row gap-6 lg:gap-16 mt-8">
         {/* Sidebar */}
         <div className="w-full max-w-xs md:max-w-[260px] shrink-0">

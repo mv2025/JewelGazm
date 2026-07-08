@@ -35,7 +35,7 @@ interface CategoriesSectionProps {
 export const CategoriesSection: React.FC<CategoriesSectionProps> = ({ title = 'Shop By Category', metal = 'gold' }) => {
   return (
     /* FIXED: Added -mt-2 md:-mt-4 and relative z-10 to completely pull this section up and overlap any ghost gap behind it */
-    <section className="relative z-10 -mt-2 md:-mt-4 pt-4 pb-16 bg-[#FAF8F5] select-none border-b border-border/40 block clear-both">
+    <section className="relative z-10 -mt-2 md:-mt-4 pt-4 pb-16 bg-background select-none border-b border-border/40 block clear-both">
       <div className="container mx-auto px-6 md:px-12 max-w-7xl">
         
         {/* Adjusted padding top inside the heading layout so it doesn't look squished */}
@@ -53,7 +53,7 @@ export const CategoriesSection: React.FC<CategoriesSectionProps> = ({ title = 'S
                 className="group flex flex-col items-center bg-white rounded-xl overflow-hidden border border-border/40 shadow-sm transition-all duration-500 hover:shadow-md hover:-translate-y-1"
               >
                 {/* Image */}
-                <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#FAF8F5]">
+                <div className="relative w-full aspect-[4/5] overflow-hidden bg-background">
                   <img
                     src={imageSrc}
                     alt={cat.name}
@@ -64,7 +64,7 @@ export const CategoriesSection: React.FC<CategoriesSectionProps> = ({ title = 'S
                 </div>
 
                 {/* Label */}
-                <div className="w-full bg-[#FAF8F5] py-4 text-center border-t border-border/20">
+                <div className="w-full bg-background py-4 text-center border-t border-border/20">
                   <h3 className="font-serif text-[13px] font-medium tracking-wider uppercase text-primary group-hover:text-[var(--theme-primary)] transition-colors">
                     {cat.name}
                   </h3>

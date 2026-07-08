@@ -47,8 +47,8 @@ export const Login: React.FC = () => {
 
   if (user && !user.isAdmin) {
     return (
-      <div className="min-h-screen pt-32 pb-20 px-4 bg-[#FAF8F5] flex justify-center items-start">
-        <div className="max-w-2xl w-full bg-white p-8 md:p-12 rounded-xl border border-[#E8E0D5] shadow-sm mt-8">
+      <div className="min-h-screen pt-32 pb-20 px-4 bg-background flex justify-center items-start">
+        <div className="max-w-2xl w-full bg-surface p-8 md:p-12 rounded-xl border border-[#E8E0D5] shadow-sm mt-8">
           <div className="flex items-center gap-6 mb-10 pb-10 border-b border-border/40">
             {user.picture ? (
               <img src={user.picture} alt={user.name} className="w-20 h-20 rounded-full border-2 border-gold/20" />
@@ -88,8 +88,8 @@ export const Login: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen pt-32 pb-20 px-4 bg-[#FAF8F5] flex justify-center items-center">
-      <div className="max-w-md w-full bg-white p-8 md:p-12 rounded-xl border border-[#E8E0D5] shadow-sm text-center">
+    <div className="min-h-screen pt-32 pb-20 px-4 bg-background flex justify-center items-center">
+      <div className="max-w-md w-full bg-surface p-8 md:p-12 rounded-xl border border-[#E8E0D5] shadow-sm text-center">
         <h1 className="text-3xl font-serif text-[var(--theme-primary)] mb-2">My Account</h1>
         <p className="text-sm font-sans text-gray-500 mb-8">
           Sign in to access your saved items, view past orders, or access the admin dashboard.

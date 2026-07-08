@@ -46,8 +46,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onLog
             className={cn(
               "flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-sans transition-all text-left",
               isActive 
-                ? "bg-primary text-white" 
-                : "text-gray-600 hover:bg-gray-100"
+                ? "bg-primary text-primary-foreground" 
+                : "text-primary/70 hover:bg-surface-hover"
             )}
           >
             <Icon className="w-4 h-4" />
@@ -60,7 +60,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onLog
         {user?.isAdmin && (
           <Link
             to="/admin"
-            className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-sans font-medium text-white bg-primary hover:bg-primary/90 w-full text-left transition-all"
+            className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-sans font-medium text-background bg-primary hover:bg-primary/90 w-full text-left transition-all"
           >
             <Shield className="w-4 h-4" />
             Admin Dashboard
@@ -68,7 +68,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, onLog
         )}
         <button
           onClick={onLogout}
-          className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-sans text-red-500 hover:bg-red-50 w-full text-left transition-all"
+          className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-sans text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 w-full text-left transition-all"
         >
           <LogOut className="w-4 h-4" />
           Logout

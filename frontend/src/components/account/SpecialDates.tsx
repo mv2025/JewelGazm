@@ -10,27 +10,27 @@ export const SpecialDates: React.FC = () => {
           <h2 className="font-serif text-3xl text-primary flex items-center gap-2">
             Special Dates <CalendarHeart className="w-6 h-6 text-gold" />
           </h2>
-          <p className="text-sm font-sans text-gray-500 mt-1">Never miss an important moment with curated gift reminders</p>
+          <p className="text-sm font-sans text-primary/60 mt-1">Never miss an important moment with curated gift reminders</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-primary text-white text-xs font-sans font-semibold tracking-widest uppercase rounded hover:bg-primary/90 transition-colors">
+        <button className="flex items-center gap-2 px-4 py-2 bg-primary text-background text-xs font-sans font-semibold tracking-widest uppercase rounded hover:bg-primary/90 transition-colors">
           <Plus className="w-4 h-4" /> Add Date
         </button>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {mockSpecialDates.map((date) => (
-          <div key={date.id} className="bg-white border border-border/60 rounded-xl overflow-hidden hover:border-gold/30 transition-all duration-300 shadow-sm">
+          <div key={date.id} className="bg-surface border border-border/60 rounded-xl overflow-hidden hover:border-gold/30 transition-all duration-300 shadow-sm">
             <div className="p-6">
               <h3 className="font-serif text-xl text-primary mb-1">{date.name}</h3>
               <p className="text-3xl font-sans font-light text-primary/80 my-4">{date.date}</p>
               
               <div className="flex items-center justify-between pt-4 border-t border-border/30 mt-4">
-                <span className="text-xs font-sans text-gray-500 font-medium">Gift Reminder</span>
+                <span className="text-xs font-sans text-primary/60 font-medium">Gift Reminder</span>
                 <button 
                   className={`flex items-center gap-2 px-3 py-1.5 rounded-full text-[10px] font-sans font-bold tracking-widest uppercase transition-colors
                     ${date.reminderOn 
                       ? 'bg-green-100 text-green-700 hover:bg-red-100 hover:text-red-700 group' 
-                      : 'bg-gray-100 text-gray-500 hover:bg-green-100 hover:text-green-700 group'
+                      : 'bg-surface-hover text-primary/60 hover:bg-green-100 hover:text-green-700 group'
                     }
                   `}
                 >
@@ -58,3 +58,6 @@ export const SpecialDates: React.FC = () => {
     </div>
   );
 };
+
+
+

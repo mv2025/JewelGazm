@@ -91,7 +91,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-[#FAF8F5] border-t border-[#E8E0D5] select-none">
+    <footer className="bg-background border-t border-[#E8E0D5] select-none">
 
       {/* ── Top accent stripe ─────────────────────────────────────────── */}
       <div className="h-[3px] w-full bg-gradient-to-r from-transparent via-[var(--theme-primary)] to-transparent opacity-30" />

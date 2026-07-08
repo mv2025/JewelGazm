@@ -144,7 +144,7 @@ Object.entries(braceletsMap).forEach(([bNum, images]) => {
     variants: { edges: [{ node: { id: `v-BRACELET-${bNum}`, title: 'Default', price: { amount: '55000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: `BRC-${bNum}`, availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
     options: [{ name: 'Metal', values: ['18K Gold'] }],
     metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }],
-    tags: ['Bracelet', 'Jewellery', 'Ladies'],
+    tags: ['Bracelet', 'Jewellery', 'Ladies', 'Gold'],
     vendor: 'AURA',
     productType: 'Bracelet'
   });
@@ -168,7 +168,7 @@ for (const path in pendantsModules) {
       variants: { edges: [{ node: { id: `v-PENDANT-${pIdCounter}`, title: 'Default', price: { amount: '22000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: `PND-${pIdCounter}`, availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
       options: [{ name: 'Metal', values: ['18K Gold'] }],
       metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }, { namespace: 'custom', key: 'style', value: 'Single Pendant' }],
-      tags: ['Pendant', 'Jewellery', 'Ladies', 'Single Pendant'],
+      tags: ['Pendant', 'Jewellery', 'Ladies', 'Single Pendant', 'Gold'],
       vendor: 'AURA',
       productType: 'Pendant'
     });
@@ -194,7 +194,7 @@ for (const path in pendantSetsModules) {
       variants: { edges: [{ node: { id: `v-PENDANT-SET-${psIdCounter}`, title: 'Default', price: { amount: '68000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: `PNDS-${psIdCounter}`, availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
       options: [{ name: 'Metal', values: ['18K Gold'] }],
       metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }, { namespace: 'custom', key: 'style', value: 'Pendant Set' }],
-      tags: ['Pendant', 'Pendant Set', 'Jewellery', 'Ladies'],
+      tags: ['Pendant', 'Pendant Set', 'Jewellery', 'Ladies', 'Gold'],
       vendor: 'AURA',
       productType: 'Pendant'
     });
@@ -229,7 +229,7 @@ Object.entries(earringsMap).forEach(([eNum, images]) => {
     variants: { edges: [{ node: { id: `v-EARRING-${eNum}`, title: 'Default', price: { amount: '35000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: `EAR-${eNum}`, availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
     options: [{ name: 'Metal', values: ['18K Gold'] }],
     metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }],
-    tags: ['Earring', 'Jewellery', 'Ladies'],
+    tags: ['Earring', 'Jewellery', 'Ladies', 'Gold'],
     vendor: 'AURA',
     productType: 'Earring'
   });
@@ -255,7 +255,7 @@ for (const path in menKadaModules) {
       variants: { edges: [{ node: { id: `v-KADA-${kId}`, title: 'Default', price: { amount: '120000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: `KAD-M-${kId}`, availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
       options: [{ name: 'Metal', values: ['18K Gold'] }],
       metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }, { namespace: 'custom', key: 'gender', value: 'Men' }],
-      tags: ['Kada', 'Jewellery', 'Men', 'Gents'],
+      tags: ['Kada', 'Jewellery', 'Men', 'Gents', 'Gold'],
       vendor: 'AURA',
       productType: 'Kada'
     });
@@ -278,7 +278,7 @@ for (const path in womenKadaModules) {
       variants: { edges: [{ node: { id: `v-KADA-${kId}`, title: 'Default', price: { amount: '95000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: `KAD-W-${kId}`, availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
       options: [{ name: 'Metal', values: ['18K Gold'] }],
       metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }, { namespace: 'custom', key: 'gender', value: 'Women' }],
-      tags: ['Kada', 'Jewellery', 'Women', 'Ladies'],
+      tags: ['Kada', 'Jewellery', 'Women', 'Ladies', 'Gold'],
       vendor: 'AURA',
       productType: 'Kada'
     });
@@ -518,7 +518,7 @@ const MOCK_COLLECTIONS: Collection[] = [
   {
     id: 'gid://shopify/Collection/30',
     handle: 'necklaces',
-    title: 'Necklaces & Pendants',
+    title: 'Necklaces',
     description: 'Floating solitaire diamond necklaces, statement luxury chokers and modern everyday gold chains.',
     image: { url: IMAGES.necklaces[0], altText: 'Luxury necklaces collection' },
     products: {
@@ -654,7 +654,7 @@ const MOCK_REVIEWS: Record<string, Review[]> = {
 // ==========================================
 // SIMULATED INVENTORY DATABASE (LOCAL STORAGE)
 // ==========================================
-const INVENTORY_STORAGE_KEY = 'aura_shopify_inventory_v12';
+const INVENTORY_STORAGE_KEY = 'aura_shopify_inventory_v13';
 
 function getStoredProducts(): Product[] {
   const data = localStorage.getItem(INVENTORY_STORAGE_KEY);

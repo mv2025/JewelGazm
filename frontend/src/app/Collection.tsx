@@ -159,10 +159,10 @@ export const Collection: React.FC = () => {
   }
 
   return (
-    <div className={cn("pb-24 transition-colors duration-700", activeMetal === 'silver' ? 'theme-silver bg-[var(--theme-bg)]' : 'bg-[var(--theme-bg)]')}>
+    <div className={cn("pb-24 transition-colors duration-700", activeMetal === 'silver' ? 'theme-silver bg-background' : 'bg-background')}>
       {/* Collection Hero Header Banner */}
       {collection && (
-        <div className="relative w-full py-20 bg-primary select-none overflow-hidden text-center text-white border-b border-border/40 mb-10">
+        <div className="relative w-full py-20 bg-[#141414] select-none overflow-hidden text-center text-white border-b border-border/40 mb-10">
           {collection.image?.url && (
             <div className="absolute inset-0">
               <MediaImage
@@ -171,7 +171,7 @@ export const Collection: React.FC = () => {
                 className="opacity-35 object-center"
                 wrapperClassName="w-full h-full absolute inset-0"
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-primary/50 to-primary z-10" />
+              <div className="absolute inset-0 bg-gradient-to-b from-[#141414]/50 to-[#141414] z-10" />
             </div>
           )}
           <div className="relative z-10 container mx-auto px-6 max-w-2xl flex flex-col items-center gap-3">
@@ -331,7 +331,7 @@ export const Collection: React.FC = () => {
                         className={cn(
                           "w-8 h-8 flex items-center justify-center text-[10px] font-sans font-medium rounded-full transition-all duration-300",
                           currentPage === i + 1 
-                            ? "bg-primary text-white shadow-md shadow-primary/20 scale-110" 
+                            ? "bg-primary text-background shadow-md shadow-primary/20 scale-110" 
                             : "text-primary/60 hover:bg-surface border border-transparent hover:border-border hover:text-primary"
                         )}
                       >
@@ -359,7 +359,7 @@ export const Collection: React.FC = () => {
                 </p>
                 <button
                   onClick={clearAllFilters}
-                  className="bg-primary text-white text-[10px] tracking-widest font-sans font-semibold uppercase px-6 py-3 hover:bg-gold transition-colors rounded-sm focus-visible:ring-2 focus-visible:ring-gold"
+                  className="bg-primary text-background text-[10px] tracking-widest font-sans font-semibold uppercase px-6 py-3 hover:bg-gold transition-colors rounded-sm focus-visible:ring-2 focus-visible:ring-gold"
                 >
                   Clear All Filters
                 </button>

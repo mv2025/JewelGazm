@@ -12,7 +12,7 @@ export const FeaturedBannerSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 overflow-hidden rounded-3xl shadow-lg">
           
           {/* Left Panel: Cream Heritage Story */}
-          <div className="bg-[#FAF8F5] p-8 md:p-12 flex flex-col justify-between gap-8 border-b lg:border-b-0 lg:border-r border-border/40">
+          <div className="bg-background p-8 md:p-12 flex flex-col justify-between gap-8 border-b lg:border-b-0 lg:border-r border-border/40">
             <div className="flex flex-col gap-4">
               <span className="font-sans text-[10px] tracking-[0.3em] font-medium uppercase text-gold">
                 Heritage & Craft

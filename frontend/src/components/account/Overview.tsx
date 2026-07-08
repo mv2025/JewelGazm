@@ -38,37 +38,37 @@ export const Overview: React.FC = () => {
           </div>
         )}
         <div className="text-center md:text-left">
-          <p className="text-sm font-sans text-gray-500 mb-1">{greeting},</p>
+          <p className="text-sm font-sans text-primary/60 mb-1">{greeting},</p>
           <h2 className="text-3xl font-serif text-primary">{user.name}</h2>
           <div className="flex items-center justify-center md:justify-start gap-2 mt-2">
             <span className="px-3 py-1 bg-gold/10 text-gold text-xs font-semibold uppercase tracking-wider rounded-full">
               Gold Member
             </span>
-            <span className="text-xs text-gray-400">Member since 2025</span>
+            <span className="text-xs text-primary/40">Member since 2025</span>
           </div>
         </div>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-[#FAF8F5] p-6 rounded-xl border border-border/40 flex flex-col items-center justify-center text-center hover:border-gold/30 transition-colors">
+        <div className="bg-background p-6 rounded-xl border border-border/40 flex flex-col items-center justify-center text-center hover:border-gold/30 transition-colors">
           <Package className="w-6 h-6 text-gold mb-2" />
           <span className="text-2xl font-serif text-primary">3</span>
-          <span className="text-xs font-sans text-gray-500 uppercase tracking-widest mt-1">Orders</span>
+          <span className="text-xs font-sans text-primary/60 uppercase tracking-widest mt-1">Orders</span>
         </div>
-        <div className="bg-[#FAF8F5] p-6 rounded-xl border border-border/40 flex flex-col items-center justify-center text-center hover:border-gold/30 transition-colors">
+        <div className="bg-background p-6 rounded-xl border border-border/40 flex flex-col items-center justify-center text-center hover:border-gold/30 transition-colors">
           <Heart className="w-6 h-6 text-gold mb-2" />
           <span className="text-2xl font-serif text-primary">14</span>
-          <span className="text-xs font-sans text-gray-500 uppercase tracking-widest mt-1">Wishlist</span>
+          <span className="text-xs font-sans text-primary/60 uppercase tracking-widest mt-1">Wishlist</span>
         </div>
-        <div className="bg-[#FAF8F5] p-6 rounded-xl border border-border/40 flex flex-col items-center justify-center text-center hover:border-gold/30 transition-colors">
+        <div className="bg-background p-6 rounded-xl border border-border/40 flex flex-col items-center justify-center text-center hover:border-gold/30 transition-colors">
           <MapPin className="w-6 h-6 text-gold mb-2" />
           <span className="text-2xl font-serif text-primary">2</span>
-          <span className="text-xs font-sans text-gray-500 uppercase tracking-widest mt-1">Addresses</span>
+          <span className="text-xs font-sans text-primary/60 uppercase tracking-widest mt-1">Addresses</span>
         </div>
-        <div className="bg-[#FAF8F5] p-6 rounded-xl border border-border/40 flex flex-col items-center justify-center text-center hover:border-gold/30 transition-colors">
+        <div className="bg-background p-6 rounded-xl border border-border/40 flex flex-col items-center justify-center text-center hover:border-gold/30 transition-colors">
           <Award className="w-6 h-6 text-gold mb-2" />
           <span className="text-2xl font-serif text-primary">1,250</span>
-          <span className="text-xs font-sans text-gray-500 uppercase tracking-widest mt-1">Points</span>
+          <span className="text-xs font-sans text-primary/60 uppercase tracking-widest mt-1">Points</span>
         </div>
       </div>
 
@@ -77,7 +77,7 @@ export const Overview: React.FC = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {recentlyViewed.map((product) => (
             <div key={product.id} className="group cursor-pointer">
-              <div className="aspect-[4/5] bg-gray-100 rounded-lg overflow-hidden mb-3">
+              <div className="aspect-[4/5] bg-surface-hover rounded-lg overflow-hidden mb-3">
                 <img 
                   src={product.image} 
                   alt={product.name} 
@@ -85,7 +85,7 @@ export const Overview: React.FC = () => {
                 />
               </div>
               <h4 className="text-sm font-sans text-primary">{product.name}</h4>
-              <p className="text-xs font-sans text-gray-500 mt-1">{product.price}</p>
+              <p className="text-xs font-sans text-primary/60 mt-1">{product.price}</p>
             </div>
           ))}
         </div>
@@ -93,3 +93,5 @@ export const Overview: React.FC = () => {
     </div>
   );
 };
+
+

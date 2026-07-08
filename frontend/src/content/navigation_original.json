@@ -8,7 +8,7 @@
         "links": [
           { "label": "All Jewellery", "href": "/collections/all-jewellery" },
           { "label": "Solitaire Rings", "href": "/collections/rings" },
-          { "label": "Necklaces & Pendants", "href": "/collections/necklaces" },
+          { "label": "Necklaces", "href": "/collections/necklaces" },
           { "label": "Luxury Earrings", "href": "/collections/earrings" },
           { "label": "Tennis Bracelets", "href": "/collections/bracelets" }
         ]

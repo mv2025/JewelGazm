@@ -11,7 +11,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const location = useLocation();
 
   if (!isReady) {
-    return <div className="min-h-screen flex items-center justify-center bg-[var(--theme-bg)]">Loading...</div>;
+    return <div className="min-h-screen flex items-center justify-center bg-background">Loading...</div>;
   }
 
   // If user is not logged in, redirect to home page and prompt them to login

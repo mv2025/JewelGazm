@@ -29,7 +29,7 @@ export const BenefitsSection: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      className={`bg-[#FAF8F5] py-8 border-y border-border select-none overflow-hidden
+      className={`bg-background py-8 border-y border-border select-none overflow-hidden
         transition-all duration-700 ease-out
         ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
     >

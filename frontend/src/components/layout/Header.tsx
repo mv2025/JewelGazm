@@ -80,7 +80,7 @@ export const Header: React.FC = () => {
         className={cn(
           'w-full z-50 transition-all duration-300 select-none',
           headerPositionClass,
-          isTransparent ? 'bg-transparent' : 'bg-white shadow-md'
+          isTransparent ? 'bg-transparent' : 'bg-surface shadow-md'
         )}
       >
         {/* ── ROW 1: Utility Bar ── */}
@@ -120,7 +120,7 @@ export const Header: React.FC = () => {
                   </button>
 
                   {pincodeOpen && (
-                    <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-[#E8E0D5] rounded-xl shadow-xl z-50 p-4 text-[var(--theme-primary)]">
+                    <div className="absolute top-full left-0 mt-2 w-64 bg-surface border border-[#E8E0D5] rounded-xl shadow-xl z-50 p-4 text-[var(--theme-primary)]">
                       <p className="font-sans text-xs font-semibold mb-2 tracking-wide">Enter Delivery Pincode</p>
                       <div className="flex gap-2">
                         <input

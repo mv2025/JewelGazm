@@ -53,7 +53,7 @@ export const AccessoriesSection: React.FC<AccessoriesSectionProps> = ({ metal = 
   }, []);
 
   return (
-    <section className="relative w-full bg-[#FAF8F5] select-none border-b border-[#E8E0D5]/50 py-16 md:py-24 overflow-hidden">
+    <section className="relative w-full bg-background select-none border-b border-[#E8E0D5]/50 py-16 md:py-24 overflow-hidden">
       {/* Header Container */}
       <div className="container mx-auto max-w-screen-xl px-4 md:px-6 mb-10 md:mb-14">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
@@ -91,9 +91,9 @@ export const AccessoriesSection: React.FC<AccessoriesSectionProps> = ({ metal = 
                 onMouseEnter={() => setHoveredId(category.id)}
                 onMouseLeave={() => setHoveredId(null)}
                 className={cn(
-                  "relative bg-white border border-[#E8E0D5]/50 rounded-2xl overflow-hidden p-6 flex flex-col justify-between transition-all duration-500 group/card flex-shrink-0 shadow-xs pointer-events-auto",
+                  "relative bg-surface border border-border/50 rounded-2xl overflow-hidden p-6 flex flex-col justify-between transition-all duration-500 group/card flex-shrink-0 shadow-xs pointer-events-auto",
                   category.sizeClass,
-                  isHovered && !isDragging ? "border-[var(--theme-primary)]/20 -translate-y-1" : ""
+                  isHovered && !isDragging ? "border-[var(--theme-primary)]/40 -translate-y-1 shadow-md" : ""
                 )}
                 draggable={false} // Prevent default image dragging
               >
@@ -116,8 +116,8 @@ export const AccessoriesSection: React.FC<AccessoriesSectionProps> = ({ metal = 
                   
                   {/* Floating Action Arrow */}
                   <div className={cn(
-                    "p-2 rounded-full border border-[var(--theme-primary)]/10 text-[var(--theme-primary)] bg-white transition-all duration-300",
-                    isHovered && !isDragging ? "bg-[var(--theme-primary)] text-white border-transparent rotate-45" : ""
+                    "p-2 rounded-full border border-[var(--theme-primary)]/20 text-[var(--theme-primary)] bg-surface transition-all duration-300",
+                    isHovered && !isDragging ? "bg-[var(--theme-primary)] text-[var(--theme-bg)] border-transparent rotate-45" : ""
                   )}>
                     <ArrowUpRight className="w-4 h-4" />
                   </div>

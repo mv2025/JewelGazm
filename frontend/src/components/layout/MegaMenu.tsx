@@ -16,7 +16,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({ columns, onClose }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -6 }}
       transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-      className="absolute left-0 right-0 top-full z-50 bg-white border-b-2 border-[var(--theme-primary)]/10 shadow-2xl"
+      className="absolute left-0 right-0 top-full z-50 bg-surface border-b-2 border-[var(--theme-primary)]/10 shadow-2xl"
     >
       <div className="container mx-auto px-10 max-w-screen-xl py-8">
         <div
