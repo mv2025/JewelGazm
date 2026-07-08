@@ -23,10 +23,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
   const { toggleWishlist, isInWishlist } = useWishlist();
   const { addToast } = useToast();
 
-  const [activeVariant, setActiveVariant] = useState<ProductVariant>(() => {
-    // Default to the first available variant
-    return product.variants.edges[0]?.node;
-  });
+  const activeVariant = product.variants.edges[0]?.node;
 
   const [isHovered, setIsHovered] = useState(false);
   const [quickAdding, setQuickAdding] = useState(false);
@@ -157,50 +154,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, className }) 
           </div>
         </div>
 
-        {/* Swatch options (e.g. Metal swatches if multiple gold variants exist) */}
-        {metalOption && metalOption.values.length > 1 && (
-          <div className="flex gap-1.5 mt-1">
-            {metalOption.values.map(val => {
-              // Find first variant for this metal to use its image
-              const matched = product.variants.edges.find(e =>
-                e.node.selectedOptions.some(opt => opt.name === 'Metal' && opt.value === val)
-              )?.node;
 
-              // Color mapping
-              const metalColors: Record<string, string> = {
-                '18K White Gold': 'bg-slate-200 border-slate-300',
-                '18K Yellow Gold': 'bg-amber-100 border-amber-300',
-                '18K Rose Gold': 'bg-orange-100 border-orange-300',
-                'Platinum': 'bg-neutral-300 border-neutral-400',
-              };
-
-              const isActive = activeVariant?.selectedOptions.find(o => o.name === 'Metal')?.value === val;
-
-              return (
-                <button
-                  key={val}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (matched) setActiveVariant(matched);
-                  }}
-                  title={val}
-                  aria-label={`Select variant ${val}`}
-                  className={cn(
-                    'w-3 h-3 rounded-full border cursor-pointer transition-transform focus:outline-none focus:ring-1 focus:ring-gold',
-                    metalColors[val] || 'bg-neutral-400',
-                    isActive ? 'scale-125 ring-1 ring-gold/60 border-primary/20' : 'opacity-70 hover:opacity-100'
-                  )}
-                />
-              );
-            })}
-          </div>
-        )}
 
         {/* Dedicated Mobile Quick Add Button (Visible on Touch/Mobile Screens only) */}
         <button
           onClick={handleQuickAdd}
           disabled={quickAdding || !product.availableForSale}
-          className="lg:hidden mt-3 w-full bg-primary hover:bg-[#C9A96E]/90 text-white text-[9px] tracking-widest font-sans font-medium uppercase py-2.5 shadow-sm active:bg-gold transition-colors flex items-center justify-center gap-2 focus-visible:ring-1 focus-visible:ring-gold rounded-xs"
+          className="lg:hidden mt-3 w-full bg-primary hover:bg-[var(--theme-accent-light)]/90 text-white text-[9px] tracking-widest font-sans font-medium uppercase py-2.5 shadow-sm active:bg-gold transition-colors flex items-center justify-center gap-2 focus-visible:ring-1 focus-visible:ring-gold rounded-xs"
         >
           <ShoppingBag className="w-3 h-3 shrink-0" />
           {quickAdding ? 'Adding...' : 'Quick Add'}

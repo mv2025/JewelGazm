@@ -111,7 +111,7 @@ export const ProductDetails: React.FC = () => {
 
           // Update SEO
           const price = firstVariant?.price.amount || '0.00';
-          const currency = firstVariant?.price.currencyCode || 'USD';
+          const currency = firstVariant?.price.currencyCode || 'INR';
           updateSEO({
             title: `${prod.title} | Jewelgazm Haute Joaillerie`,
             description: prod.description,
@@ -219,7 +219,7 @@ export const ProductDetails: React.FC = () => {
 
   if (loading || !product) {
     return (
-      <div className="container mx-auto px-6 md:px-12 py-20 max-w-7xl flex flex-col justify-center items-center">
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 py-20 max-w-screen-2xl flex flex-col justify-center items-center">
         <div className="animate-spin rounded-full h-8 w-8 border-[1.5px] border-gold border-t-transparent" />
         <span className="mt-4 text-[10px] tracking-widest font-sans uppercase text-primary/45">
           Loading creation details...
@@ -235,7 +235,7 @@ export const ProductDetails: React.FC = () => {
 
   return (
     <div className="py-12 md:py-20 select-none">
-      <div className="container mx-auto px-6 md:px-12 max-w-7xl">
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-screen-2xl">
         
         {/* Breadcrumb Navigation links */}
         <div className="flex gap-2 text-[10px] font-sans font-light tracking-wider text-primary/40 uppercase mb-8">
@@ -259,11 +259,11 @@ export const ProductDetails: React.FC = () => {
                     key={img}
                     onClick={() => setActiveImgUrl(img)}
                     className={cn(
-                      'w-16 aspect-[4/5] border rounded-sm overflow-hidden bg-surface-hover transition-all focus:outline-none shrink-0',
+                      'w-16 md:w-20 aspect-square border rounded-sm overflow-hidden bg-[#f9f9f9] transition-all focus:outline-none shrink-0',
                       activeImgUrl === img ? 'border-gold ring-1 ring-gold/40' : 'border-border/60 hover:border-primary/40'
                     )}
                   >
-                    <img src={img} alt={product.title} className="w-full h-full object-cover" />
+                    <img src={img} alt={product.title} className="w-full h-full object-contain p-1" />
                   </button>
                 ))}
               </div>
@@ -274,13 +274,13 @@ export const ProductDetails: React.FC = () => {
               ref={zoomRef}
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
-              className="flex-1 w-full bg-surface-hover aspect-[4/5] border border-border/40 overflow-hidden relative cursor-zoom-in rounded-sm select-none"
+              className="flex-1 w-full bg-[#f9f9f9] aspect-square md:aspect-auto md:h-[500px] lg:h-[600px] border border-border/40 overflow-hidden relative cursor-zoom-in rounded-sm select-none flex items-center justify-center"
             >
               <img
                 src={activeImgUrl}
                 alt={product.title}
                 style={zoomStyle}
-                className="w-full h-full object-cover transition-transform duration-200 ease-out"
+                className="w-full h-full object-contain p-4 transition-transform duration-200 ease-out"
               />
             </div>
           </div>
@@ -323,7 +323,7 @@ export const ProductDetails: React.FC = () => {
                 </div>
                 <p className="text-[10px] font-sans font-light text-primary/50">
                   Or 4 interest-free installments of <span className="font-medium text-primary">
-                    {formatPrice({ amount: (parseFloat(selectedVariant.price.amount) / 4).toFixed(2), currencyCode: 'USD' })}
+                    {formatPrice({ amount: (parseFloat(selectedVariant.price.amount) / 4).toFixed(2), currencyCode: 'INR' })}
                   </span> with <span className="underline cursor-pointer hover:text-gold">Affirm</span>
                 </p>
               </div>
@@ -509,7 +509,7 @@ export const ProductDetails: React.FC = () => {
             <h2 className="font-serif text-xl md:text-2xl font-light text-center tracking-wide text-primary mb-12">
               Recommendations For You
             </h2>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6">
               {recommendations.map(prod => (
                 <ProductCard key={prod.id} product={prod} />
               ))}

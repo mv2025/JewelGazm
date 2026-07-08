@@ -6,11 +6,18 @@ import { ProductCard } from '@/components/common/ProductCard';
 import { CollectionSkeleton, ProductCardSkeleton } from '@/components/ui/Skeleton';
 import { MediaImage } from '@/components/ui/media/MediaImage';
 import { Drawer } from '@/components/ui/Drawer';
+import { motion } from 'framer-motion';
+import { cn } from '@/utils/cn';
 import { updateSEO } from '@/utils/seo';
 
+import silverCelesteRing from '@/assets/Featured-Products/Silver-Celeste-Ring.png';
+import silverSirenBand from '@/assets/Featured-Products/Silver-Siren-Band.png';
+import silverAuraNecklace from '@/assets/Featured-Products/Silver-Aura-Necklace.png';
+import silverLuminaStuds from '@/assets/Featured-Products/Silver-Lumina-Studs.png';
+import silverBracelet from '@/assets/Shop-By-Categories/Silver-Bracelet.png';
+import silverEarrings from '@/assets/Shop-By-Categories/Silver-Earrings.png';
+
 // Filter constants
-const METALS = ['18K White Gold', '18K Yellow Gold', '18K Rose Gold', 'Platinum'];
-const GEMSTONES = ['Diamond', 'Emerald', 'Sapphire', 'Ruby', 'Solitaire'];
 const SORT_OPTIONS = [
   { label: 'Featured', value: 'BEST_SELLING' },
   { label: 'Price: Low to High', value: 'PRICE_ASC' },
@@ -23,12 +30,28 @@ const SORT_OPTIONS = [
  * Manages URL queries, filters, sidebar overlays, and paginated product cards.
  */
 export const Collection: React.FC = () => {
-  const { handle = 'all' } = useParams<{ handle: string }>();
+  const { handle = 'all-jewellery' } = useParams<{ handle: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [collection, setCollection] = useState<ShopifyCollection | null>(null);
   const [loading, setLoading] = useState(true);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [activeMetal, setActiveMetal] = useState<'all' | 'gold' | 'silver'>('all');
+
+  // Force effective metal to match collection handle if applicable
+  const effectiveMetal = (handle === 'gold' || handle === 'silver') ? handle : activeMetal;
+
+  const getSilverImage = (handle: string) => {
+    switch (handle) {
+      case 'celeste-diamond-solitaire-ring': return silverCelesteRing;
+      case 'siren-emerald-eternity-band': return silverSirenBand;
+      case 'aura-solitaire-diamond-necklace': return silverAuraNecklace;
+      case 'lumina-diamond-studs': return silverLuminaStuds;
+      case 'aether-diamond-tennis-bracelet': return silverBracelet;
+      case 'tessera-sapphire-drop-earrings': return silverEarrings;
+      default: return null;
+    }
+  };
 
   // Parse filter parameters from URL
   const selectedMetal = searchParams.get('metal') || '';
@@ -86,115 +109,77 @@ export const Collection: React.FC = () => {
   };
 
   const productEdges = collection?.products?.edges || [];
-  const totalCount = productEdges.length;
+  
+  // Pre-calculate the cards to render so we get an accurate count based on client-side filters
+  const renderedCards = productEdges.flatMap(({ node: product }) => {
+    const silverImg = getSilverImage(product.handle);
+    
+    let silverDisplayProduct = null;
+    if (silverImg) {
+      silverDisplayProduct = {
+        ...product,
+        id: `${product.id}-silver`,
+        title: product.title.replace('Diamond', 'Silver Diamond').replace('Emerald', 'Silver Emerald').replace('Sapphire', 'Silver Sapphire'),
+        images: {
+          edges: [
+            { node: { url: silverImg, altText: `${product.title} in Silver` } },
+            ...(product.images.edges.length > 1 ? product.images.edges.slice(1) : [])
+          ]
+        },
+        variants: {
+          ...product.variants,
+          edges: product.variants.edges.map((variantEdge: any) => ({
+            ...variantEdge,
+            node: {
+              ...variantEdge.node,
+              image: { url: silverImg, altText: `${variantEdge.node.title} in Silver` }
+            }
+          }))
+        }
+      };
+    }
 
-  // Sidebar Filter Form Layout
-  const FilterSidebar = () => (
-    <div className="flex flex-col gap-8 select-none">
-      {/* Metal Filter */}
-      <div className="flex flex-col gap-3">
-        <h4 className="font-serif text-[10px] tracking-[0.2em] font-semibold text-primary/45 uppercase border-b border-border pb-2">
-          Metal Type
-        </h4>
-        <div className="flex flex-col gap-2.5">
-          {METALS.map(metal => {
-            const active = selectedMetal === metal;
-            return (
-              <button
-                key={metal}
-                onClick={() => updateFilter('metal', active ? '' : metal)}
-                className="flex items-center justify-between text-xs font-sans text-primary/75 hover:text-gold text-left py-0.5"
-              >
-                <span>{metal}</span>
-                <span className={`w-3.5 h-3.5 border rounded-sm flex items-center justify-center transition-colors ${
-                  active ? 'bg-gold border-gold text-white' : 'border-border'
-                }`}>
-                  {active && <Check className="w-2.5 h-2.5" />}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
+    if (effectiveMetal === 'gold') {
+      if (product.tags.includes('Silver') || product.title.includes('Silver')) return [];
+      return [<ProductCard key={product.id} product={product} />];
+    }
+    
+    if (effectiveMetal === 'silver') {
+      if (silverDisplayProduct) {
+        return [<ProductCard key={silverDisplayProduct.id} product={silverDisplayProduct} />];
+      }
+      if (product.tags.includes('Silver') || product.title.includes('Silver')) {
+        return [<ProductCard key={product.id} product={product} />];
+      }
+      return [];
+    }
 
-      {/* Gemstone Filter */}
-      <div className="flex flex-col gap-3">
-        <h4 className="font-serif text-[10px] tracking-[0.2em] font-semibold text-primary/45 uppercase border-b border-border pb-2">
-          Gemstone
-        </h4>
-        <div className="flex flex-col gap-2.5">
-          {GEMSTONES.map(gem => {
-            const active = selectedGemstone === gem;
-            return (
-              <button
-                key={gem}
-                onClick={() => updateFilter('gemstone', active ? '' : gem)}
-                className="flex items-center justify-between text-xs font-sans text-primary/75 hover:text-gold text-left py-0.5"
-              >
-                <span>{gem}</span>
-                <span className={`w-3.5 h-3.5 border rounded-sm flex items-center justify-center transition-colors ${
-                  active ? 'bg-gold border-gold text-white' : 'border-border'
-                }`}>
-                  {active && <Check className="w-2.5 h-2.5" />}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
+    // effectiveMetal === 'all'
+    const cards = [];
+    if (!product.tags.includes('Silver') && !product.title.includes('Silver')) {
+      cards.push(<ProductCard key={product.id} product={product} />);
+    } else {
+      cards.push(<ProductCard key={product.id} product={product} />);
+    }
+    
+    if (silverDisplayProduct) {
+      cards.push(<ProductCard key={silverDisplayProduct.id} product={silverDisplayProduct} />);
+    }
+    return cards;
+  });
 
-      {/* Price Slider/Range Filter */}
-      <div className="flex flex-col gap-3">
-        <h4 className="font-serif text-[10px] tracking-[0.2em] font-semibold text-primary/45 uppercase border-b border-border pb-2">
-          Price Range
-        </h4>
-        <div className="grid grid-cols-2 gap-3 mt-1">
-          <div className="flex flex-col gap-1">
-            <span className="text-[9px] font-sans text-primary/45 uppercase">Min Price</span>
-            <input
-              type="number"
-              placeholder="$ Min"
-              value={searchParams.get('minPrice') || ''}
-              onChange={(e) => updateFilter('minPrice', e.target.value)}
-              className="border border-border/80 px-2.5 py-1.5 text-xs font-sans font-light focus:outline-none focus:border-gold rounded-sm bg-transparent"
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-[9px] font-sans text-primary/45 uppercase">Max Price</span>
-            <input
-              type="number"
-              placeholder="$ Max"
-              value={searchParams.get('maxPrice') || ''}
-              onChange={(e) => updateFilter('maxPrice', e.target.value)}
-              className="border border-border/80 px-2.5 py-1.5 text-xs font-sans font-light focus:outline-none focus:border-gold rounded-sm bg-transparent"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Clear Active Filters Link */}
-      {(selectedMetal || selectedGemstone || minPrice || maxPrice) && (
-        <button
-          onClick={clearAllFilters}
-          className="text-[9px] tracking-widest font-sans font-semibold uppercase text-gold hover:text-gold-hover text-left flex items-center gap-1.5 border border-gold/20 hover:border-gold px-3 py-2 rounded-sm self-start transition-all"
-        >
-          <X className="w-3.5 h-3.5" />
-          Clear Active Filters
-        </button>
-      )}
-    </div>
-  );
+  const totalCount = renderedCards.length;
 
   if (loading && !collection) {
     return (
-      <div className="container mx-auto px-6 md:px-12 max-w-7xl">
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-screen-2xl">
         <CollectionSkeleton />
       </div>
     );
   }
 
   return (
-    <div className="pb-24">
+    <div className={cn("pb-24 transition-colors duration-700", activeMetal === 'silver' ? 'theme-silver bg-[var(--theme-bg)]' : 'bg-[var(--theme-bg)]')}>
       {/* Collection Hero Header Banner */}
       {collection && (
         <div className="relative w-full py-20 bg-primary select-none overflow-hidden text-center text-white border-b border-border/40 mb-10">
@@ -210,7 +195,7 @@ export const Collection: React.FC = () => {
             </div>
           )}
           <div className="relative z-10 container mx-auto px-6 max-w-2xl flex flex-col items-center gap-3">
-            <span className="text-[10px] tracking-[0.25em] font-sans font-light uppercase text-gold">
+            <span className="text-[10px] tracking-[0.25em] font-sans font-light uppercase text-[var(--theme-accent)]">
               Jewelgazm Fine Jewelry
             </span>
             <h1 className="font-serif text-3xl md:text-4xl font-light tracking-wide">
@@ -224,33 +209,52 @@ export const Collection: React.FC = () => {
           </div>
         </div>
       )}
-
       {/* Main Catalog body */}
-      <div className="container mx-auto px-6 md:px-12 max-w-7xl mt-8">
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 max-w-screen-2xl mt-8">
         <div className="flex gap-10">
-          
-          {/* Desktop Left Sidebar Filters */}
-          <aside className="hidden lg:block w-64 shrink-0">
-            <FilterSidebar />
-          </aside>
 
           {/* Right side Grid Catalog list */}
           <div className="flex-1">
             
             {/* Header controls bar */}
-            <div className="flex items-center justify-between border-b border-border pb-4 mb-8 select-none">
-              <div className="flex items-center gap-3">
-                {/* Mobile Filter toggle button */}
-                <button
-                  onClick={() => setMobileFiltersOpen(true)}
-                  className="lg:hidden flex items-center gap-2 border border-border px-3.5 py-2 hover:border-gold hover:text-gold text-xs transition-colors rounded-sm focus-visible:ring-1 focus-visible:ring-gold"
-                >
-                  <SlidersHorizontal className="w-3.5 h-3.5" />
-                  <span>Filters</span>
-                </button>
-                <span className="text-[11px] font-sans text-primary/45 font-light uppercase tracking-wider">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-4 mb-8 select-none">
+              <div className="flex items-center gap-6">
+                <span className="hidden sm:inline text-[11px] font-sans text-primary/45 font-light uppercase tracking-wider">
                   {totalCount} {totalCount === 1 ? 'Creation' : 'Creations'}
                 </span>
+                
+                {/* Metal Toggle */}
+                {handle !== 'gold' && handle !== 'silver' && (
+                  <div className="flex items-center p-1 bg-surface border border-border/80 rounded-sm">
+                  <button 
+                    onClick={() => setActiveMetal('all')}
+                    className={cn(
+                      "px-4 py-1.5 text-[10px] font-sans font-medium tracking-widest uppercase transition-colors rounded-sm", 
+                      activeMetal === 'all' ? "bg-[var(--theme-accent-light)] text-white" : "text-primary/60 hover:text-primary"
+                    )}
+                  >
+                    All
+                  </button>
+                  <button 
+                    onClick={() => setActiveMetal('gold')}
+                    className={cn(
+                      "px-4 py-1.5 text-[10px] font-sans font-medium tracking-widest uppercase transition-colors rounded-sm", 
+                      activeMetal === 'gold' ? "bg-gold text-white" : "text-primary/60 hover:text-primary"
+                    )}
+                  >
+                    Gold
+                  </button>
+                  <button 
+                    onClick={() => setActiveMetal('silver')}
+                    className={cn(
+                      "px-4 py-1.5 text-[10px] font-sans font-medium tracking-widest uppercase transition-colors rounded-sm", 
+                      activeMetal === 'silver' ? "bg-gray-400 text-white" : "text-primary/60 hover:text-primary"
+                    )}
+                  >
+                    Silver
+                  </button>
+                </div>
+                )}
               </div>
 
               {/* Sorting drop selector */}
@@ -277,16 +281,14 @@ export const Collection: React.FC = () => {
 
             {/* Grid display */}
             {loading ? (
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
-                {Array.from({ length: 6 }).map((_, i) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-4 sm:gap-x-6 gap-y-10 sm:gap-y-12">
+                {Array.from({ length: 10 }).map((_, i) => (
                   <ProductCardSkeleton key={i} />
                 ))}
               </div>
-            ) : productEdges.length > 0 ? (
-              <div className="grid grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
-                {productEdges.map(({ node: product }) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
+            ) : renderedCards.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-x-4 sm:gap-x-6 gap-y-10 sm:gap-y-12">
+                {renderedCards}
               </div>
             ) : (
               /* Catalog Empty state */
@@ -309,16 +311,6 @@ export const Collection: React.FC = () => {
 
         </div>
       </div>
-
-      {/* Mobile filters slide Drawer overlay */}
-      <Drawer
-        isOpen={mobileFiltersOpen}
-        onClose={() => setMobileFiltersOpen(false)}
-        title="Refine Collection"
-        side="right"
-      >
-        <FilterSidebar />
-      </Drawer>
     </div>
   );
 };

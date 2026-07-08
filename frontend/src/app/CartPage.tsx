@@ -155,10 +155,10 @@ export const CartPage: React.FC = () => {
                 </div>
                 <div className="flex justify-between text-primary/65 border-b border-border pb-4">
                   <span className="font-light">Estimated Duties</span>
-                  <span>$0.00</span>
+                  <span>₹0</span>
                 </div>
                 <div className="flex justify-between text-sm text-primary pt-2 font-semibold">
-                  <span>Total (USD)</span>
+                  <span>Total (INR)</span>
                   <span>{formatPrice(cart?.cost?.totalAmount)}</span>
                 </div>
               </div>

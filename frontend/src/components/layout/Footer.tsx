@@ -40,11 +40,13 @@ const FOOTER_LINKS = [
   {
     heading: 'Shop',
     links: [
-      { label: 'All Jewellery', href: '/collections/all-jewellery' },
-      { label: 'Solitaire Rings', href: '/collections/rings' },
-      { label: 'Necklaces & Pendants', href: '/collections/necklaces' },
-      { label: 'Luxury Earrings', href: '/collections/earrings' },
-      { label: 'Tennis Bracelets', href: '/collections/bracelets' },
+      { label: 'Gold', href: '/collections/gold' },
+      { label: 'Silver', href: '/collections/silver' },
+      { label: 'Gents Rings', href: '/collections/gents-rings' },
+      { label: 'Ladies Rings', href: '/collections/ladies-rings' },
+      { label: 'Bracelets', href: '/collections/bracelets' },
+      { label: 'Chains', href: '/collections/chains' },
+      { label: 'Kada', href: '/collections/kada' },
     ],
   },
   {
@@ -93,7 +95,7 @@ export const Footer: React.FC = () => {
     <footer className="bg-[#FAF8F5] border-t border-[#E8E0D5] select-none">
 
       {/* ── Top accent stripe ─────────────────────────────────────────── */}
-      <div className="h-[3px] w-full bg-gradient-to-r from-transparent via-[#4A0E17] to-transparent opacity-30" />
+      <div className="h-[3px] w-full bg-gradient-to-r from-transparent via-[var(--theme-primary)] to-transparent opacity-30" />
 
       {/* ── Main body ──────────────────────────────────────────────────── */}
       <div className="container mx-auto max-w-7xl px-6 md:px-12 pt-16 pb-10">
@@ -123,7 +125,7 @@ export const Footer: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-8 h-8 rounded-full border border-[#D9D0C7] hover:border-[#4A0E17] text-[#7A6A5E] hover:text-[#4A0E17] flex items-center justify-center transition-all duration-300 hover:bg-[#4A0E17]/5"
+                  className="w-8 h-8 rounded-full border border-[#D9D0C7] hover:border-[var(--theme-primary)] text-[#7A6A5E] hover:text-[var(--theme-primary)] flex items-center justify-center transition-all duration-300 hover:bg-[var(--theme-primary)]/5"
                 >
                   <Icon />
                 </a>
@@ -136,18 +138,18 @@ export const Footer: React.FC = () => {
             {FOOTER_LINKS.map((group) => (
               <div key={group.heading} className="flex flex-col gap-4">
                 {/* Column heading */}
-                <span className="font-sans text-[10px] font-semibold tracking-[0.25em] uppercase text-[#4A0E17]">
+                <span className="font-sans text-[10px] font-semibold tracking-[0.25em] uppercase text-[var(--theme-primary)]">
                   {group.heading}
                 </span>
                 {/* Underline ornament */}
-                <div className="h-px w-8 bg-[#C9A96E] -mt-2" />
+                <div className="h-px w-8 bg-[var(--theme-accent-light)] -mt-2" />
                 {/* Links */}
                 <ul className="flex flex-col gap-3">
                   {group.links.map((link) => (
                     <li key={link.label}>
                       <Link
                         to={link.href}
-                        className="font-sans text-[12px] font-light text-[#5A4D43] hover:text-[#4A0E17] transition-colors duration-200 tracking-wide"
+                        className="font-sans text-[12px] font-light text-[#5A4D43] hover:text-[var(--theme-primary)] transition-colors duration-200 tracking-wide"
                       >
                         {link.label}
                       </Link>
@@ -179,7 +181,7 @@ export const Footer: React.FC = () => {
               <React.Fragment key={item.label}>
                 <Link
                   to={item.href}
-                  className="font-sans text-[10px] font-light text-[#9E8E82] hover:text-[#4A0E17] transition-colors tracking-wide"
+                  className="font-sans text-[10px] font-light text-[#9E8E82] hover:text-[var(--theme-primary)] transition-colors tracking-wide"
                 >
                   {item.label}
                 </Link>

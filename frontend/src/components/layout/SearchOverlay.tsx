@@ -153,7 +153,7 @@ export const SearchOverlay: React.FC = () => {
                         <div className="flex flex-col gap-4">
                           {searchResults.products.map(product => {
                             const img = product.images.edges[0]?.node.url;
-                            const price = product.priceRange?.minVariantPrice || { amount: '0.00', currencyCode: 'USD' };
+                            const price = product.priceRange?.minVariantPrice || { amount: '0.00', currencyCode: 'INR' };
 
                             return (
                               <Link

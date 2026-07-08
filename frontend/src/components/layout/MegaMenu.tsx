@@ -16,7 +16,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({ columns, onClose }) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -6 }}
       transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-      className="absolute left-0 right-0 top-full z-50 bg-white border-b-2 border-[#4A0E17]/10 shadow-2xl"
+      className="absolute left-0 right-0 top-full z-50 bg-white border-b-2 border-[var(--theme-primary)]/10 shadow-2xl"
     >
       <div className="container mx-auto px-10 max-w-screen-xl py-8">
         <div
@@ -26,7 +26,7 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({ columns, onClose }) => {
           {/* Category Columns */}
           {columns.map((col, idx) => (
             <div key={idx} className="flex flex-col gap-3">
-              <h4 className="font-sans text-[9px] font-bold tracking-[0.22em] uppercase text-[#4A0E17]/40 pb-2 border-b border-[#E8E0D5]">
+              <h4 className="font-sans text-[9px] font-bold tracking-[0.22em] uppercase text-[var(--theme-primary)]/40 pb-2 border-b border-[#E8E0D5]">
                 {col.title}
               </h4>
               <ul className="flex flex-col gap-2">
@@ -35,9 +35,9 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({ columns, onClose }) => {
                     <Link
                       to={link.href}
                       onClick={onClose}
-                      className="font-sans text-[12px] font-medium text-[#4A0E17]/75 hover:text-[#4A0E17] hover:translate-x-1 inline-flex items-center gap-1.5 transition-all duration-200 group"
+                      className="font-sans text-[12px] font-medium text-[var(--theme-primary)]/75 hover:text-[var(--theme-primary)] hover:translate-x-1 inline-flex items-center gap-1.5 transition-all duration-200 group"
                     >
-                      <span className="w-0 group-hover:w-2 h-[1px] bg-[#C9A96E] transition-all duration-200 shrink-0" />
+                      <span className="w-0 group-hover:w-2 h-[1px] bg-[var(--theme-accent-light)] transition-all duration-200 shrink-0" />
                       {link.label}
                     </Link>
                   </li>
@@ -49,20 +49,20 @@ export const MegaMenu: React.FC<MegaMenuProps> = ({ columns, onClose }) => {
           {/* Spotlight Panel */}
           <div className="pl-8 border-l border-[#E8E0D5] flex flex-col justify-between gap-4">
             <div>
-              <span className="text-[8px] tracking-[0.2em] font-sans font-semibold uppercase text-[#C9A96E] px-2 py-0.5 border border-[#C9A96E]/50 inline-block mb-3">
+              <span className="text-[8px] tracking-[0.2em] font-sans font-semibold uppercase text-[var(--theme-accent-light)] px-2 py-0.5 border border-[var(--theme-accent-light)]/50 inline-block mb-3">
                 Spotlight
               </span>
-              <h5 className="font-serif text-base text-[#4A0E17] mb-1.5 font-medium">
+              <h5 className="font-serif text-base text-[var(--theme-primary)] mb-1.5 font-medium">
                 Solitaire Promise
               </h5>
-              <p className="text-[11px] font-sans font-light leading-relaxed text-[#4A0E17]/55 max-w-[190px]">
+              <p className="text-[11px] font-sans font-light leading-relaxed text-[var(--theme-primary)]/55 max-w-[190px]">
                 Hand-cut conflict-free diamond solitaires, ethically sourced and certified.
               </p>
             </div>
             <Link
               to="/collections/rings"
               onClick={onClose}
-              className="text-[9px] tracking-widest font-sans font-semibold uppercase text-[#4A0E17] hover:text-[#C9A96E] border-b border-[#4A0E17]/25 hover:border-[#C9A96E] pb-0.5 self-start transition-all duration-200"
+              className="text-[9px] tracking-widest font-sans font-semibold uppercase text-[var(--theme-primary)] hover:text-[var(--theme-accent-light)] border-b border-[var(--theme-primary)]/25 hover:border-[var(--theme-accent-light)] pb-0.5 self-start transition-all duration-200"
             >
               Shop Solitaires →
             </Link>

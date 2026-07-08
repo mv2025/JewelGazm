@@ -1,44 +1,58 @@
 {
   "sections": [
     {
-      "id": "hero-slider",
-      "type": "HeroSliderSection",
+      "id": "hero-video",
+      "type": "HeroVideoSection",
       "enabled": true,
       "props": {
-        "autoplayDelay": 6000
+        "videoUrl": "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
       }
+    },
+    {
+      "id": "hero-slider",
+      "type": "HeroSliderSection",
+      "enabled": false,
+      "props": {
+        "autoplayDelay": 6000
+      },
+      "metal": "gold"
     },
     {
       "id": "categories",
       "type": "CategoriesSection",
       "enabled": true,
       "props": {
-        "title": "Shop By Category"
-      }
+        "title": "Shop By Gold Category"
+      },
+      "metal": "gold"
     },
     {
       "id": "benefits",
       "type": "BenefitsSection",
       "enabled": true,
-      "props": {}
+      "props": {},
+      "metal": "gold"
     },
     {
       "id": "trending",
       "type": "TrendingSection",
       "enabled": true,
-      "props": {}
+      "props": {},
+      "metal": "gold"
     },
     {
       "id": "accessories-bento",
       "type": "AccessoriesSection",
       "enabled": true,
-      "props": {}
+      "props": {},
+      "metal": "gold"
     },
     {
       "id": "narrative-scroll",
       "type": "ScrollStorySection",
       "enabled": true,
-      "props": {}
+      "props": {},
+      "metal": "gold"
     },
     {
       "id": "featured-products",
@@ -48,13 +62,15 @@
         "title": "Signature Masterpieces",
         "subtitle": "New Arrivals",
         "limit": 4
-      }
+      },
+      "metal": "gold"
     },
     {
       "id": "featured-banner",
       "type": "FeaturedBannerSection",
       "enabled": false,
-      "props": {}
+      "props": {},
+      "metal": "gold"
     },
     {
       "id": "craft-story",
@@ -63,7 +79,8 @@
       "props": {
         "title": "Honoring the Flame",
         "subtitle": "Meticulous Craftsmanship"
-      }
+      },
+      "metal": "gold"
     },
     {
       "id": "video-section",
@@ -73,7 +90,8 @@
         "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-jewelry-glistening-under-focused-light-41804-large.mp4",
         "title": "A Symphony of Fire",
         "subtitle": "Behind The Spark"
-      }
+      },
+      "metal": "gold"
     },
     {
       "id": "reviews-section",
@@ -81,7 +99,8 @@
       "enabled": true,
       "props": {
         "title": "What Our Customers Say"
-      }
+      },
+      "metal": "gold"
     },
     {
       "id": "instagram-feed",
@@ -90,13 +109,15 @@
       "props": {
         "title": "Shared Brilliancy",
         "subtitle": "Follow @Jewelgazm_Official"
-      }
+      },
+      "metal": "gold"
     },
     {
       "id": "exchange-fest",
       "type": "ExchangeFestSection",
       "enabled": true,
-      "props": {}
+      "props": {},
+      "metal": "gold"
     },
     {
       "id": "newsletter",
@@ -105,7 +126,129 @@
       "props": {
         "title": "Join the Circle of Light",
         "placeholder": "Enter your email"
-      }
+      },
+      "metal": "gold"
+    },
+    {
+      "id": "hero-slider-silver",
+      "type": "HeroSliderSection",
+      "enabled": false,
+      "props": {
+        "autoplayDelay": 6000
+      },
+      "metal": "silver"
+    },
+    {
+      "id": "categories-silver",
+      "type": "CategoriesSection",
+      "enabled": true,
+      "props": {
+        "title": "Shop By Silver Category"
+      },
+      "metal": "silver"
+    },
+    {
+      "id": "benefits-silver",
+      "type": "BenefitsSection",
+      "enabled": true,
+      "props": {},
+      "metal": "silver"
+    },
+    {
+      "id": "trending-silver",
+      "type": "TrendingSection",
+      "enabled": true,
+      "props": {},
+      "metal": "silver"
+    },
+    {
+      "id": "accessories-bento-silver",
+      "type": "AccessoriesSection",
+      "enabled": true,
+      "props": {},
+      "metal": "silver"
+    },
+    {
+      "id": "narrative-scroll-silver",
+      "type": "ScrollStorySection",
+      "enabled": true,
+      "props": {},
+      "metal": "silver"
+    },
+    {
+      "id": "featured-products-silver",
+      "type": "FeaturedProductsSection",
+      "enabled": true,
+      "props": {
+        "title": "Signature Silver Masterpieces",
+        "subtitle": "New Arrivals",
+        "limit": 4
+      },
+      "metal": "silver"
+    },
+    {
+      "id": "featured-banner-silver",
+      "type": "FeaturedBannerSection",
+      "enabled": false,
+      "props": {},
+      "metal": "silver"
+    },
+    {
+      "id": "craft-story-silver",
+      "type": "CraftStorySection",
+      "enabled": false,
+      "props": {
+        "title": "Honoring the Flame",
+        "subtitle": "Meticulous Craftsmanship"
+      },
+      "metal": "silver"
+    },
+    {
+      "id": "video-section-silver",
+      "type": "VideoSection",
+      "enabled": false,
+      "props": {
+        "videoUrl": "https://assets.mixkit.co/videos/preview/mixkit-jewelry-glistening-under-focused-light-41804-large.mp4",
+        "title": "A Symphony of Fire",
+        "subtitle": "Behind The Spark"
+      },
+      "metal": "silver"
+    },
+    {
+      "id": "reviews-section-silver",
+      "type": "CustomerReviewsSection",
+      "enabled": true,
+      "props": {
+        "title": "What Our Customers Say"
+      },
+      "metal": "silver"
+    },
+    {
+      "id": "instagram-feed-silver",
+      "type": "InstagramSection",
+      "enabled": false,
+      "props": {
+        "title": "Shared Brilliancy",
+        "subtitle": "Follow @Jewelgazm_Official"
+      },
+      "metal": "silver"
+    },
+    {
+      "id": "exchange-fest-silver",
+      "type": "ExchangeFestSection",
+      "enabled": true,
+      "props": {},
+      "metal": "silver"
+    },
+    {
+      "id": "newsletter-silver",
+      "type": "NewsletterSection",
+      "enabled": true,
+      "props": {
+        "title": "Join the Circle of Light",
+        "placeholder": "Enter your email"
+      },
+      "metal": "silver"
     }
   ]
 }

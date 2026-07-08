@@ -43,21 +43,21 @@ export const BenefitsSection: React.FC = () => {
               <div className="flex items-center gap-4 shrink-0 group cursor-default
                               transition-transform duration-300 ease-out
                               hover:-translate-y-2 hover:scale-105">
-                <Icon className="w-9 h-9 text-[#4A0E17] stroke-[1.2] shrink-0
+                <Icon className="w-9 h-9 text-[var(--theme-primary)] stroke-[1.2] shrink-0
                                  transition-transform duration-300 group-hover:scale-110" />
                 <div className="flex flex-col">
-                  <span className="font-sans text-[13px] font-semibold tracking-wide text-[#4A0E17] leading-tight whitespace-nowrap
-                                   group-hover:text-[#C9A96E] transition-colors duration-300">
+                  <span className="font-sans text-[13px] font-semibold tracking-wide text-[var(--theme-primary)] leading-tight whitespace-nowrap
+                                   group-hover:text-[var(--theme-accent-light)] transition-colors duration-300">
                     {item.title}
                   </span>
-                  <span className="font-sans text-[9px] font-medium tracking-[0.18em] uppercase text-[#4A0E17]/50 mt-0.5 whitespace-nowrap">
+                  <span className="font-sans text-[9px] font-medium tracking-[0.18em] uppercase text-[var(--theme-primary)]/50 mt-0.5 whitespace-nowrap">
                     {item.desc}
                   </span>
                 </div>
               </div>
 
               {/* Gold dot divider */}
-              <div className="w-1 h-1 rounded-full bg-[#C9A96E]/60 shrink-0" />
+              <div className="w-1 h-1 rounded-full bg-[var(--theme-accent-light)]/60 shrink-0" />
             </React.Fragment>
           );
         })}

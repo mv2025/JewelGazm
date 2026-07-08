@@ -44,20 +44,20 @@ export const NewsletterSection: React.FC<NewsletterSectionProps> = ({
   return (
     <section className="py-32 md:py-40 bg-[#FAF8F5] select-none relative overflow-hidden text-center border-b border-[#E8E0D5]/50">
       {/* Decorative subtle background elements */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#C9A96E]/10 via-transparent to-transparent pointer-events-none z-0" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-full bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[var(--theme-accent-light)]/10 via-transparent to-transparent pointer-events-none z-0" />
       
       {/* Faint Watermark Text */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-serif text-[10rem] md:text-[15rem] font-bold text-[#C9A96E]/[0.07] pointer-events-none z-0 tracking-widest whitespace-nowrap select-none">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-serif text-[10rem] md:text-[15rem] font-bold text-[var(--theme-accent-light)]/[0.07] pointer-events-none z-0 tracking-widest whitespace-nowrap select-none">
         Jewelgazm
       </div>
 
       <div className="container mx-auto px-6 md:px-12 max-w-2xl flex flex-col items-center gap-8 relative z-10">
         
-        <span className="font-sans text-[11px] tracking-[0.4em] font-semibold uppercase text-[#C9A96E]">
+        <span className="font-sans text-[11px] tracking-[0.4em] font-semibold uppercase text-[var(--theme-accent-light)]">
           Exclusive Access
         </span>
         
-        <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-light text-[#4A0E17] leading-tight tracking-wide">
+        <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl font-light text-[var(--theme-primary)] leading-tight tracking-wide">
           {title}
         </h2>
         
@@ -71,14 +71,14 @@ export const NewsletterSection: React.FC<NewsletterSectionProps> = ({
             <input
               type="email"
               placeholder={placeholder}
-              className="flex-grow bg-transparent border-b border-[#E8E0D5] focus:border-[#C9A96E] px-2 py-4 font-sans font-light text-[15px] text-[#4A0E17] placeholder:text-[#9E8E82] focus:outline-none transition-all duration-300"
+              className="flex-grow bg-transparent border-b border-[#E8E0D5] focus:border-[var(--theme-accent-light)] px-2 py-4 font-sans font-light text-[15px] text-[var(--theme-primary)] placeholder:text-[#9E8E82] focus:outline-none transition-all duration-300"
               disabled={isSubmitting}
               {...register('email')}
             />
             <button
               type="submit"
               disabled={isSubmitting}
-              className="sm:shrink-0 sm:absolute sm:right-0 sm:bottom-0 sm:top-0 px-4 flex items-center justify-center font-sans text-[11px] font-semibold tracking-widest uppercase text-[#C9A96E] hover:text-[#4A0E17] transition-colors disabled:opacity-50 mt-4 sm:mt-0"
+              className="sm:shrink-0 sm:absolute sm:right-0 sm:bottom-0 sm:top-0 px-4 flex items-center justify-center font-sans text-[11px] font-semibold tracking-widest uppercase text-[var(--theme-accent-light)] hover:text-[var(--theme-primary)] transition-colors disabled:opacity-50 mt-4 sm:mt-0"
             >
               {isSubmitting ? 'Joining...' : 'Subscribe'}
             </button>

@@ -96,13 +96,13 @@ export const CustomerReviewsSection: React.FC<CustomerReviewsSectionProps> = ({
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="flex flex-col items-center gap-3 mb-16 md:mb-24"
         >
-          <span className="font-sans text-[10px] tracking-[0.35em] font-semibold uppercase text-[#C9A96E]">
+          <span className="font-sans text-[10px] tracking-[0.35em] font-semibold uppercase text-[var(--theme-accent-light)]">
             Client Experiences
           </span>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-light text-center tracking-wide text-[#4A0E17]">
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-light text-center tracking-wide text-[var(--theme-primary)]">
             {title}
           </h2>
-          <div className="h-px w-16 bg-[#C9A96E]/50 mt-4" />
+          <div className="h-px w-16 bg-[var(--theme-accent-light)]/50 mt-4" />
         </motion.div>
 
         {/* Carousel Container */}
@@ -111,7 +111,7 @@ export const CustomerReviewsSection: React.FC<CustomerReviewsSectionProps> = ({
           {/* Left Arrow */}
           <button 
             onClick={handlePrev} 
-            className="absolute -left-4 md:-left-16 top-1/2 -translate-y-1/2 z-30 p-3 md:p-4 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.08)] rounded-full text-[#4A0E17] hover:scale-110 hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-all duration-300 focus:outline-none"
+            className="absolute -left-4 md:-left-16 top-1/2 -translate-y-1/2 z-30 p-3 md:p-4 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.08)] rounded-full text-[var(--theme-primary)] hover:scale-110 hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-all duration-300 focus:outline-none"
             aria-label="Previous Reviews"
           >
             <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 stroke-[1.5]" />
@@ -136,7 +136,7 @@ export const CustomerReviewsSection: React.FC<CustomerReviewsSectionProps> = ({
                     className={cn(
                       "relative bg-white border border-[#E8E0D5]/60 rounded-2xl p-8 lg:p-10 flex flex-col h-full transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
                       // Spotlight effect handling
-                      isHovered ? "scale-[1.03] shadow-2xl border-[#4A0E17]/20 z-20" : "shadow-sm",
+                      isHovered ? "scale-[1.03] shadow-2xl border-[var(--theme-primary)]/20 z-20" : "shadow-sm",
                       isOtherHovered ? "scale-[0.97] opacity-40 blur-[1px] z-10" : "",
                       // Stagger the vertical placement slightly for an organic look on desktop
                       index === 1 ? "md:translate-y-8" : ""
@@ -144,7 +144,7 @@ export const CustomerReviewsSection: React.FC<CustomerReviewsSectionProps> = ({
                   >
                     {/* Decorative Quote Icon */}
                     <div className="absolute top-8 right-8 text-[#E8E0D5]/50 transition-colors duration-500">
-                      <Quote className={cn("w-10 h-10 rotate-180", isHovered ? "text-[#C9A96E]/20" : "")} />
+                      <Quote className={cn("w-10 h-10 rotate-180", isHovered ? "text-[var(--theme-accent-light)]/20" : "")} />
                     </div>
 
                     {/* Stars Row */}
@@ -153,7 +153,7 @@ export const CustomerReviewsSection: React.FC<CustomerReviewsSectionProps> = ({
                         <Star 
                           key={i} 
                           className={cn(
-                            "w-4 h-4 md:w-5 md:h-5 fill-[#C9A96E] text-[#C9A96E] transition-all duration-500",
+                            "w-4 h-4 md:w-5 md:h-5 fill-[var(--theme-accent-light)] text-[var(--theme-accent-light)] transition-all duration-500",
                             isHovered ? "drop-shadow-sm scale-110" : ""
                           )} 
                           style={{ transitionDelay: isHovered ? `${i * 50}ms` : '0ms' }}
@@ -171,7 +171,7 @@ export const CustomerReviewsSection: React.FC<CustomerReviewsSectionProps> = ({
                     {/* Author & Timestamp */}
                     <div className="mt-8 pt-6 w-full flex items-center justify-between relative z-10 border-t border-[#E8E0D5]/50">
                       <div>
-                        <span className="text-[10px] tracking-widest font-sans font-semibold uppercase text-[#4A0E17] block text-left">
+                        <span className="text-[10px] tracking-widest font-sans font-semibold uppercase text-[var(--theme-primary)] block text-left">
                           {item.author}
                         </span>
                         <span className="text-[9px] font-sans font-light text-[#9E8E82] block mt-1 text-left">
@@ -192,7 +192,7 @@ export const CustomerReviewsSection: React.FC<CustomerReviewsSectionProps> = ({
           {/* Right Arrow */}
           <button 
             onClick={handleNext} 
-            className="absolute -right-4 md:-right-16 top-1/2 -translate-y-1/2 z-30 p-3 md:p-4 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.08)] rounded-full text-[#4A0E17] hover:scale-110 hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-all duration-300 focus:outline-none"
+            className="absolute -right-4 md:-right-16 top-1/2 -translate-y-1/2 z-30 p-3 md:p-4 bg-white shadow-[0_8px_30px_rgba(0,0,0,0.08)] rounded-full text-[var(--theme-primary)] hover:scale-110 hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-all duration-300 focus:outline-none"
             aria-label="Next Reviews"
           >
             <ChevronRight className="w-5 h-5 md:w-6 md:h-6 stroke-[1.5]" />

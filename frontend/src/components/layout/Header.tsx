@@ -7,11 +7,11 @@ import {
 import { useCart } from '@/providers/CartProvider';
 import { useWishlist } from '@/providers/WishlistProvider';
 import { useSearch } from '@/providers/SearchProvider';
+import { useAuth } from '@/providers/AuthProvider';
 import { Drawer } from '@/components/ui/Drawer';
 import { MegaMenu } from './MegaMenu';
 import navData from '@/content/navigation.json';
 import { cn } from '@/utils/cn';
-
 import logoHeader from '@/assets/frt-logo.webp';
 
 interface NavLinkItem {
@@ -20,28 +20,24 @@ interface NavLinkItem {
   megaMenu?: { title: string; links: { label: string; href: string }[] }[];
 }
 
-/**
- * Jewelgazm Premium Header
- * Row 1 — Logo · Pincode · Search bar · Labeled icon actions (Stays Sticky)
- * Row 2 — Desktop navigation links (Hides smoothly on Scroll)
- */
 export const Header: React.FC = () => {
   const location = useLocation();
   const { cart, setCartOpen } = useCart();
   const { wishlist } = useWishlist();
   const { setSearchOpen } = useSearch();
+  const { user } = useAuth();
 
   const [isScrolled, setIsScrolled]           = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen]   = useState(false);
   const [activeMegaMenuIdx, setActiveMegaMenuIdx] = useState<number | null>(null);
   const [pincodeOpen, setPincodeOpen]         = useState(false);
   const [pincode, setPincode]                 = useState('');
-  const [searchQuery, setSearchQuery]         = useState('');
   const pincodeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -63,243 +59,221 @@ export const Header: React.FC = () => {
   const cartCount     = cart?.totalQuantity || 0;
   const wishlistCount = wishlist.length;
 
-  const ACTION_ICONS = [
-    {
-      id: 'search',
-      icon: Search,
-      label: 'Search',
-      onClick: () => setSearchOpen(true),
-      href: undefined,
-      badge: 0,
-    },
-    {
-      id: 'stores',
-      icon: Store,
-      label: 'Stores',
-      href: '/stores',
-      onClick: undefined,
-      badge: 0,
-    },
-    {
-      id: 'account',
-      icon: User,
-      label: 'Account',
-      href: '/account',
-      onClick: undefined,
-      badge: 0,
-    },
-    {
-      id: 'wishlist',
-      icon: Heart,
-      label: 'Wishlist',
-      href: '/wishlist',
-      onClick: undefined,
-      badge: wishlistCount,
-    },
-    {
-      id: 'cart',
-      icon: ShoppingBag,
-      label: 'Cart',
-      href: undefined,
-      onClick: () => setCartOpen(true),
-      badge: cartCount,
-    },
-  ];
+  const isHomePage = location.pathname === '/';
+  const isTransparent = isHomePage && !isScrolled;
+  const textColorClass = isTransparent ? "text-[#C0C0C0]" : "text-[var(--theme-primary)]";
+  const mutedTextColorClass = isTransparent ? "text-[#C0C0C0]/80" : "text-[var(--theme-primary)]/70";
+  const borderColorClass = isTransparent ? "border-[#C0C0C0]/20" : "border-[#E8E0D5]";
+  const hoverBgClass = isTransparent ? "hover:bg-[#C0C0C0]/10" : "hover:bg-[var(--theme-primary)]/5";
+
+  let headerPositionClass = '';
+  if (isHomePage) {
+    headerPositionClass = isScrolled ? 'fixed top-0 left-0' : 'absolute top-0 left-0';
+  } else {
+    headerPositionClass = 'sticky top-0';
+  }
 
   return (
     <>
-      {/* ── Announcement Bar ── */}
-      <div className="w-full bg-[#4A0E17] text-white py-2 text-center z-50 relative select-none">
-        <p className="text-[9px] font-sans font-medium tracking-[0.25em] uppercase">
-          Complimentary Insured Shipping &amp; Free Sizing on All Orders above ₹5,000
-        </p>
-      </div>
-
       {/* ── Main Header ── */}
       <header
         className={cn(
-          'sticky top-0 z-40 w-full bg-white border-b border-[#E8E0D5] select-none transition-shadow duration-300 block',
-          isScrolled && 'shadow-md'
+          'w-full z-50 transition-all duration-300 select-none',
+          headerPositionClass,
+          isTransparent ? 'bg-transparent' : 'bg-white shadow-md'
         )}
       >
-        {/* ── Row 1: Logo | Pincode / Search / Icons ── */}
-        <div className="container mx-auto max-w-screen-xl px-4 md:px-6">
-          <div className="flex items-center gap-0 py-0">
-
-            {/* ── Logo Column ── */}
-            <div className="flex items-center justify-center shrink-0 pr-6 py-1 border-r border-[#E8E0D5]">
-              <button
-                onClick={() => setMobileMenuOpen(true)}
-                className="lg:hidden p-1.5 mr-2 text-[#4A0E17] hover:bg-[#4A0E17]/5 rounded-full transition-colors"
-                aria-label="Open menu"
-              >
-                <Menu className="w-5 h-5" />
-              </button>
-              <Link to="/" className="flex items-center">
-                <img
-                  src={logoHeader}
-                  alt="Jewelgazm"
-                  className={cn(
-                    "w-auto object-contain hover:scale-[1.03] transition-all duration-300 block",
-                    isScrolled ? "h-14 md:h-16" : "h-20 md:h-24"
-                  )}
-                />
-              </Link>
-            </div>
-
-            {/* ── Right section: Pincode / Search / Icons ── */}
-            <div className="flex flex-1 items-center gap-4 pl-6 py-1">
-
-              {/* Pincode Selector */}
-              <div ref={pincodeRef} className="relative hidden md:block shrink-0">
-                <button
-                  onClick={() => setPincodeOpen(v => !v)}
-                  className="flex items-center gap-2 px-3 py-2 border border-[#E8E0D5] rounded-lg hover:border-[#4A0E17]/40 transition-colors group"
-                >
-                  <MapPin className="w-4 h-4 text-[#4A0E17] shrink-0" />
-                  <div className="text-left">
-                    <p className="text-[8px] font-sans font-medium tracking-[0.15em] uppercase text-[#4A0E17]/50">
-                      Where to deliver?
-                    </p>
-                    <p className="text-[11px] font-sans font-semibold text-[#4A0E17] leading-tight whitespace-nowrap">
-                      {pincode || 'Update Delivery Pincode'}
-                    </p>
-                  </div>
-                  <ChevronDown className={cn('w-3.5 h-3.5 text-[#4A0E17]/50 transition-transform duration-200', pincodeOpen && 'rotate-180')} />
-                </button>
-
-                {/* Pincode popover */}
-                {pincodeOpen && (
-                  <div className="absolute top-full left-0 mt-2 w-78 bg-white border border-[#E8E0D5] rounded-xl shadow-xl z-50 p-4">
-                    <p className="font-sans text-xs font-semibold text-[#4A0E17] mb-2 tracking-wide">
-                      Enter Delivery Pincode
-                    </p>
-                    <div className="flex gap-2">
-                      <input
-                        type="text"
-                        maxLength={6}
-                        placeholder="e.g. 400001"
-                        value={pincode}
-                        onChange={e => setPincode(e.target.value.replace(/\D/g, ''))}
-                        className="flex-1 px-3 py-2 text-sm border border-[#E8E0D5] rounded-lg focus:outline-none focus:border-[#4A0E17] font-sans text-[#4A0E17]"
-                      />
-                      <button
-                        onClick={() => setPincodeOpen(false)}
-                        className="px-3 py-2 bg-[#4A0E17] text-white text-xs font-semibold rounded-lg hover:bg-[#3a0b13] transition-colors"
-                      >
-                        Apply
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Search Bar */}
-              <div className="flex-1 max-w-2xl mx-auto hidden sm:block">
-                <div className="relative flex items-center">
-                  <input
-                    type="text"
-                    placeholder="Search Rings, Necklaces, Bracelets…"
-                    value={searchQuery}
-                    onChange={e => setSearchQuery(e.target.value)}
-                    onFocus={() => setSearchOpen(true)}
-                    className="w-full pl-4 pr-10 py-2.5 bg-[#FAF8F5] border border-[#E8E0D5] rounded-full text-sm font-sans text-[#4A0E17] placeholder-[#4A0E17]/40 focus:outline-none focus:border-[#4A0E17]/60 focus:bg-white transition-all duration-200"
+        {/* ── ROW 1: Utility Bar ── */}
+        <div className={cn(
+          "w-full transition-all duration-500 grid",
+          isScrolled ? "grid-rows-[0fr] opacity-0 border-transparent" : "grid-rows-[1fr] opacity-100 border-b " + borderColorClass
+        )}>
+          <div className="overflow-hidden">
+            <div className="container mx-auto px-4 md:px-6 max-w-screen-xl flex justify-between items-center py-3 md:py-4">
+              
+              {/* Left: Logo, Stores / Pincode */}
+              <div className="flex items-center gap-4 lg:gap-6 flex-1">
+                {/* Mini Logo */}
+                <Link to="/" className="inline-block hover:opacity-80 transition-opacity">
+                  <img
+                    src={logoHeader}
+                    alt="Jewelgazm Logo Mini"
+                    className={cn(
+                      "w-auto object-contain transition-all duration-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]",
+                      isScrolled ? "h-10 md:h-12" : "h-16 md:h-20"
+                    )}
                   />
+                </Link>
+
+                <Link to="/stores" className={cn("flex items-center gap-1.5 text-[10px] font-sans font-semibold tracking-widest uppercase transition-colors hover:opacity-70 hidden sm:flex", textColorClass)}>
+                  <Store className="w-3.5 h-3.5" />
+                  <span>Stores</span>
+                </Link>
+                <div ref={pincodeRef} className="relative hidden md:block">
                   <button
-                    onClick={() => setSearchOpen(true)}
-                    className="absolute right-3 text-[#4A0E17]/50 hover:text-[#4A0E17] transition-colors"
-                    aria-label="Search"
+                    onClick={() => setPincodeOpen(v => !v)}
+                    className={cn("flex items-center gap-1.5 text-[10px] font-sans font-semibold tracking-widest uppercase transition-colors hover:opacity-70", textColorClass)}
                   >
-                    <Search className="w-4 h-4" />
+                    <MapPin className="w-3.5 h-3.5 shrink-0" />
+                    <span>{pincode || 'Pincode'}</span>
+                    <ChevronDown className={cn('w-3 h-3 transition-transform duration-200', pincodeOpen && 'rotate-180')} />
                   </button>
+
+                  {pincodeOpen && (
+                    <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-[#E8E0D5] rounded-xl shadow-xl z-50 p-4 text-[var(--theme-primary)]">
+                      <p className="font-sans text-xs font-semibold mb-2 tracking-wide">Enter Delivery Pincode</p>
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          maxLength={6}
+                          placeholder="e.g. 400001"
+                          value={pincode}
+                          onChange={e => setPincode(e.target.value.replace(/\D/g, ''))}
+                          className="flex-1 px-3 py-2 text-sm border border-[#E8E0D5] rounded-lg focus:outline-none focus:border-[var(--theme-primary)] font-sans"
+                        />
+                        <button
+                          onClick={() => setPincodeOpen(false)}
+                          className="px-3 py-2 bg-[var(--theme-primary)] text-white text-xs font-semibold rounded-lg hover:bg-[#3a0b13] transition-colors"
+                        >
+                          Apply
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
-              {/* Action Icons */}
-              <div className="flex items-center gap-1 md:gap-2 ml-auto lg:ml-0">
-                {ACTION_ICONS.map(action => {
-                  const Icon = action.icon;
-                  const isMobileHidden = action.id === 'stores' || action.id === 'account';
-                  const inner = (
-                    <div className="relative flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-lg hover:bg-[#4A0E17]/5 transition-colors group cursor-pointer">
-                      <div className="relative">
-                        <Icon className="w-5 h-5 text-[#4A0E17] group-hover:text-[#4A0E17] stroke-[1.5]" />
-                        {action.badge > 0 && (
-                          <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-[#4A0E17] text-white text-[8px] flex items-center justify-center rounded-full font-sans font-bold">
-                            {action.badge}
-                          </span>
-                        )}
-                      </div>
-                      <span className="hidden lg:block text-[8px] font-sans font-semibold tracking-[0.12em] uppercase text-[#4A0E17]/70 group-hover:text-[#4A0E17] transition-colors leading-none">
-                        {action.label}
-                      </span>
-                    </div>
-                  );
+              {/* Center: Announcement */}
+              <div className="flex-1 text-center hidden md:block">
+                <p className={cn("text-[9px] font-sans font-medium tracking-[0.25em] uppercase", textColorClass)}>
+                  Complimentary Insured Shipping over ₹5,000
+                </p>
+              </div>
 
-                  if (action.onClick) {
-                    return (
-                      <button key={action.id} onClick={action.onClick} aria-label={action.label} className={cn(isMobileHidden && "hidden sm:block")}>
-                        {inner}
-                      </button>
-                    );
-                  }
-                  return (
-                    <Link key={action.id} to={action.href!} aria-label={action.label} className={cn(isMobileHidden && "hidden sm:block")}>
-                      {inner}
-                    </Link>
-                  );
-                })}
+              {/* Right: Account & Wishlist */}
+              <div className="flex items-center justify-end gap-6 flex-1">
+                {user ? (
+                  <Link to="/account" className={cn("flex items-center gap-1.5 text-[10px] font-sans font-semibold tracking-widest uppercase transition-colors hover:opacity-70", textColorClass)}>
+                    <User className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">{user.name.split(' ')[0]}</span>
+                  </Link>
+                ) : (
+                  <Link to="/login" className={cn("flex items-center gap-1.5 text-[10px] font-sans font-semibold tracking-widest uppercase transition-colors hover:opacity-70", textColorClass)}>
+                    <User className="w-3.5 h-3.5" />
+                    <span className="hidden sm:inline">Login</span>
+                  </Link>
+                )}
+                <Link to="/wishlist" className={cn("flex items-center gap-1.5 text-[10px] font-sans font-semibold tracking-widest uppercase transition-colors hover:opacity-70", textColorClass)}>
+                  <div className="relative">
+                    <Heart className="w-3.5 h-3.5" />
+                    {wishlistCount > 0 && (
+                      <span className="absolute -top-1.5 -right-2 w-3.5 h-3.5 bg-red-500 text-white text-[8px] flex items-center justify-center rounded-full font-bold">
+                        {wishlistCount}
+                      </span>
+                    )}
+                  </div>
+                </Link>
               </div>
 
             </div>
           </div>
         </div>
 
-        {/* ── Row 2: Desktop Nav Links (Fixed Dropdown Clip Bug) ── */}
+        {/* ── ROW 2: Brand Identity (Logo) ── */}
+        <div className="container mx-auto px-4 md:px-6 max-w-screen-xl py-3 md:py-4 flex items-center justify-between">
+          <button
+            onClick={() => setMobileMenuOpen(true)}
+            className={cn("lg:hidden p-1.5 rounded-full transition-colors", textColorClass, hoverBgClass)}
+            aria-label="Open menu"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+          
+          <div className="flex-1 flex justify-center">
+            <Link to="/" className="flex items-center gap-4 hover:scale-[1.02] transition-transform duration-300">
+              <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl tracking-widest uppercase font-light text-[var(--theme-accent)] drop-shadow-md">
+                Jewelgazm
+              </h1>
+            </Link>
+          </div>
+
+          {/* Spacer to keep logo perfectly centered when mobile menu button takes space on the left */}
+          <div className="w-8 lg:hidden"></div>
+        </div>
+
+        {/* ── ROW 3: Navigation & Primary Actions ── */}
         <div
           className={cn(
-            "hidden lg:block border-t border-[#E8E0D5]/60 relative transition-all duration-300 ease-in-out origin-top block pb-0",
-            /* FIXED: overflow-hidden is now ONLY applied on scroll so the dropdown box can freely render outside the navbar */
-            isScrolled ? "max-h-0 opacity-0 border-t-0 pointer-events-none overflow-hidden" : "max-h-20 opacity-100 overflow-visible"
+            "hidden lg:flex items-center justify-between container mx-auto px-6 max-w-screen-xl relative transition-all duration-300 origin-top pb-3"
           )}
           onMouseLeave={() => setActiveMegaMenuIdx(null)}
         >
-          <div className="container mx-auto px-10 max-w-screen-xl">
-            <nav className="flex items-center justify-center gap-8 pt-4 pb-5" aria-label="Main navigation">
-              {(navData as NavLinkItem[]).map((item, idx) => {
-                const hasMega  = item.megaMenu && item.megaMenu.length > 0;
-                const isActive = activeMegaMenuIdx === idx;
-                return (
-                  <div
-                    key={idx}
-                    className="relative"
-                    onMouseEnter={() => hasMega && setActiveMegaMenuIdx(idx)}
+          {/* Main Navigation Links */}
+          <nav className="flex-1 flex justify-center gap-10" aria-label="Main navigation">
+            {(navData as NavLinkItem[]).map((item, idx) => {
+              const hasMega  = item.megaMenu && item.megaMenu.length > 0;
+              const isActive = activeMegaMenuIdx === idx;
+              return (
+                <div
+                  key={idx}
+                  className="relative pb-2"
+                  onMouseEnter={() => hasMega && setActiveMegaMenuIdx(idx)}
+                >
+                  <Link
+                    to={item.href}
+                    className={cn(
+                      'font-sans text-[11px] font-semibold tracking-[0.2em] uppercase transition-colors duration-200 block',
+                      isActive ? textColorClass : mutedTextColorClass,
+                      'hover:text-current'
+                    )}
                   >
-                    <Link
-                      to={item.href}
-                      className={cn(
-                        'font-sans text-[10px] font-semibold tracking-[0.18em] uppercase transition-colors duration-200 hover:text-[#4A0E17] block',
-                        isActive ? 'text-[#4A0E17]' : 'text-[#4A0E17]/65'
-                      )}
-                    >
-                      {item.label}
-                    </Link>
-                    <span className={cn(
-                      'absolute -bottom-[20px] left-0 right-0 h-[2px] bg-[#4A0E17] transition-transform duration-200 origin-center',
-                      isActive ? 'scale-x-100' : 'scale-x-0'
-                    )} />
-                  </div>
-                );
-              })}
-            </nav>
+                    {item.label}
+                  </Link>
+                  <span className={cn(
+                    'absolute bottom-0 left-0 right-0 h-[1.5px] transition-transform duration-200 origin-center',
+                    isTransparent ? 'bg-white' : 'bg-[var(--theme-primary)]',
+                    isActive ? 'scale-x-100' : 'scale-x-0'
+                  )} />
+                </div>
+              );
+            })}
+          </nav>
+
+          {/* Search & Cart (Right aligned within Row 3) */}
+          <div className="absolute right-6 top-0 flex items-center gap-4">
+            <button
+              onClick={() => setSearchOpen(true)}
+              className={cn("p-2 rounded-full transition-colors", textColorClass, hoverBgClass)}
+              aria-label="Search"
+            >
+              <Search className="w-4 h-4 stroke-[1.5]" />
+            </button>
+            <button
+              onClick={() => setCartOpen(true)}
+              className={cn("relative p-2 rounded-full transition-colors", textColorClass, hoverBgClass)}
+              aria-label="Cart"
+            >
+              <ShoppingBag className="w-4 h-4 stroke-[1.5]" />
+              {cartCount > 0 && (
+                <span className={cn(
+                  "absolute top-0 right-0 w-4 h-4 text-[9px] flex items-center justify-center rounded-full font-sans font-bold",
+                  isTransparent ? "bg-[var(--theme-accent)] text-[var(--theme-primary)]" : "bg-[var(--theme-primary)] text-white"
+                )}>
+                  {cartCount}
+                </span>
+              )}
+            </button>
           </div>
 
+          {/* Mega Menu Dropdown */}
           {activeMegaMenuIdx !== null &&
             (navData as NavLinkItem[])[activeMegaMenuIdx]?.megaMenu?.length && (
-              <MegaMenu
-                columns={(navData as NavLinkItem[])[activeMegaMenuIdx].megaMenu!}
-                onClose={() => setActiveMegaMenuIdx(null)}
-              />
+              <div className="absolute top-full left-0 w-full pt-2">
+                <MegaMenu
+                  columns={(navData as NavLinkItem[])[activeMegaMenuIdx].megaMenu!}
+                  onClose={() => setActiveMegaMenuIdx(null)}
+                />
+              </div>
           )}
         </div>
       </header>
@@ -311,7 +285,7 @@ export const Header: React.FC = () => {
             <div key={idx} className="flex flex-col gap-2">
               <Link
                 to={item.href}
-                className="font-sans text-sm font-semibold tracking-widest uppercase text-[#4A0E17] hover:text-[#C9A96E] transition-colors"
+                className="font-sans text-sm font-semibold tracking-widest uppercase text-[var(--theme-primary)] hover:text-[var(--theme-accent-light)] transition-colors"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.label}
@@ -322,7 +296,7 @@ export const Header: React.FC = () => {
                     <Link
                       key={li}
                       to={link.href}
-                      className="font-sans text-xs text-[#4A0E17]/65 hover:text-[#4A0E17] transition-colors"
+                      className="font-sans text-xs text-[var(--theme-primary)]/65 hover:text-[var(--theme-primary)] transition-colors"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {link.label}
@@ -333,21 +307,19 @@ export const Header: React.FC = () => {
             </div>
           ))}
 
-          {/* Divider */}
           <div className="h-px bg-[#E8E0D5]/60 my-2" />
 
-          {/* Account and Stores Links */}
           <div className="flex flex-col gap-4">
             <Link
               to="/account"
-              className="font-sans text-xs font-semibold tracking-widest uppercase text-[#4A0E17]/80 hover:text-[#C9A96E] transition-colors"
+              className="font-sans text-xs font-semibold tracking-widest uppercase text-[var(--theme-primary)]/80 hover:text-[var(--theme-accent-light)] transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               My Account
             </Link>
             <Link
               to="/stores"
-              className="font-sans text-xs font-semibold tracking-widest uppercase text-[#4A0E17]/80 hover:text-[#C9A96E] transition-colors"
+              className="font-sans text-xs font-semibold tracking-widest uppercase text-[var(--theme-primary)]/80 hover:text-[var(--theme-accent-light)] transition-colors"
               onClick={() => setMobileMenuOpen(false)}
             >
               Our Stores
@@ -358,5 +330,3 @@ export const Header: React.FC = () => {
     </>
   );
 };
-
-export default Header;

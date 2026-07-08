@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from '@/layouts/Layout';
+import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 
 // View Imports
 import { Home } from './Home';
@@ -21,6 +22,9 @@ import {
   Terms,
   NotFound
 } from './StaticPages';
+import { AdminDashboard } from './AdminDashboard';
+import { Login } from './Login';
+import { Account } from './Account';
 
 /**
  * Main Application Routing Registry
@@ -61,6 +65,22 @@ export const AppRoutes: React.FC = () => {
         <Route path="/returns" element={<ReturnPolicy />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
+
+        {/* Admin Dashboard */}
+        <Route 
+          path="/admin" 
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          } 
+        />
+
+        {/* Account Login Page */}
+        <Route path="/login" element={<Login />} />
+        
+        {/* Premium User Dashboard */}
+        <Route path="/account" element={<Account />} />
 
         {/* Fallback 404 handler */}
         <Route path="*" element={<NotFound />} />

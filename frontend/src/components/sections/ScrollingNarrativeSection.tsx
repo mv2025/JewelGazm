@@ -102,13 +102,13 @@ export const ScrollingNarrativeSection: React.FC = () => {
               }}
               className="transition-all duration-300 ease-out flex flex-col items-center gap-4 md:gap-6"
             >
-              <span className="font-sans text-[clamp(9px,1.2vw,11px)] font-bold tracking-[0.4em] uppercase text-[#C9A96E]">
+              <span className="font-sans text-[clamp(9px,1.2vw,11px)] font-bold tracking-[0.4em] uppercase text-[var(--theme-accent-light)]">
                 Timeless Heritage
               </span>
               <h2 className="font-serif text-[clamp(1.75rem,5vw,3.5rem)] font-light tracking-wide max-w-2xl leading-tight">
                 Crafted For Golden Moments
               </h2>
-              <div className="h-px w-24 bg-[#C9A96E]/50 my-2" />
+              <div className="h-px w-24 bg-[var(--theme-accent-light)]/50 my-2" />
               <p className="font-sans text-[clamp(0.85rem,1.2vw,1rem)] text-white/80 max-w-lg leading-relaxed">
                 Handcrafted masterpieces meticulously brought to life by master artisans, preserving legacy in every single detail.
               </p>
@@ -121,13 +121,13 @@ export const ScrollingNarrativeSection: React.FC = () => {
               }}
               className="transition-all duration-300 ease-out flex flex-col items-center gap-4 md:gap-6"
             >
-              <span className="font-sans text-[clamp(9px,1.2vw,11px)] font-bold tracking-[0.4em] uppercase text-[#C9A96E]">
+              <span className="font-sans text-[clamp(9px,1.2vw,11px)] font-bold tracking-[0.4em] uppercase text-[var(--theme-accent-light)]">
                 Bespoke Selection
               </span>
               <h2 className="font-serif text-[clamp(1.75rem,5vw,3.5rem)] font-light tracking-wide max-w-2xl leading-tight">
                 Refine Your Signature Luxury
               </h2>
-              <div className="h-px w-24 bg-[#C9A96E]/50 my-2" />
+              <div className="h-px w-24 bg-[var(--theme-accent-light)]/50 my-2" />
               <p className="font-sans text-[clamp(0.85rem,1.2vw,1rem)] text-white/80 max-w-lg leading-relaxed">
                 Exquisite cuts and premium gold styles curated to reflect your unique character and transition effortlessly from everyday wear to royal luxury.
               </p>
@@ -141,7 +141,7 @@ export const ScrollingNarrativeSection: React.FC = () => {
             <div
               key={index}
               className={`w-1.5 h-12 rounded-full transition-all duration-700 ${
-                activePageIndex === index ? 'bg-[#C9A96E] scale-x-125' : 'bg-white/30'
+                activePageIndex === index ? 'bg-[var(--theme-accent-light)] scale-x-125' : 'bg-white/30'
               }`}
             />
           ))}

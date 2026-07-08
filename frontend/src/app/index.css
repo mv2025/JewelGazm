@@ -46,6 +46,21 @@
   --radius-sm: 0rem; /* Editorial razor-sharp borders */
   --radius-md: 0.125rem;
   --radius-lg: 0.25rem;
+
+  /* Theme Variables for Dynamic Metal Switching */
+  --theme-primary: #4A0E17; /* Burgundy */
+  --theme-accent: #D4AF37; /* Gold */
+  --theme-accent-light: #C9A96E; /* Light Gold */
+  --theme-bg: #FDFBF7; /* Cream */
+  --theme-bg-alt: #FAF7F2; /* Light Cream */
+}
+
+.theme-silver {
+  --theme-primary: #2C3539; /* Gunmetal/Dark Slate */
+  --theme-accent: #C0C0C0; /* Silver */
+  --theme-accent-light: #DCDCDC; /* Light Silver */
+  --theme-bg: #F8F9FA; /* Cool White */
+  --theme-bg-alt: #F1F3F5; /* Light Cool Gray */
 }
 
 .dark {

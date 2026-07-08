@@ -60,7 +60,7 @@ export const HeroSliderSection: React.FC = () => {
       {/* CHANGED: Moved previous arrow to the vertical center of the left edge */}
       <button
         onClick={() => goTo((currentIdx - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 border border-[#4A0E17]/20 rounded-full text-[#4A0E17] bg-white/70 backdrop-blur-sm shadow-sm hover:bg-[#4A0E17] hover:text-white transition-all opacity-0 group-hover/slider:opacity-100"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 border border-[var(--theme-primary)]/20 rounded-full text-[var(--theme-primary)] bg-white/70 backdrop-blur-sm shadow-sm hover:bg-[var(--theme-primary)] hover:text-white transition-all opacity-0 group-hover/slider:opacity-100"
         aria-label="Previous slide"
       >
         <ChevronLeft className="w-4 h-4" />
@@ -69,7 +69,7 @@ export const HeroSliderSection: React.FC = () => {
       {/* CHANGED: Moved next arrow to the vertical center of the right edge */}
       <button
         onClick={() => goTo((currentIdx + 1) % HERO_SLIDES.length)}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 border border-[#4A0E17]/20 rounded-full text-[#4A0E17] bg-white/70 backdrop-blur-sm shadow-sm hover:bg-[#4A0E17] hover:text-white transition-all opacity-0 group-hover/slider:opacity-100"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 border border-[var(--theme-primary)]/20 rounded-full text-[var(--theme-primary)] bg-white/70 backdrop-blur-sm shadow-sm hover:bg-[var(--theme-primary)] hover:text-white transition-all opacity-0 group-hover/slider:opacity-100"
         aria-label="Next slide"
       >
         <ChevronRight className="w-4 h-4" />
@@ -83,7 +83,7 @@ export const HeroSliderSection: React.FC = () => {
               key={idx}
               onClick={() => goTo(idx)}
               className={`h-[2px] rounded-full transition-all duration-500 ${
-                idx === currentIdx ? 'w-10 bg-[#4A0E17]' : 'w-5 bg-[#4A0E17]/30 hover:bg-[#4A0E17]/60'
+                idx === currentIdx ? 'w-10 bg-[var(--theme-primary)]' : 'w-5 bg-[var(--theme-primary)]/30 hover:bg-[var(--theme-primary)]/60'
               }`}
               aria-label={`Go to slide ${idx + 1}`}
             />

@@ -6,6 +6,7 @@ import { ToastProvider } from './ToastProvider';
 import { CartProvider } from './CartProvider';
 import { WishlistProvider } from './WishlistProvider';
 import { SearchProvider } from './SearchProvider';
+import { AuthProvider } from './AuthProvider';
 
 interface AppProviderProps {
   children: React.ReactNode;
@@ -24,7 +25,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
             <CartProvider>
               <WishlistProvider>
                 <SearchProvider>
-                  {children}
+                  <AuthProvider>
+                    {children}
+                  </AuthProvider>
                 </SearchProvider>
               </WishlistProvider>
             </CartProvider>

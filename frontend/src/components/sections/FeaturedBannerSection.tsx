@@ -49,7 +49,7 @@ export const FeaturedBannerSection: React.FC = () => {
           </div>
 
           {/* Right Panel: Burgundy Campaign Promotion */}
-          <div className="relative bg-[#4A0E17] p-8 md:p-12 overflow-hidden flex flex-col justify-center min-h-[350px] lg:min-h-[450px]">
+          <div className="relative bg-[var(--theme-primary)] p-8 md:p-12 overflow-hidden flex flex-col justify-center min-h-[350px] lg:min-h-[450px]">
             {/* Background image overlay */}
             <div className="absolute inset-0 w-full h-full">
               <img
@@ -57,7 +57,7 @@ export const FeaturedBannerSection: React.FC = () => {
                 alt="Jewelgazm Serpent Bracelet"
                 className="w-full h-full object-cover opacity-35 object-center scale-105 hover:scale-100 transition-transform duration-[3s]"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#4A0E17]/95 via-[#4A0E17]/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[var(--theme-primary)]/95 via-[var(--theme-primary)]/60 to-transparent" />
             </div>
 
             <div className="relative z-10 max-w-md text-white flex flex-col items-start gap-4">
@@ -73,12 +73,12 @@ export const FeaturedBannerSection: React.FC = () => {
               
               <Link 
                 to="/collections/bracelets" 
-                className="group inline-flex items-center gap-2.5 border border-white/25 hover:border-[#C9A96E] px-6 py-2.5 rounded-full transition-all duration-300 hover:bg-white/5 mt-4"
+                className="group inline-flex items-center gap-2.5 border border-white/25 hover:border-[var(--theme-accent-light)] px-6 py-2.5 rounded-full transition-all duration-300 hover:bg-white/5 mt-4"
               >
-                <span className="font-sans text-[10px] tracking-[0.25em] font-medium uppercase text-white/75 group-hover:text-[#C9A96E] transition-colors duration-300">
+                <span className="font-sans text-[10px] tracking-[0.25em] font-medium uppercase text-white/75 group-hover:text-[var(--theme-accent-light)] transition-colors duration-300">
                   Explore Now
                 </span>
-                <ArrowRight className="w-3 h-3 text-white/75 group-hover:text-[#C9A96E] group-hover:translate-x-0.5 transition-all duration-300" />
+                <ArrowRight className="w-3 h-3 text-white/75 group-hover:text-[var(--theme-accent-light)] group-hover:translate-x-0.5 transition-all duration-300" />
               </Link>
             </div>
           </div>

@@ -1,23 +1,33 @@
 import { Product, Collection, Cart, CartLine, StoreSettings, Review, Money, ProductVariant } from './types';
 
+import goldCelesteRing from '@/assets/Featured-Products/gold-celeste-ring.png';
+import goldSirenBand from '@/assets/Featured-Products/gold-siren-band.png';
+import goldAuraNecklace from '@/assets/Featured-Products/gold-aura-necklace.png';
+import goldLuminaStuds from '@/assets/Featured-Products/gold-lumina-studs.png';
+import silverAuraNecklace from '@/assets/Featured-Products/Silver-Aura-Necklace.png';
+import silverCelesteRing from '@/assets/Featured-Products/Silver-Celeste-Ring.png';
+import silverLuminaStuds from '@/assets/Featured-Products/Silver-Lumina-Studs.png';
+import silverSirenBand from '@/assets/Featured-Products/Silver-Siren-Band.png';
+import silverGentsRing from '@/assets/Featured-Products/silver-gents-ring.png';
+
 // ==========================================
 // MOCK HIGH-FIDELITY IMAGES FROM UNSPLASH
 // ==========================================
 const IMAGES = {
   rings: [
-    'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800&auto=format&fit=crop&q=80', // Alt image for rings
-    'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=800&auto=format&fit=crop&q=80', // Fixed broken image
+    goldCelesteRing,
+    goldSirenBand,
+    silverCelesteRing,
+    silverSirenBand,
+    silverGentsRing
   ],
   necklaces: [
-    'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=800&auto=format&fit=crop&q=80',
+    goldAuraNecklace,
+    silverAuraNecklace
   ],
   earrings: [
-    'https://images.unsplash.com/photo-1635767798638-3e25273a8236?w=800&auto=format&fit=crop&q=80',
-    'https://images.unsplash.com/photo-1630019852942-f89202989a59?w=800&auto=format&fit=crop&q=80',
+    goldLuminaStuds,
+    silverLuminaStuds
   ],
   bracelets: [
     'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&auto=format&fit=crop&q=80',
@@ -32,88 +42,94 @@ const IMAGES = {
   }
 };
 
+const gentsGoldRingsModules: Record<string, any> = import.meta.glob('@/assets/Creations/Gents-Gold-Rings/**/*.{jpg,jpeg,png,webp}', { eager: true });
+
+const generatedGentsRings: Product[] = [];
+const ringsMap: Record<string, string[]> = {};
+
+for (const path in gentsGoldRingsModules) {
+  const match = path.match(/Ring-(\d+)/);
+  if (match) {
+    const ringId = match[1];
+    if (!ringsMap[ringId]) ringsMap[ringId] = [];
+    const mod = gentsGoldRingsModules[path];
+    const url = typeof mod === 'string' ? mod : mod?.default;
+    if (url) ringsMap[ringId].push(url);
+  }
+}
+
+Object.entries(ringsMap).forEach(([ringNum, images]) => {
+  generatedGentsRings.push({
+    id: `gid://shopify/Product/GENT-GLD-${ringNum}`,
+    handle: `gents-gold-ring-${ringNum}`,
+    title: `Aura Gents Gold Ring ${ringNum}`,
+    description: `A masterfully crafted 18k gold gents ring. Featuring a substantial weight and exquisite finish.`,
+    descriptionHtml: `<p>A masterfully crafted 18k gold gents ring.</p>`,
+    availableForSale: true,
+    priceRange: { minVariantPrice: { amount: '45000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '45000.00', currencyCode: 'INR' } },
+    images: { edges: images.map(img => ({ node: { url: img, altText: `Gents Gold Ring ${ringNum}` } })) },
+    variants: { edges: [{ node: { id: `v-GENT-GLD-${ringNum}`, title: 'Default', price: { amount: '45000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: `RNG-GENT-GLD-${ringNum}`, availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
+    options: [{ name: 'Metal', values: ['18K Gold'] }],
+    metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }, { namespace: 'custom', key: 'gemstone', value: 'None' }],
+    tags: ['Ring', 'Gold', 'Gents'],
+    vendor: 'AURA',
+    productType: 'Ring'
+  });
+});
+
+const braceletsModules: Record<string, any> = import.meta.glob('@/assets/Creations/Bracelets/**/*.{jpg,jpeg,png,webp}', { eager: true });
+
+const generatedBracelets: Product[] = [];
+const braceletsMap: Record<string, string[]> = {};
+
+for (const path in braceletsModules) {
+  const match = path.match(/Bracelet-(\d+)/);
+  if (match) {
+    const bId = match[1];
+    if (!braceletsMap[bId]) braceletsMap[bId] = [];
+    const mod = braceletsModules[path];
+    const url = typeof mod === 'string' ? mod : mod?.default;
+    if (url) braceletsMap[bId].push(url);
+  }
+}
+
+Object.entries(braceletsMap).forEach(([bNum, images]) => {
+  generatedBracelets.push({
+    id: `gid://shopify/Product/BRACELET-${bNum}`,
+    handle: `bracelet-${bNum}`,
+    title: `Aura Fine Bracelet ${bNum}`,
+    description: `A masterfully crafted bracelet featuring exquisite detailing. Perfect for everyday elegance.`,
+    descriptionHtml: `<p>A masterfully crafted bracelet featuring exquisite detailing.</p>`,
+    availableForSale: true,
+    priceRange: { minVariantPrice: { amount: '55000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '55000.00', currencyCode: 'INR' } },
+    images: { edges: images.map(img => ({ node: { url: img, altText: `Bracelet ${bNum}` } })) },
+    variants: { edges: [{ node: { id: `v-BRACELET-${bNum}`, title: 'Default', price: { amount: '55000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: `BRC-${bNum}`, availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
+    options: [{ name: 'Metal', values: ['18K Gold'] }],
+    metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }],
+    tags: ['Bracelet', 'Jewellery', 'Ladies'],
+    vendor: 'AURA',
+    productType: 'Bracelet'
+  });
+});
+
 // ==========================================
 // MOCK PRODUCT DATA (GraphQL Compliant Schema)
 // ==========================================
-const MOCK_PRODUCTS: Product[] = [
+const BASE_MOCK_PRODUCTS: Product[] = [
   {
     id: 'gid://shopify/Product/1',
     handle: 'celeste-diamond-solitaire-ring',
     title: 'Celeste Diamond Solitaire Ring',
     description: 'A breathtaking round brilliant-cut solitaire diamond held elegantly in place by six minimal prongs. This classic silhouette maximises light capture to reflect an incomparable scintillation. Perfect for weddings, engagements, or timeless luxury statements.',
-    descriptionHtml: '<p>A breathtaking round brilliant-cut solitaire diamond held elegantly in place by six minimal prongs. This classic silhouette maximises light capture to reflect an incomparable scintillation. Perfect for weddings, engagements, or timeless luxury statements.</p>',
+    descriptionHtml: '<p>A breathtaking round brilliant-cut solitaire diamond held elegantly in place by six minimal prongs.</p>',
     availableForSale: true,
-    priceRange: {
-      minVariantPrice: { amount: '1250.00', currencyCode: 'USD' },
-      maxVariantPrice: { amount: '1850.00', currencyCode: 'USD' }
-    },
-    images: {
-      edges: [
-        { node: { url: IMAGES.rings[0], altText: 'Celeste Diamond Solitaire Ring - Front view' } },
-        { node: { url: IMAGES.rings[1], altText: 'Celeste Diamond Solitaire Ring - Side detail' } }
-      ]
-    },
-    variants: {
-      edges: [
-        {
-          node: {
-            id: 'gid://shopify/ProductVariant/101',
-            title: '18K White Gold / 5',
-            price: { amount: '1250.00', currencyCode: 'USD' },
-            compareAtPrice: { amount: '1500.00', currencyCode: 'USD' },
-            sku: 'RNG-CEL-WG-05',
-            availableForSale: true,
-            selectedOptions: [
-              { name: 'Metal', value: '18K White Gold' },
-              { name: 'Ring Size', value: '5' }
-            ],
-            image: { url: IMAGES.rings[0], altText: 'Celeste Diamond Solitaire Ring - White Gold' }
-          }
-        },
-        {
-          node: {
-            id: 'gid://shopify/ProductVariant/102',
-            title: '18K Yellow Gold / 6',
-            price: { amount: '1350.00', currencyCode: 'USD' },
-            compareAtPrice: null,
-            sku: 'RNG-CEL-YG-06',
-            availableForSale: true,
-            selectedOptions: [
-              { name: 'Metal', value: '18K Yellow Gold' },
-              { name: 'Ring Size', value: '6' }
-            ],
-            image: { url: IMAGES.rings[1], altText: 'Celeste Diamond Solitaire Ring - Yellow Gold' }
-          }
-        },
-        {
-          node: {
-            id: 'gid://shopify/ProductVariant/103',
-            title: '18K Rose Gold / 7',
-            price: { amount: '1450.00', currencyCode: 'USD' },
-            compareAtPrice: { amount: '1650.00', currencyCode: 'USD' },
-            sku: 'RNG-CEL-RG-07',
-            availableForSale: true,
-            selectedOptions: [
-              { name: 'Metal', value: '18K Rose Gold' },
-              { name: 'Ring Size', value: '7' }
-            ],
-            image: { url: IMAGES.rings[0], altText: 'Celeste Diamond Solitaire Ring - Rose Gold' }
-          }
-        }
-      ]
-    },
-    options: [
-      { name: 'Metal', values: ['18K White Gold', '18K Yellow Gold', '18K Rose Gold'] },
-      { name: 'Ring Size', values: ['5', '6', '7', '8'] }
-    ],
-    metafields: [
-      { namespace: 'custom', key: 'gemstone', value: 'Diamond' },
-      { namespace: 'custom', key: 'metal', value: '18K Gold' },
-      { namespace: 'custom', key: 'certification', value: 'GIA Certified Conflict-Free' },
-      { namespace: 'custom', key: 'carat_weight', value: '1.2 Carats' }
-    ],
-    tags: ['Ring', 'Diamond', '18K Gold', 'Trending', 'Best Seller', 'Engagement'],
-    vendor: 'AURA Atelier',
+    priceRange: { minVariantPrice: { amount: '125000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '125000.00', currencyCode: 'INR' } },
+    images: { edges: [{ node: { url: IMAGES.rings[0], altText: 'Gold Celeste Ring' } }] },
+    variants: { edges: [{ node: { id: 'v1', title: 'Default', price: { amount: '125000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: 'CEL-GLD', availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
+    options: [{ name: 'Metal', values: ['18K Gold'] }],
+    metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }, { namespace: 'custom', key: 'gemstone', value: 'Diamond' }],
+    tags: ['Ring', 'Gold', 'Diamond', 'Ladies'],
+    vendor: 'AURA',
     productType: 'Ring'
   },
   {
@@ -121,269 +137,132 @@ const MOCK_PRODUCTS: Product[] = [
     handle: 'siren-emerald-eternity-band',
     title: 'Siren Emerald Eternity Band',
     description: 'An unbroken circle of deep, verdant cushion-cut Colombian emeralds totaling 3.5 carats. Each emerald is hand-selected and prong-set in highly polished 18k yellow gold to highlight its natural forest tones.',
-    descriptionHtml: '<p>An unbroken circle of deep, verdant cushion-cut Colombian emeralds totaling 3.5 carats. Each emerald is hand-selected and prong-set in highly polished 18k yellow gold to highlight its natural forest tones.</p>',
+    descriptionHtml: '<p>An unbroken circle of deep, verdant cushion-cut Colombian emeralds totaling 3.5 carats.</p>',
     availableForSale: true,
-    priceRange: {
-      minVariantPrice: { amount: '2200.00', currencyCode: 'USD' },
-      maxVariantPrice: { amount: '2600.00', currencyCode: 'USD' }
-    },
-    images: {
-      edges: [
-        { node: { url: IMAGES.rings[3], altText: 'Siren Emerald Eternity Band' } },
-        { node: { url: IMAGES.rings[1], altText: 'Siren Emerald Eternity Band detail' } }
-      ]
-    },
-    variants: {
-      edges: [
-        {
-          node: {
-            id: 'gid://shopify/ProductVariant/201',
-            title: '18K Yellow Gold / 6',
-            price: { amount: '2200.00', currencyCode: 'USD' },
-            compareAtPrice: { amount: '2500.00', currencyCode: 'USD' },
-            sku: 'RNG-SIR-YG-06',
-            availableForSale: true,
-            selectedOptions: [
-              { name: 'Metal', value: '18K Yellow Gold' },
-              { name: 'Ring Size', value: '6' }
-            ],
-            image: { url: IMAGES.rings[3], altText: 'Siren Emerald Eternity Band' }
-          }
-        },
-        {
-          node: {
-            id: 'gid://shopify/ProductVariant/202',
-            title: '18K White Gold / 7',
-            price: { amount: '2400.00', currencyCode: 'USD' },
-            compareAtPrice: null,
-            sku: 'RNG-SIR-WG-07',
-            availableForSale: true,
-            selectedOptions: [
-              { name: 'Metal', value: '18K White Gold' },
-              { name: 'Ring Size', value: '7' }
-            ],
-            image: { url: IMAGES.rings[3], altText: 'Siren Emerald Eternity Band White Gold' }
-          }
-        }
-      ]
-    },
-    options: [
-      { name: 'Metal', values: ['18K Yellow Gold', '18K White Gold'] },
-      { name: 'Ring Size', values: ['6', '7', '8'] }
-    ],
-    metafields: [
-      { namespace: 'custom', key: 'gemstone', value: 'Emerald' },
-      { namespace: 'custom', key: 'metal', value: '18K Yellow Gold' },
-      { namespace: 'custom', key: 'certification', value: 'Swiss Gemmological Institute (SSEF)' }
-    ],
-    tags: ['Ring', 'Emerald', '18K Gold', 'New Arrivals', 'Eternity'],
-    vendor: 'AURA Atelier',
+    priceRange: { minVariantPrice: { amount: '220000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '220000.00', currencyCode: 'INR' } },
+    images: { edges: [{ node: { url: IMAGES.rings[1], altText: 'Gold Siren Band' } }] },
+    variants: { edges: [{ node: { id: 'v2', title: 'Default', price: { amount: '220000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: 'SIR-GLD', availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
+    options: [{ name: 'Metal', values: ['18K Gold'] }],
+    metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }, { namespace: 'custom', key: 'gemstone', value: 'Emerald' }],
+    tags: ['Ring', 'Gold', 'Emerald', 'Ladies'],
+    vendor: 'AURA',
     productType: 'Ring'
   },
   {
     id: 'gid://shopify/Product/3',
     handle: 'aura-solitaire-diamond-necklace',
     title: 'Aura Solitaire Diamond Necklace',
-    description: 'A brilliant 0.8-carat GIA certified diamond floating effortlessly on a delicate 18-karat solid white gold chain. Features an adjustable link system to style at various neck drop heights.',
-    descriptionHtml: '<p>A brilliant 0.8-carat GIA certified diamond floating effortlessly on a delicate 18-karat solid white gold chain.</p>',
+    description: 'A brilliant 0.8-carat GIA certified diamond floating effortlessly on a delicate 18-karat solid gold chain.',
+    descriptionHtml: '<p>A brilliant 0.8-carat GIA certified diamond floating effortlessly on a delicate chain.</p>',
     availableForSale: true,
-    priceRange: {
-      minVariantPrice: { amount: '950.00', currencyCode: 'USD' },
-      maxVariantPrice: { amount: '950.00', currencyCode: 'USD' }
-    },
-    images: {
-      edges: [
-        { node: { url: IMAGES.necklaces[0], altText: 'Aura Solitaire Diamond Necklace' } },
-        { node: { url: IMAGES.necklaces[1], altText: 'Aura Solitaire Diamond Necklace Model' } }
-      ]
-    },
-    variants: {
-      edges: [
-        {
-          node: {
-            id: 'gid://shopify/ProductVariant/301',
-            title: '18K White Gold / O/S',
-            price: { amount: '950.00', currencyCode: 'USD' },
-            compareAtPrice: { amount: '1200.00', currencyCode: 'USD' },
-            sku: 'NCK-AUR-WG-OS',
-            availableForSale: true,
-            selectedOptions: [
-              { name: 'Metal', value: '18K White Gold' },
-              { name: 'Length', value: '18 Inches' }
-            ],
-            image: { url: IMAGES.necklaces[0], altText: 'Aura Solitaire Diamond Necklace' }
-          }
-        }
-      ]
-    },
-    options: [
-      { name: 'Metal', values: ['18K White Gold'] },
-      { name: 'Length', values: ['18 Inches'] }
-    ],
-    metafields: [
-      { namespace: 'custom', key: 'gemstone', value: 'Diamond' },
-      { namespace: 'custom', key: 'metal', value: '18K White Gold' }
-    ],
-    tags: ['Necklace', 'Diamond', '18K Gold', 'Best Seller', 'Pendant'],
-    vendor: 'AURA Atelier',
+    priceRange: { minVariantPrice: { amount: '95000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '95000.00', currencyCode: 'INR' } },
+    images: { edges: [{ node: { url: IMAGES.necklaces[0], altText: 'Gold Aura Necklace' } }] },
+    variants: { edges: [{ node: { id: 'v3', title: 'Default', price: { amount: '95000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: 'AUR-GLD', availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
+    options: [{ name: 'Metal', values: ['18K Gold'] }],
+    metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }, { namespace: 'custom', key: 'gemstone', value: 'Diamond' }],
+    tags: ['Necklace', 'Gold', 'Diamond', 'Ladies'],
+    vendor: 'AURA',
     productType: 'Necklace'
   },
   {
     id: 'gid://shopify/Product/4',
     handle: 'lumina-diamond-studs',
     title: 'Lumina Diamond Studs',
-    description: 'Perfect round-cut matching diamonds set in premium, skin-safe 18k white gold. Secured with standard heavy scroll push-backs to sit flat on the ear lobe.',
-    descriptionHtml: '<p>Perfect round-cut matching diamonds set in premium, skin-safe 18k white gold.</p>',
+    description: 'Perfect round-cut matching diamonds set in premium 18k gold. Secured with standard heavy scroll push-backs to sit flat on the ear lobe.',
+    descriptionHtml: '<p>Perfect round-cut matching diamonds set in premium 18k gold.</p>',
     availableForSale: true,
-    priceRange: {
-      minVariantPrice: { amount: '680.00', currencyCode: 'USD' },
-      maxVariantPrice: { amount: '880.00', currencyCode: 'USD' }
-    },
-    images: {
-      edges: [
-        { node: { url: IMAGES.earrings[0], altText: 'Lumina Diamond Studs' } }
-      ]
-    },
-    variants: {
-      edges: [
-        {
-          node: {
-            id: 'gid://shopify/ProductVariant/401',
-            title: '0.5 ctw / 18K White Gold',
-            price: { amount: '680.00', currencyCode: 'USD' },
-            compareAtPrice: { amount: '780.00', currencyCode: 'USD' },
-            sku: 'EAR-LUM-WG-05',
-            availableForSale: true,
-            selectedOptions: [
-              { name: 'Carat Weight', value: '0.5 ctw' },
-              { name: 'Metal', value: '18K White Gold' }
-            ],
-            image: null
-          }
-        },
-        {
-          node: {
-            id: 'gid://shopify/ProductVariant/402',
-            title: '1.0 ctw / 18K White Gold',
-            price: { amount: '880.00', currencyCode: 'USD' },
-            compareAtPrice: null,
-            sku: 'EAR-LUM-WG-10',
-            availableForSale: true,
-            selectedOptions: [
-              { name: 'Carat Weight', value: '1.0 ctw' },
-              { name: 'Metal', value: '18K White Gold' }
-            ],
-            image: null
-          }
-        }
-      ]
-    },
-    options: [
-      { name: 'Carat Weight', values: ['0.5 ctw', '1.0 ctw'] },
-      { name: 'Metal', values: ['18K White Gold'] }
-    ],
-    metafields: [
-      { namespace: 'custom', key: 'gemstone', value: 'Diamond' },
-      { namespace: 'custom', key: 'metal', value: '18K White Gold' }
-    ],
-    tags: ['Earring', 'Diamond', '18K Gold', 'Classic', 'Best Seller'],
-    vendor: 'AURA Atelier',
+    priceRange: { minVariantPrice: { amount: '68000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '68000.00', currencyCode: 'INR' } },
+    images: { edges: [{ node: { url: IMAGES.earrings[0], altText: 'Gold Lumina Studs' } }] },
+    variants: { edges: [{ node: { id: 'v4', title: 'Default', price: { amount: '68000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: 'LUM-GLD', availableForSale: true, selectedOptions: [{ name: 'Metal', value: '18K Gold' }], image: null } }] },
+    options: [{ name: 'Metal', values: ['18K Gold'] }],
+    metafields: [{ namespace: 'custom', key: 'metal', value: '18K Gold' }, { namespace: 'custom', key: 'gemstone', value: 'Diamond' }],
+    tags: ['Earring', 'Gold', 'Diamond', 'Ladies'],
+    vendor: 'AURA',
     productType: 'Earring'
   },
   {
     id: 'gid://shopify/Product/5',
-    handle: 'aether-diamond-tennis-bracelet',
-    title: 'Aether Diamond Tennis Bracelet',
-    description: 'An elegant strand of individually set round brilliant-cut diamonds wrapping the wrist in continuous light. Includes double-security box clasps.',
-    descriptionHtml: '<p>An elegant strand of individually set round brilliant-cut diamonds wrapping the wrist.</p>',
+    handle: 'celeste-silver-solitaire-ring',
+    title: 'Celeste Silver Solitaire Ring',
+    description: 'A breathtaking round brilliant-cut solitaire diamond held elegantly in place by six minimal prongs in sterling silver.',
+    descriptionHtml: '<p>A breathtaking round brilliant-cut solitaire diamond held elegantly in place by six minimal prongs.</p>',
     availableForSale: true,
-    priceRange: {
-      minVariantPrice: { amount: '3400.00', currencyCode: 'USD' },
-      maxVariantPrice: { amount: '3400.00', currencyCode: 'USD' }
-    },
-    images: {
-      edges: [
-        { node: { url: IMAGES.bracelets[0], altText: 'Aether Diamond Tennis Bracelet' } },
-        { node: { url: IMAGES.bracelets[1], altText: 'Aether Diamond Tennis Bracelet Detail' } }
-      ]
-    },
-    variants: {
-      edges: [
-        {
-          node: {
-            id: 'gid://shopify/ProductVariant/501',
-            title: '18K White Gold / 7 Inches',
-            price: { amount: '3400.00', currencyCode: 'USD' },
-            compareAtPrice: { amount: '4000.00', currencyCode: 'USD' },
-            sku: 'BRC-AET-WG-07',
-            availableForSale: true,
-            selectedOptions: [
-              { name: 'Metal', value: '18K White Gold' },
-              { name: 'Length', value: '7 Inches' }
-            ],
-            image: null
-          }
-        }
-      ]
-    },
-    options: [
-      { name: 'Metal', values: ['18K White Gold'] },
-      { name: 'Length', values: ['7 Inches', '8 Inches'] }
-    ],
-    metafields: [
-      { namespace: 'custom', key: 'gemstone', value: 'Diamond' },
-      { namespace: 'custom', key: 'metal', value: '18K White Gold' }
-    ],
-    tags: ['Bracelet', 'Diamond', '18K Gold', 'Trending', 'Eternity'],
-    vendor: 'AURA Atelier',
-    productType: 'Bracelet'
+    priceRange: { minVariantPrice: { amount: '35000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '35000.00', currencyCode: 'INR' } },
+    images: { edges: [{ node: { url: IMAGES.rings[2], altText: 'Silver Celeste Ring' } }] },
+    variants: { edges: [{ node: { id: 'v5', title: 'Default', price: { amount: '35000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: 'CEL-SLV', availableForSale: true, selectedOptions: [{ name: 'Metal', value: 'Silver' }], image: null } }] },
+    options: [{ name: 'Metal', values: ['Silver'] }],
+    metafields: [{ namespace: 'custom', key: 'metal', value: 'Silver' }, { namespace: 'custom', key: 'gemstone', value: 'Diamond' }],
+    tags: ['Ring', 'Silver', 'Diamond', 'Ladies'],
+    vendor: 'AURA',
+    productType: 'Ring'
   },
   {
     id: 'gid://shopify/Product/6',
-    handle: 'tessera-sapphire-drop-earrings',
-    title: 'Tessera Sapphire Drop Earrings',
-    description: 'Deep royal blue cushion-cut sapphires hanging gracefully from a diamond encrusted geometrical link. Stunning vintage styling for evening wear.',
-    descriptionHtml: '<p>Deep royal blue cushion-cut sapphires hanging gracefully from a diamond encrusted geometrical link.</p>',
+    handle: 'siren-silver-eternity-band',
+    title: 'Siren Silver Eternity Band',
+    description: 'An unbroken circle of deep, verdant cushion-cut Colombian emeralds totaling 3.5 carats set in silver.',
+    descriptionHtml: '<p>An unbroken circle of deep, verdant cushion-cut Colombian emeralds totaling 3.5 carats.</p>',
     availableForSale: true,
-    priceRange: {
-      minVariantPrice: { amount: '1800.00', currencyCode: 'USD' },
-      maxVariantPrice: { amount: '1800.00', currencyCode: 'USD' }
-    },
-    images: {
-      edges: [
-        { node: { url: IMAGES.earrings[1], altText: 'Tessera Sapphire Drop Earrings' } }
-      ]
-    },
-    variants: {
-      edges: [
-        {
-          node: {
-            id: 'gid://shopify/ProductVariant/601',
-            title: '18K Yellow Gold',
-            price: { amount: '1800.00', currencyCode: 'USD' },
-            compareAtPrice: { amount: '2100.00', currencyCode: 'USD' },
-            sku: 'EAR-TES-YG',
-            availableForSale: true,
-            selectedOptions: [
-              { name: 'Metal', value: '18K Yellow Gold' }
-            ],
-            image: null
-          }
-        }
-      ]
-    },
-    options: [
-      { name: 'Metal', values: ['18K Yellow Gold'] }
-    ],
-    metafields: [
-      { namespace: 'custom', key: 'gemstone', value: 'Sapphire' },
-      { namespace: 'custom', key: 'metal', value: '18K Yellow Gold' }
-    ],
-    tags: ['Earring', 'Sapphire', '18K Gold', 'New Arrivals', 'Vintage'],
-    vendor: 'AURA Atelier',
+    priceRange: { minVariantPrice: { amount: '45000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '45000.00', currencyCode: 'INR' } },
+    images: { edges: [{ node: { url: IMAGES.rings[3], altText: 'Silver Siren Band' } }] },
+    variants: { edges: [{ node: { id: 'v6', title: 'Default', price: { amount: '45000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: 'SIR-SLV', availableForSale: true, selectedOptions: [{ name: 'Metal', value: 'Silver' }], image: null } }] },
+    options: [{ name: 'Metal', values: ['Silver'] }],
+    metafields: [{ namespace: 'custom', key: 'metal', value: 'Silver' }, { namespace: 'custom', key: 'gemstone', value: 'Emerald' }],
+    tags: ['Ring', 'Silver', 'Emerald', 'Ladies'],
+    vendor: 'AURA',
+    productType: 'Ring'
+  },
+  {
+    id: 'gid://shopify/Product/7',
+    handle: 'aura-silver-diamond-necklace',
+    title: 'Aura Silver Diamond Necklace',
+    description: 'A brilliant 0.8-carat GIA certified diamond floating effortlessly on a delicate silver chain.',
+    descriptionHtml: '<p>A brilliant 0.8-carat GIA certified diamond floating effortlessly on a delicate silver chain.</p>',
+    availableForSale: true,
+    priceRange: { minVariantPrice: { amount: '42000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '42000.00', currencyCode: 'INR' } },
+    images: { edges: [{ node: { url: IMAGES.necklaces[1], altText: 'Silver Aura Necklace' } }] },
+    variants: { edges: [{ node: { id: 'v7', title: 'Default', price: { amount: '42000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: 'AUR-SLV', availableForSale: true, selectedOptions: [{ name: 'Metal', value: 'Silver' }], image: null } }] },
+    options: [{ name: 'Metal', values: ['Silver'] }],
+    metafields: [{ namespace: 'custom', key: 'metal', value: 'Silver' }, { namespace: 'custom', key: 'gemstone', value: 'Diamond' }],
+    tags: ['Necklace', 'Silver', 'Diamond', 'Ladies'],
+    vendor: 'AURA',
+    productType: 'Necklace'
+  },
+  {
+    id: 'gid://shopify/Product/8',
+    handle: 'lumina-silver-studs',
+    title: 'Lumina Silver Studs',
+    description: 'Perfect round-cut matching diamonds set in premium silver. Secured with standard heavy scroll push-backs to sit flat on the ear lobe.',
+    descriptionHtml: '<p>Perfect round-cut matching diamonds set in premium silver.</p>',
+    availableForSale: true,
+    priceRange: { minVariantPrice: { amount: '28000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '28000.00', currencyCode: 'INR' } },
+    images: { edges: [{ node: { url: IMAGES.earrings[1], altText: 'Silver Lumina Studs' } }] },
+    variants: { edges: [{ node: { id: 'v8', title: 'Default', price: { amount: '28000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: 'LUM-SLV', availableForSale: true, selectedOptions: [{ name: 'Metal', value: 'Silver' }], image: null } }] },
+    options: [{ name: 'Metal', values: ['Silver'] }],
+    metafields: [{ namespace: 'custom', key: 'metal', value: 'Silver' }, { namespace: 'custom', key: 'gemstone', value: 'Diamond' }],
+    tags: ['Earring', 'Silver', 'Diamond', 'Ladies'],
+    vendor: 'AURA',
     productType: 'Earring'
+  },
+  {
+    id: 'gid://shopify/Product/9',
+    handle: 'aura-mens-classic-silver-band',
+    title: 'Aura Men\'s Classic Silver Band',
+    description: 'A substantial, perfectly weighted sterling silver band with a brushed matte finish and polished beveled edges. Designed for everyday comfort and understated luxury.',
+    descriptionHtml: '<p>A substantial, perfectly weighted sterling silver band with a brushed matte finish.</p>',
+    availableForSale: true,
+    priceRange: { minVariantPrice: { amount: '12000.00', currencyCode: 'INR' }, maxVariantPrice: { amount: '12000.00', currencyCode: 'INR' } },
+    images: { edges: [{ node: { url: IMAGES.rings[4], altText: 'Gents Silver Band' } }] },
+    variants: { edges: [{ node: { id: 'v9', title: 'Default', price: { amount: '12000.00', currencyCode: 'INR' }, compareAtPrice: null, sku: 'MNS-SLV', availableForSale: true, selectedOptions: [{ name: 'Metal', value: 'Silver' }], image: null } }] },
+    options: [{ name: 'Metal', values: ['Silver'] }],
+    metafields: [{ namespace: 'custom', key: 'metal', value: 'Silver' }, { namespace: 'custom', key: 'gemstone', value: 'None' }],
+    tags: ['Ring', 'Silver', 'Gents'],
+    vendor: 'AURA',
+    productType: 'Ring'
   }
 ];
+
+const MOCK_PRODUCTS: Product[] = [...BASE_MOCK_PRODUCTS, ...generatedGentsRings, ...generatedBracelets];
 
 // ==========================================
 // MOCK COLLECTIONS DATA
@@ -443,6 +322,72 @@ const MOCK_COLLECTIONS: Collection[] = [
       edges: MOCK_PRODUCTS.filter(p => p.productType === 'Bracelet').map(p => ({ node: p })),
       pageInfo: { hasNextPage: false, hasPreviousPage: false, startCursor: '1', endCursor: '1' }
     }
+  },
+  {
+    id: 'gid://shopify/Collection/100',
+    handle: 'gents-rings',
+    title: 'Gents Rings',
+    description: 'Bold and sophisticated men\'s rings featuring solid gold construction and striking diamond accents.',
+    image: { url: IMAGES.rings[0], altText: 'Gents rings collection' },
+    products: {
+      edges: MOCK_PRODUCTS.filter(p => p.productType === 'Ring').map(p => ({ node: p })),
+      pageInfo: { hasNextPage: false, hasPreviousPage: false, startCursor: '1', endCursor: '2' }
+    }
+  },
+  {
+    id: 'gid://shopify/Collection/101',
+    handle: 'ladies-rings',
+    title: 'Ladies Rings',
+    description: 'Impeccable gold engagement, wedding and cocktail rings featuring solitaire diamonds and vibrant gemstones.',
+    image: { url: IMAGES.rings[1], altText: 'Ladies rings collection' },
+    products: {
+      edges: MOCK_PRODUCTS.filter(p => p.productType === 'Ring').map(p => ({ node: p })),
+      pageInfo: { hasNextPage: false, hasPreviousPage: false, startCursor: '1', endCursor: '2' }
+    }
+  },
+  {
+    id: 'gid://shopify/Collection/102',
+    handle: 'chains',
+    title: 'Chains',
+    description: 'Classic and modern gold and silver chains for everyday luxury.',
+    image: { url: IMAGES.necklaces[0], altText: 'Chains collection' },
+    products: {
+      edges: MOCK_PRODUCTS.filter(p => p.productType === 'Necklace').map(p => ({ node: p })),
+      pageInfo: { hasNextPage: false, hasPreviousPage: false, startCursor: '1', endCursor: '1' }
+    }
+  },
+  {
+    id: 'gid://shopify/Collection/103',
+    handle: 'kada',
+    title: 'Kada',
+    description: 'Traditional and contemporary kada bracelets crafted in premium metals.',
+    image: { url: IMAGES.bracelets[0], altText: 'Kada collection' },
+    products: {
+      edges: MOCK_PRODUCTS.filter(p => p.productType === 'Bracelet').map(p => ({ node: p })),
+      pageInfo: { hasNextPage: false, hasPreviousPage: false, startCursor: '1', endCursor: '1' }
+    }
+  },
+  {
+    id: 'gid://shopify/Collection/104',
+    handle: 'gold',
+    title: 'Gold Collection',
+    description: 'Our signature collection of 18K solid gold fine jewellery creations.',
+    image: { url: IMAGES.banners.collection, altText: 'Gold collection' },
+    products: {
+      edges: MOCK_PRODUCTS.map(p => ({ node: p })),
+      pageInfo: { hasNextPage: false, hasPreviousPage: false, startCursor: '1', endCursor: '6' }
+    }
+  },
+  {
+    id: 'gid://shopify/Collection/105',
+    handle: 'silver',
+    title: 'Silver Collection',
+    description: 'Elegant and timeless sterling silver creations.',
+    image: { url: IMAGES.banners.collection, altText: 'Silver collection' },
+    products: {
+      edges: MOCK_PRODUCTS.map(p => ({ node: p })),
+      pageInfo: { hasNextPage: false, hasPreviousPage: false, startCursor: '1', endCursor: '6' }
+    }
   }
 ];
 
@@ -481,6 +426,33 @@ const MOCK_REVIEWS: Record<string, Review[]> = {
 };
 
 // ==========================================
+// SIMULATED INVENTORY DATABASE (LOCAL STORAGE)
+// ==========================================
+const INVENTORY_STORAGE_KEY = 'aura_shopify_inventory_v4';
+
+function getStoredProducts(): Product[] {
+  const data = localStorage.getItem(INVENTORY_STORAGE_KEY);
+  if (!data) {
+    localStorage.setItem(INVENTORY_STORAGE_KEY, JSON.stringify(MOCK_PRODUCTS));
+    return MOCK_PRODUCTS;
+  }
+  try {
+    return JSON.parse(data);
+  } catch {
+    return MOCK_PRODUCTS;
+  }
+}
+
+export function updateMockProduct(updatedProduct: Product) {
+  const products = getStoredProducts();
+  const index = products.findIndex(p => p.id === updatedProduct.id);
+  if (index !== -1) {
+    products[index] = updatedProduct;
+    localStorage.setItem(INVENTORY_STORAGE_KEY, JSON.stringify(products));
+  }
+}
+
+// ==========================================
 // SIMULATED CART DATABASE (LOCAL STORAGE)
 // ==========================================
 const CART_STORAGE_KEY = 'aura_shopify_cart';
@@ -508,8 +480,8 @@ function calculateCartTotals(lines: CartLine[]): { totalAmount: Money; subtotalA
   });
 
   return {
-    totalAmount: { amount: subtotal.toFixed(2), currencyCode: 'USD' },
-    subtotalAmount: { amount: subtotal.toFixed(2), currencyCode: 'USD' },
+    totalAmount: { amount: subtotal.toFixed(2), currencyCode: 'INR' },
+    subtotalAmount: { amount: subtotal.toFixed(2), currencyCode: 'INR' },
     totalQuantity: qty
   };
 }
@@ -521,7 +493,7 @@ export const shopifyMockClient = {
   // Get all products
   async getProducts(options?: { first?: number; sortKey?: string; query?: string }): Promise<Product[]> {
     await new Promise(r => setTimeout(r, 400)); // Simulating network latency
-    let products = [...MOCK_PRODUCTS];
+    let products = [...getStoredProducts()];
 
     if (options?.query) {
       const q = options.query.toLowerCase();
@@ -552,7 +524,7 @@ export const shopifyMockClient = {
   // Get product detail by handle
   async getProductByHandle(handle: string): Promise<Product | null> {
     await new Promise(r => setTimeout(r, 300));
-    const p = MOCK_PRODUCTS.find(prod => prod.handle === handle);
+    const p = getStoredProducts().find(prod => prod.handle === handle);
     return p ? JSON.parse(JSON.stringify(p)) : null;
   },
 
@@ -573,16 +545,26 @@ export const shopifyMockClient = {
     if (!col) return null;
 
     // Filter products within collection
-    let filteredProducts = MOCK_PRODUCTS.filter(p => {
+    let filteredProducts = getStoredProducts().filter(p => {
       // Check collection mapping
-      if (handle !== 'all-jewellery') {
-        const typeMatch = p.productType.toLowerCase() === handle.slice(0, -1); // 'rings' -> 'ring'
-        if (handle === 'earrings') {
-          if (p.productType !== 'Earring') return false;
-        } else if (handle === 'necklaces') {
+      if (handle !== 'all-jewellery' && handle !== 'gold' && handle !== 'silver') {
+        if (handle === 'gents-rings') {
+          if (!p.tags.includes('Gents')) return false;
+        } else if (handle === 'ladies-rings') {
+          if (!p.tags.includes('Ladies')) return false;
+        } else if (handle === 'chains') {
           if (p.productType !== 'Necklace') return false;
-        } else if (!typeMatch) {
-          return false;
+        } else if (handle === 'kada') {
+          if (p.productType !== 'Bracelet') return false;
+        } else {
+          const typeMatch = p.productType.toLowerCase() === handle.slice(0, -1); // 'rings' -> 'ring'
+          if (handle === 'earrings') {
+            if (p.productType !== 'Earring') return false;
+          } else if (handle === 'necklaces') {
+            if (p.productType !== 'Necklace') return false;
+          } else if (!typeMatch) {
+            return false;
+          }
         }
       }
 
@@ -641,7 +623,7 @@ export const shopifyMockClient = {
   async getRecommendations(productId: string): Promise<Product[]> {
     await new Promise(r => setTimeout(r, 450));
     // Return products excluding current product
-    return MOCK_PRODUCTS.filter(p => p.id !== productId).slice(0, 4);
+    return getStoredProducts().filter(p => p.id !== productId).slice(0, 4);
   },
 
   // Predictive search
@@ -650,7 +632,7 @@ export const shopifyMockClient = {
     const q = query.toLowerCase();
     if (!q) return { products: [], collections: [] };
 
-    const products = MOCK_PRODUCTS.filter(
+    const products = getStoredProducts().filter(
       p =>
         p.title.toLowerCase().includes(q) ||
         p.productType.toLowerCase().includes(q) ||
@@ -706,8 +688,8 @@ export const shopifyMockClient = {
       updatedAt: new Date().toISOString(),
       lines: { edges: [] },
       cost: {
-        totalAmount: { amount: '0.00', currencyCode: 'USD' },
-        subtotalAmount: { amount: '0.00', currencyCode: 'USD' },
+        totalAmount: { amount: '0.00', currencyCode: 'INR' },
+        subtotalAmount: { amount: '0.00', currencyCode: 'INR' },
         totalTaxAmount: null
       },
       totalQuantity: 0

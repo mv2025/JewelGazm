@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import AppProvider from '@/providers/AppProvider';
 import AppRoutes from './routes';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import './index.css';
 
 // Mount React Application to Document Root
@@ -13,10 +14,12 @@ if (!container) {
 
 createRoot(container).render(
   <StrictMode>
-    <BrowserRouter>
-      <AppProvider>
-        <AppRoutes />
-      </AppProvider>
-    </BrowserRouter>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID || 'dummy-client-id.apps.googleusercontent.com'}>
+      <BrowserRouter>
+        <AppProvider>
+          <AppRoutes />
+        </AppProvider>
+      </BrowserRouter>
+    </GoogleOAuthProvider>
   </StrictMode>
 );

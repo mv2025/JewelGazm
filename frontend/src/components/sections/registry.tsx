@@ -1,5 +1,6 @@
 import React from 'react';
 import { HeroSliderSection } from './HeroSliderSection';
+import { HeroVideoSection } from './HeroVideoSection';
 import { BenefitsSection } from './BenefitsSection';
 import { CategoriesSection } from './CategoriesSection';
 import { TrendingSection } from './TrendingSection';
@@ -17,6 +18,7 @@ import { ExchangeFestSection } from './ExchangeFestSection';
 // Map identifier tags to components
 const REGISTRY: Record<string, React.FC<any>> = {
   HeroSliderSection,
+  HeroVideoSection,
   BenefitsSection,
   CategoriesSection,
   TrendingSection,
